@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafio de Português — 6º Ano</title>
+<style>
+/* Skip artifact shell — fixed styles served beside every artifact.
+   Tokens, utilities and components (basecoat 1.0 markup, no CDN); artifacts
+   override --accent for their own identity. */
+:root {
+  color-scheme: light dark;
+  --accent: #2563eb;
+  --accent-contrast: #ffffff;
+  --accent-text: color-mix(in srgb, var(--accent) 72%, #000);
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --text: #14171f;
+  --text-muted: #5b6472;
+  --border: rgba(20, 23, 31, 0.10);
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(20, 23, 31, 0.08);
+  --space: 16px;
+  --success: #0a7a35;
+  --danger: #c0262d;
+  --warning: #8a5300;
+}
+/* Theme resolution. Without data-theme the viewer's system preference decides,
+   as it always did. With it, the artifact's own choice wins in BOTH directions:
+   a page that hardcodes one palette must not be handed the opposite set of
+   tokens by the machine it happens to be opened on. The dark values appear
+   twice because a media query cannot be folded into a selector list.
+   The attribute sits inside :where() so these blocks keep the specificity of a
+   bare :root — the page's own <style> is linked after this file and must go on
+   overriding any token it wants, exactly as it could before. */
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    --accent-text: color-mix(in srgb, var(--accent) 78%, #fff);
+    --bg: #101318;
+    --surface: #181c23;
+    --text: #eef1f6;
+    --text-muted: #9aa4b2;
+    --border: rgba(238, 241, 246, 0.12);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --success: #4ade80;
+    --danger: #f87171;
+    --warning: #fbbf24;
+  }
+}
+:root:where([data-theme="dark"]) {
+  color-scheme: dark;
+  --accent-text: color-mix(in srgb, var(--accent) 78%, #fff);
+  --bg: #101318;
+  --surface: #181c23;
+  --text: #eef1f6;
+  --text-muted: #9aa4b2;
+  --border: rgba(238, 241, 246, 0.12);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --success: #4ade80;
+  --danger: #f87171;
+  --warning: #fbbf24;
+}
+:root:where([data-theme="light"]) { color-scheme: light; }
+/* Pages generated before the shell had its own components still link the
+   basecoat CDN, which reads its own tokens and switches theme only on a
+   .dark class. Bridged to the shell's, whatever of it those pages use takes
+   the page's accent and follows the declared theme. Its --accent token is a
+   hover tint, renamed in its theme as --color-accent; the shell's --accent is
+   the brand colour, so the tint is derived from it here. */
+:root {
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-contrast);
+  --secondary: color-mix(in srgb, var(--text) 7%, var(--surface));
+  --secondary-foreground: var(--text);
+  --muted: color-mix(in srgb, var(--text) 5%, var(--surface));
+  --muted-foreground: var(--text-muted);
+  --color-accent: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  --color-accent-foreground: var(--text);
+  --destructive: var(--danger);
+  --input: var(--border);
+  --ring: var(--accent);
+}
+* { box-sizing: border-box; }
+/* The reset the pages were written against: they all linked basecoat, which
+   ships Tailwind's. Its components now live here, so the reset does too. */
+*, ::before, ::after, ::backdrop { margin: 0; padding: 0; border: 0 solid; }
+/* Preflight's rule too: without it a component class that sets display
+   (.alert, .card, .btn…) beats the hidden attribute and shows the element. */
+[hidden]:where(:not([hidden="until-found"])) { display: none !important; }
+.hidden { display: none !important; }
+h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+a { color: inherit; text-decoration: inherit; }
+b, strong { font-weight: bolder; }
+ol, ul, menu { list-style: none; }
+svg, video, canvas, iframe { display: block; vertical-align: middle; }
+button, input, select, textarea { color: inherit; background-color: transparent; border-radius: 0; }
+table { border-collapse: collapse; }
+hr { height: 0; color: inherit; border-top-width: 1px; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+
+.shell-container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.shell-section { padding: calc(var(--space) * 2) 0; }
+.shell-grid { display: grid; gap: var(--space); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.shell-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: var(--space); }
+.shell-footer { padding: 24px 0 40px; color: var(--text-muted); font-size: 13px; }
+
+.shell-hero { padding: calc(var(--space) * 3) 0 calc(var(--space) * 2); }
+.shell-hero h1 { font-size: clamp(26px, 4vw, 40px); line-height: 1.15; margin: 0 0 10px; text-wrap: balance; }
+.shell-hero p { color: var(--text-muted); max-width: 60ch; margin: 0; }
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space);
+}
+
+.kpi { display: flex; flex-direction: column; gap: 4px; }
+.kpi .kpi-value { font-size: clamp(22px, 2.3vw, 28px); font-weight: 650; line-height: 1.1; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.kpi .kpi-label { font-size: 13px; color: var(--text-muted); }
+.kpi .kpi-delta { font-size: 12.5px; font-weight: 600; }
+.kpi .kpi-delta.up { color: var(--success); }
+.kpi .kpi-delta.down { color: var(--danger); }
+
+table.shell-table { border-collapse: collapse; width: 100%; font-size: 14px; }
+table.shell-table th {
+  text-align: left; font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 600;
+}
+table.shell-table th, table.shell-table td { padding: 9px 12px 9px 0; border-bottom: 1px solid var(--border); }
+table.shell-table td.num, table.shell-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+
+.chart-box { width: 100%; min-height: 220px; }
+.chart-box svg { width: 100%; height: auto; display: block; }
+.chart-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; margin-top: 12px; font-size: 12.5px; color: var(--text-muted); }
+.chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.chart-legend i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.chart-legend b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.muted { color: var(--text-muted); }
+.accent { color: var(--accent-text); }
+.shell-badge, .eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent-text);
+}
+/* A pill keeps its content width inside flex and grid columns, which would
+   otherwise stretch it across the card; a centred parent still centres it. */
+.shell-badge, .eyebrow, .badge { width: fit-content; max-width: 100%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .shell-fade { animation: shell-fade 400ms ease both; }
+  @keyframes shell-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+}
+
+/* Layout and type utilities: what the pages kept spelling in style="".
+   Spacing and type sizes follow Tailwind's scale; there is no Tailwind. */
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.stack { display: flex; flex-direction: column; gap: var(--space); }
+.between { justify-content: space-between; }
+.grow { flex: 1 1 0; min-width: 0; }
+.cols-2, .cols-3, .cols-4, .cols-5 { display: grid; gap: var(--space); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 720px) {
+  .cols-2, .cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cols-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1000px) { .cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.gap-1 { gap: 4px; } .gap-2 { gap: 8px; } .gap-3 { gap: 12px; } .gap-4 { gap: 16px; } .gap-6 { gap: 24px; }
+.m-0 { margin: 0; }
+.mt-1 { margin-top: 4px; } .mt-2 { margin-top: 8px; } .mt-3 { margin-top: 12px; } .mt-4 { margin-top: 16px; } .mt-6 { margin-top: 24px; }
+.mb-1 { margin-bottom: 4px; } .mb-2 { margin-bottom: 8px; } .mb-3 { margin-bottom: 12px; } .mb-4 { margin-bottom: 16px; } .mb-6 { margin-bottom: 24px; }
+.p-2 { padding: 8px; } .p-3 { padding: 12px; } .p-4 { padding: 16px; } .p-6 { padding: 24px; }
+.text-xs { font-size: 12px; } .text-sm { font-size: 14px; } .text-base { font-size: 16px; }
+.text-lg { font-size: 18px; } .text-xl { font-size: 20px; line-height: 1.35; }
+.text-2xl { font-size: 24px; line-height: 1.25; } .text-3xl { font-size: 30px; line-height: 1.2; }
+.font-medium { font-weight: 500; } .font-semibold { font-weight: 600; } .font-bold { font-weight: 700; }
+.text-right { text-align: right; } .text-center { text-align: center; }
+.nowrap { white-space: nowrap; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric: tabular-nums; }
+.w-full { width: 100%; }
+.text-success { color: var(--success); } .text-danger { color: var(--danger); } .text-warning { color: var(--warning); }
+
+/* Components, with basecoat 1.0 markup (variants and sizes are data
+   attributes) and the shell tokens, so a page needs neither component CSS
+   nor a CSS framework. An older page that also links basecoat gets these
+   rules after it, over the same properties. */
+button, input, select, textarea { font: inherit; }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 36px; padding: 0 14px; border: 1px solid transparent; border-radius: calc(var(--radius) - 2px);
+  background: var(--accent); color: var(--accent-contrast);
+  font-size: 14px; font-weight: 500; line-height: 1; white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.btn:hover { background: color-mix(in srgb, var(--accent) 86%, #000); }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
+.btn[data-variant="secondary"] { background: color-mix(in srgb, var(--text) 8%, var(--surface)); color: var(--text); }
+.btn[data-variant="secondary"]:hover { background: color-mix(in srgb, var(--text) 14%, var(--surface)); }
+.btn[data-variant="outline"] { background: var(--surface); color: var(--text); border-color: var(--border); }
+.btn[data-variant="ghost"] { background: transparent; color: var(--text); }
+.btn[data-variant="outline"]:hover, .btn[data-variant="ghost"]:hover { background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.btn[data-variant="destructive"] { background: var(--danger); color: var(--bg); }
+.btn[data-variant="destructive"]:hover { background: color-mix(in srgb, var(--danger) 86%, var(--text)); }
+.btn[data-variant="link"] { height: auto; padding: 0; background: none; color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
+.btn[data-size="sm"] { height: 30px; padding: 0 10px; font-size: 13px; }
+.btn[data-size="lg"] { height: 42px; padding: 0 20px; font-size: 15px; }
+.btn[data-size="icon"] { width: 36px; padding: 0; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px;
+  border: 1px solid transparent; border-radius: 999px; background: var(--accent); color: var(--accent-contrast);
+  font-size: 12px; font-weight: 600; line-height: 1.5; white-space: nowrap;
+}
+.badge[data-variant="secondary"] { background: color-mix(in srgb, var(--text) 8%, var(--surface)); color: var(--text); }
+.badge[data-variant="outline"] { background: transparent; color: var(--text); border-color: var(--border); }
+.badge[data-variant="destructive"] { background: color-mix(in srgb, var(--danger) 14%, var(--surface)); color: var(--danger); }
+
+.alert {
+  display: grid; gap: 4px; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface); color: var(--text); font-size: 14px;
+}
+.alert h2, .alert h3 { margin: 0; font-size: 14px; font-weight: 600; }
+.alert p, .alert section { margin: 0; color: var(--text-muted); }
+.alert[data-variant="destructive"] { border-color: color-mix(in srgb, var(--danger) 45%, var(--border)); background: color-mix(in srgb, var(--danger) 7%, var(--surface)); color: var(--danger); }
+
+.card {
+  display: flex; flex-direction: column; gap: 16px; padding: 20px 0;
+  border: 1px solid var(--border); border-radius: calc(var(--radius) + 2px);
+  background: var(--surface); color: var(--text); box-shadow: var(--shadow);
+}
+.card > header, .card > section, .card > footer { padding: 0 20px; }
+.card > header { display: grid; gap: 4px; }
+.card > header h2, .card > header h3 { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.3; }
+.card > header p { margin: 0; color: var(--text-muted); font-size: 14px; }
+.card > footer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+.input {
+  width: 100%; min-height: 36px; padding: 6px 12px; border: 1px solid var(--border); border-radius: calc(var(--radius) - 2px);
+  background: var(--surface); color: var(--text); font-size: 14px;
+}
+textarea.input { min-height: 84px; resize: vertical; }
+.input::placeholder { color: var(--text-muted); }
+.input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+.field { display: grid; gap: 6px; }
+.field label { font-size: 14px; font-weight: 500; }
+.field [role="alert"] { color: var(--danger); font-size: 13px; }
+
+dialog.dialog {
+  width: min(520px, calc(100vw - 32px)); max-height: calc(100vh - 32px); margin: auto; padding: 0;
+  border: 1px solid var(--border); border-radius: calc(var(--radius) + 4px);
+  background: var(--surface); color: var(--text); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+dialog.dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
+dialog.dialog > div { display: grid; gap: 16px; padding: 24px; }
+dialog.dialog header { display: grid; gap: 4px; }
+dialog.dialog header h2 { margin: 0; font-size: 18px; font-weight: 600; }
+dialog.dialog header p { margin: 0; color: var(--text-muted); font-size: 14px; }
+dialog.dialog footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+
+.tabs { display: grid; gap: 12px; }
+.tabs > [role="tablist"] {
+  display: inline-flex; gap: 4px; width: fit-content; max-width: 100%; padding: 4px; overflow-x: auto;
+  border-radius: var(--radius); background: color-mix(in srgb, var(--text) 6%, var(--surface));
+}
+.tabs [role="tab"] {
+  padding: 6px 12px; border: 0; border-radius: calc(var(--radius) - 4px); background: transparent;
+  color: var(--text-muted); font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer;
+}
+.tabs [role="tab"][aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+.tabs [role="tabpanel"][hidden] { display: none; }
+
+.accordion > details { border-bottom: 1px solid var(--border); }
+.accordion > details > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 0; font-weight: 500; list-style: none; cursor: pointer;
+}
+.accordion > details > summary::-webkit-details-marker { display: none; }
+.accordion > details > summary::after { content: "+"; color: var(--text-muted); font-size: 18px; line-height: 1; }
+.accordion > details[open] > summary::after { content: "\2212"; }
+.accordion > details > :not(summary) { margin: 0 0 14px; color: var(--text-muted); }
+
+.toaster {
+  position: fixed; right: 16px; bottom: 16px; z-index: 50; display: flex; flex-direction: column-reverse; gap: 8px;
+  width: min(360px, calc(100vw - 32px)); pointer-events: none;
+}
+.toaster .toast { pointer-events: auto; transition: opacity 200ms ease, transform 200ms ease; }
+.toaster .toast[aria-hidden="true"] { opacity: 0; transform: translateY(8px); }
+.toaster .toast-content {
+  padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface); color: var(--text); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); font-size: 13px;
+}
+.toaster .toast-content h2 { margin: 0 0 2px; font-size: 14px; font-weight: 600; }
+.toaster .toast-content p { margin: 0; color: var(--text-muted); }
+
+/* skipUI building blocks. */
+.skip-table-search { max-width: 320px; margin-bottom: 12px; }
+.skip-table-wrap { overflow-x: auto; }
+table.shell-table th[data-sort] { cursor: pointer; user-select: none; }
+table.shell-table th[aria-sort="ascending"]::after { content: " \25B2"; font-size: 9px; }
+table.shell-table th[aria-sort="descending"]::after { content: " \25BC"; font-size: 9px; }
+table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: center; padding: 24px 0; }
+.skip-pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; font-size: 13px; color: var(--text-muted); }
+.toaster .toast[data-type="success"] .toast-content { border-left: 3px solid var(--success); }
+.toaster .toast[data-type="error"] .toast-content { border-left: 3px solid var(--danger); }
+
+</style>
+<script>
+/* Skip artifact shell — fixed helpers served beside every artifact. */
+(function () {
+  "use strict";
+
+  var fmt = {
+    num: function (v, opts) { return new Intl.NumberFormat("pt-BR", opts || {}).format(v); },
+    brl: function (v) { return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v); },
+    pct: function (v) { return new Intl.NumberFormat("pt-BR", { style: "percent", maximumFractionDigits: 1 }).format(v); },
+    compact: function (v) { return new Intl.NumberFormat("pt-BR", { notation: "compact", maximumFractionDigits: 1 }).format(v); },
+    brlCompact: function (v) { return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", notation: "compact", maximumFractionDigits: 1 }).format(v); }
+  };
+
+  // axisLabels formats the five y-axis ticks in the unit the chart declared
+  // (percent, BRL or plain numbers), compact so long values never clip, with
+  // the fewest decimals that still print every tick exactly (1,5 mi, not 2 mi).
+  function axisLabels(format, ticks) {
+    function at(digits) {
+      var opts = { notation: "compact", maximumFractionDigits: digits };
+      if (format === "pct") opts = { style: "percent", maximumFractionDigits: digits };
+      else if (format === "brl") opts = { style: "currency", currency: "BRL", notation: "compact", maximumFractionDigits: digits };
+      var nf = new Intl.NumberFormat("pt-BR", opts);
+      return ticks.map(function (t) { return nf.format(t); });
+    }
+    for (var digits = 0; digits < 2; digits++) {
+      if (at(digits).join("|") === at(digits + 1).join("|")) return at(digits);
+    }
+    return at(2);
+  }
+
+  // yAxisPad formats the ticks and measures the left padding they need from
+  // the longest one; drawYAxis then draws the grid and the labels.
+  function yAxisPad(format, max) {
+    var labels = axisLabels(format, [0, max / 4, max / 2, (max * 3) / 4, max]);
+    var longest = labels.reduce(function (m, l) { return Math.max(m, l.length); }, 0);
+    return { labels: labels, padL: Math.max(40, Math.round(longest * 6.2) + 14) };
+  }
+  function drawYAxis(svg, axis, W, padR, padT, plotH) {
+    for (var g = 0; g <= 4; g++) {
+      var gy = padT + plotH - (plotH * g) / 4;
+      svg.appendChild(svgEl("line", { x1: axis.padL, y1: gy, x2: W - padR, y2: gy, stroke: "currentColor", "stroke-opacity": 0.08 }));
+      var lbl = svgEl("text", { x: axis.padL - 8, y: gy + 4, "text-anchor": "end", "font-size": 10, fill: mutedColor() });
+      lbl.textContent = axis.labels[g];
+      svg.appendChild(lbl);
+    }
+  }
+
+  // xLabelStep: show every k-th category label so labels never overlap, and
+  // always the last one (counted back from the end).
+  function xLabelStep(labels, step) {
+    var longest = labels.reduce(function (m, l) { return Math.max(m, String(l).length); }, 0);
+    return Math.max(1, Math.ceil((longest * 6.4 + 8) / Math.max(step, 1)));
+  }
+  function drawXLabel(svg, text, x, y, W, edgeGuard) {
+    var anchor = "middle";
+    var half = String(text).length * 3.2;
+    if (edgeGuard && x - half < 4) anchor = "start";
+    if (edgeGuard && x + half > W - 4) anchor = "end";
+    var tx = svgEl("text", { x: x, y: y, "text-anchor": anchor, "font-size": 11, fill: mutedColor() });
+    tx.textContent = text;
+    svg.appendChild(tx);
+  }
+  // categoryLines fits a bar's category name in its slot: one line, two lines
+  // split at a space, or cut with "…". A bar without its name can't be read, so
+  // categories are never skipped; null when the slot is too narrow for that.
+  function categoryLines(text, slot) {
+    var fit = Math.floor((slot - 6) / 6.4);
+    var s = String(text);
+    if (fit < 4) return null;
+    if (s.length <= fit) return [s];
+    var cut = function (t) { return t.length <= fit ? t : t.slice(0, fit - 1).trimEnd() + "…"; };
+    var best = -1;
+    for (var i = 0; i < s.length; i++) {
+      if (s[i] === " " && (best < 0 || Math.abs(s.length / 2 - i) < Math.abs(s.length / 2 - best))) best = i;
+    }
+    if (best < 0) return [cut(s)];
+    return [cut(s.slice(0, best)), cut(s.slice(best + 1))];
+  }
+  function legend(el, items) {
+    var box = document.createElement("div");
+    box.className = "chart-legend";
+    items.forEach(function (it) {
+      var row = document.createElement("span");
+      var dot = document.createElement("i");
+      dot.style.background = it.color;
+      row.appendChild(dot);
+      row.appendChild(document.createTextNode((it.label || "") + (it.value ? " " : "")));
+      if (it.value) {
+        var v = document.createElement("b");
+        v.textContent = it.value;
+        row.appendChild(v);
+      }
+      box.appendChild(row);
+    });
+    resolve(el).appendChild(box);
+  }
+  var seriesPalette = ["#1baf7a", "#eda100", "#e34948", "#4a3aa7", "#e87ba4", "#0ea5b7"];
+
+  // format accepts a function OR one of the fmt names ("num" | "brl" | "pct").
+  // A page's function may return nothing or throw: the chart prints its
+  // number instead of taking the rest of the page script down with it.
+  function coerceFormat(spec) {
+    if (typeof spec === "function") {
+      return function (v) {
+        try {
+          var out = spec(v);
+          return out == null ? "" : String(out);
+        } catch (e) {
+          return fmt.num(v);
+        }
+      };
+    }
+    if (typeof spec === "string" && fmt[spec]) return fmt[spec];
+    return function (v) { return fmt.num(v); };
+  }
+
+  function accent() {
+    return getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#2563eb";
+  }
+  function mutedColor() {
+    return getComputedStyle(document.documentElement).getPropertyValue("--text-muted").trim() || "#5b6472";
+  }
+  function svgEl(tag, attrs) {
+    var el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function frame(el, w, h) {
+    var svg = svgEl("svg", { viewBox: "0 0 " + w + " " + h, role: "img" });
+    el = resolve(el);
+    el.innerHTML = "";
+    el.appendChild(svg);
+    return svg;
+  }
+
+  // maxOf guards the axis scale: empty values would give -Infinity (truthy,
+  // so "|| 1" can't catch it) and a non-positive max would flip the chart.
+  // finite reads a chart value as a number, 0 when it is not one (NaN,
+  // Infinity, a stray string), so one bad value cannot blank the axis.
+  function finite(v) {
+    var n = +v;
+    return isFinite(n) ? n : 0;
+  }
+
+  function maxOf(values) {
+    var m = values.length ? Math.max.apply(null, values.map(finite)) : 0;
+    return m > 0 ? m : 1;
+  }
+
+  // labelsFor pads or trims the category names to the n points drawn: pages
+  // pass labels and values of different lengths, and one throw here loses
+  // every section the page renders after the chart.
+  function labelsFor(cfg, n) {
+    var out = [];
+    for (var i = 0; i < n; i++) out.push(cfg.labels && cfg.labels[i] != null ? String(cfg.labels[i]) : "");
+    return out;
+  }
+
+  // niceMax rounds the scale up so the four grid steps land on round values
+  // (1, 1.5, 2, 2.5, 3, 4, 5, 6 or 8 × 10^k) and the tick labels read exactly.
+  function niceMax(max) {
+    var raw = max / 4;
+    var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var res = raw / mag;
+    var steps = [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10];
+    var nice = steps.filter(function (s) { return s >= res - 1e-9; })[0];
+    return nice * mag * 4;
+  }
+
+  // bar(el, {labels:[], values:[], color?, format?}) — vertical bar chart.
+  function bar(el, cfg) {
+    var W = 640, H = 280, padB = 30, padT = 12, padR = 12;
+    var max = niceMax(maxOf(cfg.values));
+    var axis = yAxisPad(cfg.format, max);
+    var svg = frame(el, W, H);
+    var n = cfg.values.length;
+    var labels = labelsFor(cfg, n);
+    var plotW = W - axis.padL - padR;
+    var step = plotW / n, bw = Math.min(step * 0.62, 64);
+    var names = labels.map(function (l) { return categoryLines(l, step); });
+    var named = names.every(Boolean);
+    if (named && names.some(function (l) { return l.length > 1; })) padB = 42;
+    var plotH = H - padT - padB;
+    var color = cfg.color || accent();
+    var f = coerceFormat(cfg.format);
+    var every = xLabelStep(labels, step);
+    drawYAxis(svg, axis, W, padR, padT, plotH);
+    cfg.values.forEach(function (v, i) {
+      var bh = Math.max(0, (finite(v) / max) * plotH);
+      var x = axis.padL + i * step + (step - bw) / 2;
+      var y = padT + plotH - bh;
+      var r = svgEl("rect", { x: x, y: y, width: bw, height: bh, rx: 4, fill: (cfg.colors && cfg.colors[i]) || color });
+      var t = svgEl("title", {});
+      t.textContent = labels[i] + ": " + f(v);
+      r.appendChild(t);
+      svg.appendChild(r);
+      if (named) {
+        names[i].forEach(function (text, li) {
+          drawXLabel(svg, text, x + bw / 2, padT + plotH + 18 + li * 13, W, false);
+        });
+      } else if ((n - 1 - i) % every === 0) {
+        drawXLabel(svg, labels[i], x + bw / 2, H - 10, W, false);
+      }
+    });
+  }
+
+  // line(el, {labels:[], values:[] | series:[{label, values, color?}], color?, format?})
+  // — one line, or several series on one scale with a legend under the chart.
+  function line(el, cfg) {
+    var W = 640, H = 280, padB = 30, padT = 12, padR = 16;
+    var series = cfg.series && cfg.series.length
+      ? cfg.series
+      : [{ label: "", values: cfg.values || [], color: cfg.color }];
+    var all = [];
+    series.forEach(function (s) { all = all.concat(s.values || []); });
+    var max = niceMax(maxOf(all));
+    var axis = yAxisPad(cfg.format, max);
+    var svg = frame(el, W, H);
+    var n = series.reduce(function (m, s) { return Math.max(m, (s.values || []).length); }, 0);
+    var labels = labelsFor(cfg, n);
+    var plotW = W - axis.padL - padR, plotH = H - padT - padB;
+    var f = coerceFormat(cfg.format);
+    drawYAxis(svg, axis, W, padR, padT, plotH);
+    var xs = labels.map(function (_, i) { return axis.padL + (n === 1 ? plotW / 2 : (plotW * i) / (n - 1)); });
+    var every = xLabelStep(labels, n > 1 ? plotW / (n - 1) : plotW);
+    labels.forEach(function (label, i) {
+      if ((n - 1 - i) % every === 0) drawXLabel(svg, label, xs[i], H - 10, W, true);
+    });
+    var colors = series.map(function (s, si) {
+      return s.color || (si === 0 ? (cfg.color || accent()) : seriesPalette[(si - 1) % seriesPalette.length]);
+    });
+    series.forEach(function (s, si) {
+      var color = colors[si];
+      var pts = (s.values || []).map(function (v, i) { return [xs[i], padT + plotH - (finite(v) / max) * plotH]; });
+      var d = pts.map(function (p, i) { return (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ");
+      svg.appendChild(svgEl("path", { d: d, fill: "none", stroke: color, "stroke-width": 2, "stroke-linejoin": "round" }));
+      pts.forEach(function (p, i) {
+        var c = svgEl("circle", { cx: p[0], cy: p[1], r: 3.5, fill: color });
+        var t = svgEl("title", {});
+        t.textContent = (s.label ? s.label + " · " : "") + labels[i] + ": " + f(s.values[i]);
+        c.appendChild(t);
+        svg.appendChild(c);
+      });
+    });
+    if (series.length > 1) {
+      legend(el, series.map(function (s, si) { return { label: s.label, color: colors[si] }; }));
+    }
+  }
+
+  // donut(el, {labels:[], values:[], colors?, format?, center?, centerLabel?, legend?})
+  // — donut with a short total in the centre (compact, in the declared unit)
+  // and, with legend: true, the labels and shares listed under it.
+  function donut(el, cfg) {
+    var W = 320, H = 280, cx = W / 2, cy = H / 2, R = 92, r = 58;
+    var svg = frame(el, W, H);
+    // At 100% of a wide container the donut outgrows the height pages give
+    // the box and spills over the next section: keep it at its own size.
+    svg.style.maxWidth = W + "px";
+    svg.style.margin = "0 auto";
+    var values = cfg.values.map(finite);
+    var labels = labelsFor(cfg, values.length);
+    var sum = values.reduce(function (a, b) { return a + b; }, 0);
+    var total = sum || 1;
+    var palette = cfg.colors || [accent()].concat(seriesPalette);
+    // The hover keeps the full value; the centre has room for a short one.
+    var full = coerceFormat(cfg.format);
+    var short = typeof cfg.format === "function" ? full : cfg.format === "brl" ? fmt.brlCompact : fmt.compact;
+    var a0 = -Math.PI / 2;
+    values.forEach(function (v, i) {
+      var a1 = a0 + (v / total) * Math.PI * 2;
+      var large = a1 - a0 > Math.PI ? 1 : 0;
+      var p = ["M", cx + R * Math.cos(a0), cy + R * Math.sin(a0),
+        "A", R, R, 0, large, 1, cx + R * Math.cos(a1), cy + R * Math.sin(a1),
+        "L", cx + r * Math.cos(a1), cy + r * Math.sin(a1),
+        "A", r, r, 0, large, 0, cx + r * Math.cos(a0), cy + r * Math.sin(a0), "Z"].join(" ");
+      var path = svgEl("path", { d: p, fill: palette[i % palette.length] });
+      var t = svgEl("title", {});
+      t.textContent = labels[i] + ": " + full(v) + " (" + fmt.pct(v / total) + ")";
+      path.appendChild(t);
+      svg.appendChild(path);
+      a0 = a1;
+    });
+    // A share chart has no total worth printing: without its own centre text
+    // the caption alone takes the middle.
+    var text = cfg.center != null ? String(cfg.center) : (cfg.format === "pct" ? "" : short(sum));
+    if (text) {
+      var size = text.length > 9 ? 14 : text.length > 7 ? 17 : 20;
+      var center = svgEl("text", { x: cx, y: cfg.centerLabel ? cy + 1 : cy + 6, "text-anchor": "middle", "font-size": size, "font-weight": 650, fill: "currentColor" });
+      center.textContent = text;
+      svg.appendChild(center);
+    }
+    if (cfg.centerLabel) {
+      var cap = svgEl("text", { x: cx, y: text ? cy + 19 : cy + 5, "text-anchor": "middle", "font-size": 11, fill: mutedColor() });
+      cap.textContent = cfg.centerLabel;
+      svg.appendChild(cap);
+    }
+    if (cfg.legend) {
+      legend(el, labels.map(function (label, i) {
+        return { label: label, color: palette[i % palette.length], value: fmt.pct(values[i] / total) };
+      }));
+    }
+  }
+
+  // ---- Page building blocks: what dashboards and small systems kept
+  // re-implementing — a searchable sortable table, a KPI row, tabs, toasts,
+  // dialogs, saved state and mock data. Every call is opt-in, so a page that
+  // brings its own versions keeps them.
+
+  function resolve(target) {
+    return typeof target === "string" ? document.querySelector(target) : target;
+  }
+
+  function node(tag, className, text) {
+    var el = document.createElement(tag);
+    if (className) el.className = className;
+    if (text != null) el.textContent = text;
+    return el;
+  }
+
+  function isNumberColumn(col) {
+    return col.align === "right" || col.format === "num" || col.format === "brl" || col.format === "pct";
+  }
+
+  function cellText(col, row) {
+    var value = row[col.key];
+    if (value == null) return "";
+    return col.format ? coerceFormat(col.format)(value) : String(value);
+  }
+
+  function compareValues(a, b) {
+    if (typeof a === "number" && typeof b === "number") return a - b;
+    return String(a == null ? "" : a).localeCompare(String(b == null ? "" : b), "pt-BR", { numeric: true });
+  }
+
+  // table(el, {columns, rows, search?, pageSize?, empty?, onRowClick?}) — a
+  // table.shell-table with sortable headers, an optional search box and
+  // pager. A column is {key, label, format?, align?, sortable? (true),
+  // render?(value, row) returning a Node or an HTML string — the page writes
+  // its cell templates as markup}. Plain values are always set as text.
+  // Returns {setRows, rows}.
+  function table(target, cfg) {
+    var root = resolve(target);
+    var cols = cfg.columns || [];
+    var pageSize = cfg.pageSize || 0;
+    var state = { rows: (cfg.rows || []).slice(), query: "", key: null, dir: 1, page: 0 };
+    root.innerHTML = "";
+    if (cfg.search) {
+      var search = node("input", "input skip-table-search");
+      search.type = "search";
+      search.placeholder = typeof cfg.search === "string" ? cfg.search : "Buscar…";
+      search.setAttribute("aria-label", search.placeholder);
+      search.addEventListener("input", function () {
+        state.query = search.value.trim().toLowerCase();
+        state.page = 0;
+        draw();
+      });
+      root.appendChild(search);
+    }
+    var tableEl = node("table", "shell-table");
+    var headRow = node("tr");
+    var heads = cols.map(function (col) {
+      var th = node("th", isNumberColumn(col) ? "num" : "", col.label == null ? col.key : col.label);
+      th.scope = "col";
+      if (col.sortable !== false) {
+        var toggle = function () {
+          state.dir = state.key === col.key ? -state.dir : 1;
+          state.key = col.key;
+          draw();
+        };
+        th.setAttribute("data-sort", col.key);
+        th.tabIndex = 0;
+        th.addEventListener("click", toggle);
+        th.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+        });
+      }
+      headRow.appendChild(th);
+      return th;
+    });
+    var thead = node("thead");
+    var tbody = node("tbody");
+    var wrap = node("div", "skip-table-wrap");
+    var pager = node("div", "skip-pager");
+    thead.appendChild(headRow);
+    tableEl.appendChild(thead);
+    tableEl.appendChild(tbody);
+    wrap.appendChild(tableEl);
+    root.appendChild(wrap);
+    if (pageSize) root.appendChild(pager);
+
+    function visibleRows() {
+      var rows = state.rows;
+      if (state.query) {
+        rows = rows.filter(function (row) {
+          return cols.some(function (col) { return cellText(col, row).toLowerCase().indexOf(state.query) >= 0; });
+        });
+      }
+      if (state.key) {
+        var key = state.key, dir = state.dir;
+        rows = rows.slice().sort(function (a, b) { return dir * compareValues(a[key], b[key]); });
+      }
+      return rows;
+    }
+
+    function drawRow(row) {
+      var tr = node("tr");
+      cols.forEach(function (col) {
+        var td = node("td", isNumberColumn(col) ? "num" : "");
+        if (!col.render) {
+          td.textContent = cellText(col, row);
+        } else {
+          var content = col.render(row[col.key], row);
+          if (content instanceof Node) td.appendChild(content);
+          else td.innerHTML = content == null ? "" : String(content);
+        }
+        tr.appendChild(td);
+      });
+      // The row stays a row (no role) and takes focus, so a keyboard reaches
+      // the same action; keys pressed on a control inside a cell are its own.
+      if (cfg.onRowClick) {
+        tr.style.cursor = "pointer";
+        tr.tabIndex = 0;
+        tr.addEventListener("click", function () { cfg.onRowClick(row); });
+        tr.addEventListener("keydown", function (e) {
+          if (e.target !== tr || (e.key !== "Enter" && e.key !== " ")) return;
+          e.preventDefault();
+          cfg.onRowClick(row);
+        });
+      }
+      return tr;
+    }
+
+    function pagerButton(label, disabled, step) {
+      var button = node("button", "btn", label);
+      button.type = "button";
+      button.setAttribute("data-variant", "outline");
+      button.setAttribute("data-size", "sm");
+      button.disabled = disabled;
+      button.addEventListener("click", function () { state.page += step; draw(); });
+      return button;
+    }
+
+    function draw() {
+      var rows = visibleRows();
+      heads.forEach(function (th, i) {
+        if (cols[i].key === state.key) th.setAttribute("aria-sort", state.dir > 0 ? "ascending" : "descending");
+        else th.removeAttribute("aria-sort");
+      });
+      var pages = pageSize ? Math.max(1, Math.ceil(rows.length / pageSize)) : 1;
+      state.page = Math.min(state.page, pages - 1);
+      var shown = pageSize ? rows.slice(state.page * pageSize, (state.page + 1) * pageSize) : rows;
+      tbody.innerHTML = "";
+      if (!shown.length) {
+        var empty = node("td", "skip-table-empty", cfg.empty || "Nenhum registro encontrado.");
+        empty.colSpan = cols.length;
+        tbody.appendChild(node("tr")).appendChild(empty);
+      }
+      shown.forEach(function (row) { tbody.appendChild(drawRow(row)); });
+      if (!pageSize) return;
+      pager.innerHTML = "";
+      var from = rows.length ? state.page * pageSize + 1 : 0;
+      pager.appendChild(node("span", "", from + "–" + Math.min(rows.length, (state.page + 1) * pageSize) + " de " + rows.length));
+      var nav = node("div", "row gap-2");
+      nav.appendChild(pagerButton("Anterior", state.page === 0, -1));
+      nav.appendChild(pagerButton("Próxima", state.page >= pages - 1, 1));
+      pager.appendChild(nav);
+    }
+
+    draw();
+    return {
+      setRows: function (rows) { state.rows = rows.slice(); draw(); },
+      rows: visibleRows
+    };
+  }
+
+  // kpis(el, [{label, value, format?, delta?, hint?}]) — KPI cards in a
+  // responsive grid; delta is a fraction (0.12 renders as ▲ 12%).
+  function kpis(target, items) {
+    var root = resolve(target);
+    root.innerHTML = "";
+    root.classList.add("shell-grid");
+    items.forEach(function (item) {
+      var card = node("div", "panel kpi");
+      card.appendChild(node("span", "kpi-label", item.label));
+      // Large money values go compact ("R$ 27,5 mi"): the full amount does
+      // not fit a KPI card at four per row.
+      var kpiFormat = item.format === "brl" && Math.abs(item.value) >= 1e6 ? fmt.brlCompact : (item.format ? coerceFormat(item.format) : null);
+      card.appendChild(node("span", "kpi-value", kpiFormat ? kpiFormat(item.value) : String(item.value)));
+      if (typeof item.delta === "number") {
+        var up = item.delta >= 0;
+        card.appendChild(node("span", "kpi-delta " + (up ? "up" : "down"), (up ? "▲ " : "▼ ") + fmt.pct(Math.abs(item.delta))));
+      }
+      if (item.hint) card.appendChild(node("span", "kpi-label", item.hint));
+      root.appendChild(card);
+    });
+  }
+
+  // badge(text, variant?) — a .badge node for table cells and lists;
+  // variant is "secondary" | "outline" | "destructive" (default: primary).
+  function badge(text, variant) {
+    var el = node("span", "badge", text);
+    if (variant) el.setAttribute("data-variant", variant);
+    return el;
+  }
+
+  // tabs(el) — wires one .tabs block: [role=tab] buttons inside
+  // [role=tablist], each with aria-controls naming its [role=tabpanel].
+  function tabs(target) {
+    var root = resolve(target);
+    var buttons = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+    function select(chosen) {
+      buttons.forEach(function (b) {
+        var on = b === chosen;
+        b.setAttribute("aria-selected", on ? "true" : "false");
+        b.tabIndex = on ? 0 : -1;
+        var panel = document.getElementById(b.getAttribute("aria-controls"));
+        if (panel) panel.hidden = !on;
+      });
+    }
+    buttons.forEach(function (b, i) {
+      b.addEventListener("click", function () { select(b); });
+      b.addEventListener("keydown", function (e) {
+        var step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!step) return;
+        var next = buttons[(i + step + buttons.length) % buttons.length];
+        next.focus();
+        select(next);
+      });
+    });
+    select(buttons.filter(function (b) { return b.getAttribute("aria-selected") === "true"; })[0] || buttons[0]);
+  }
+
+  // toast(message, {type?: "success" | "error", title?, duration?}) — a
+  // .toast in a shared .toaster at the bottom of the page.
+  function toast(message, opts) {
+    opts = opts || {};
+    var toaster = document.querySelector(".toaster") || document.body.appendChild(node("div", "toaster"));
+    var item = node("div", "toast");
+    item.setAttribute("role", opts.type === "error" ? "alert" : "status");
+    item.setAttribute("aria-hidden", "true");
+    if (opts.type) item.setAttribute("data-type", opts.type);
+    var content = node("div", "toast-content");
+    var section = node("section");
+    if (opts.title) section.appendChild(node("h2", "", opts.title));
+    section.appendChild(node("p", "", message));
+    content.appendChild(section);
+    item.appendChild(content);
+    toaster.appendChild(item);
+    requestAnimationFrame(function () { item.setAttribute("aria-hidden", "false"); });
+    setTimeout(function () {
+      item.setAttribute("aria-hidden", "true");
+      setTimeout(function () { item.remove(); }, 400);
+    }, opts.duration || 3000);
+  }
+
+  // Dialogs are native <dialog class="dialog">: a [data-dialog-open="id"]
+  // anywhere opens one, a [data-dialog-close] inside closes it, and a click on
+  // its backdrop closes it too. Plain dialog.showModal()/close() still work.
+  document.addEventListener("click", function (e) {
+    var target = e.target;
+    if (!(target instanceof Element)) return;
+    var opener = target.closest("[data-dialog-open]");
+    if (opener) {
+      var dialog = document.getElementById(opener.getAttribute("data-dialog-open"));
+      if (dialog && dialog.showModal && !dialog.open) dialog.showModal();
+      return;
+    }
+    var closer = target.closest("[data-dialog-close]");
+    if (closer && closer.closest("dialog")) {
+      closer.closest("dialog").close();
+      return;
+    }
+    if (target.tagName === "DIALOG" && target.classList.contains("dialog") && target.open) target.close();
+  });
+
+  // store(key, fallback) — JSON state in localStorage that never throws (a
+  // private window or a full quota falls back to memory): {get, set, update}.
+  function store(key, fallback) {
+    var memory;
+    // Set while the last write did not reach localStorage: what is stored
+    // there is older than memory until a write goes through again.
+    var unsaved = false;
+    var initial = function () { return fallback === undefined ? undefined : JSON.parse(JSON.stringify(fallback)); };
+    function get() {
+      if (!unsaved) {
+        try {
+          var raw = localStorage.getItem(key);
+          if (raw != null) return JSON.parse(raw);
+        } catch (e) { /* storage unavailable: memory below */ }
+      }
+      return memory !== undefined ? memory : initial();
+    }
+    function set(value) {
+      memory = value;
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+        unsaved = false;
+      } catch (e) {
+        unsaved = true;
+      }
+      return value;
+    }
+    return { get: get, set: set, update: function (fn) { return set(fn(get())); } };
+  }
+
+  // mock — seeded random data, so a page asks for 90 days of numbers in one
+  // line instead of writing them out; the same seed gives the same data.
+  var FIRST = ["Ana", "Bruno", "Carla", "Diego", "Eduarda", "Felipe", "Gabriela", "Henrique", "Isabela", "João",
+    "Larissa", "Marcos", "Natália", "Otávio", "Paula", "Rafael", "Sofia", "Thiago", "Vanessa", "Lucas"];
+  var LAST = ["Silva", "Santos", "Oliveira", "Souza", "Pereira", "Costa", "Rodrigues", "Almeida", "Nascimento", "Lima",
+    "Araújo", "Fernandes", "Carvalho", "Gomes", "Martins", "Rocha", "Ribeiro", "Barbosa"];
+  var INITIALS = "ABCDEFGHIJLMNOPRSTV".split("");
+  var CITIES = ["São Paulo, SP", "Rio de Janeiro, RJ", "Belo Horizonte, MG", "Curitiba, PR", "Porto Alegre, RS",
+    "Salvador, BA", "Recife, PE", "Fortaleza, CE", "Brasília, DF", "Goiânia, GO", "Campinas, SP", "Florianópolis, SC",
+    "Manaus, AM", "Belém, PA", "Vitória, ES", "Natal, RN"];
+
+  function createMock(seed) {
+    var state = seed >>> 0;
+    var names = 0;
+    function random() {
+      state = (state + 0x6d2b79f5) >>> 0;
+      var t = state;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    }
+    function int(min, max) { return min + Math.floor(random() * (max - min + 1)); }
+    function pick(list) { return list[Math.floor(random() * list.length)]; }
+    var mock = {
+      seed: function (value) { state = value >>> 0; names = 0; return mock; },
+      random: random,
+      int: int,
+      float: function (min, max, decimals) {
+        var factor = Math.pow(10, decimals == null ? 2 : decimals);
+        return Math.round((min + random() * (max - min)) * factor) / factor;
+      },
+      pick: pick,
+      chance: function (p) { return random() < p; },
+      // There are 360 first/last pairs. A page that draws until the name is
+      // new (do { … } while (used.has(name))) froze the tab past them, so
+      // later draws widen the space: a second surname after 200 (6,480), a
+      // middle initial after 4,000.
+      name: function () {
+        names++;
+        var middle = names > 4000 ? pick(INITIALS) + ". " : "";
+        return pick(FIRST) + " " + middle + (names > 200 ? pick(LAST) + " " : "") + pick(LAST);
+      },
+      city: function () { return pick(CITIES); },
+      // series(n, {start, trend, noise, min, decimals}) — a walk: each value
+      // moves by trend (fraction per step) plus up to ±noise of itself.
+      series: function (n, opts) {
+        opts = opts || {};
+        var value = opts.start == null ? 100 : opts.start;
+        var factor = Math.pow(10, opts.decimals || 0);
+        var out = [];
+        for (var i = 0; i < n; i++) {
+          out.push(Math.max(opts.min == null ? 0 : opts.min, Math.round(value * factor) / factor));
+          value = value * (1 + (opts.trend || 0)) * (1 + (random() * 2 - 1) * (opts.noise == null ? 0.08 : opts.noise));
+        }
+        return out;
+      },
+      // dates(n, {end?, step?: "day" | "week" | "month"}) — ISO dates
+      // (YYYY-MM-DD), oldest first, ending at end (default: today).
+      dates: function (n, opts) {
+        opts = opts || {};
+        var end = opts.end ? new Date(opts.end) : new Date();
+        var out = [];
+        for (var i = n - 1; i >= 0; i--) {
+          var d = new Date(end.getTime());
+          if (opts.step === "month") d.setMonth(d.getMonth() - i);
+          else d.setDate(d.getDate() - i * (opts.step === "week" ? 7 : 1));
+          out.push(d.toISOString().slice(0, 10));
+        }
+        return out;
+      },
+      // rows(n, spec) — n objects; each spec value is a function(i), a list
+      // to pick from, or a constant.
+      rows: function (n, spec) {
+        var out = [];
+        for (var i = 0; i < n; i++) {
+          var row = {};
+          for (var key in spec) {
+            var value = spec[key];
+            row[key] = typeof value === "function" ? value(i) : Array.isArray(value) ? pick(value) : value;
+          }
+          out.push(row);
+        }
+        return out;
+      }
+    };
+    return mock;
+  }
+
+  window.skipShell = { fmt: fmt };
+  window.skipChart = { bar: bar, line: line, donut: donut };
+  window.skipUI = { table: table, kpis: kpis, badge: badge, tabs: tabs, toast: toast };
+  window.skipStore = store;
+  window.skipMock = createMock(20261022);
+})();
+
+</script>
+<style>
+:root {
+--accent: #0f766e;
+--primary: #0f766e;
+--primary-light: #0d9488;
+--bg: #f0fdf4;
+--card-bg: #ffffff;
+--text: #1e293b;
+--border: #cbd5e1;
+--correct-bg: #dcfce7;
+--correct-border: #22c55e;
+--correct-text: #15803d;
+--wrong-bg: #fee2e2;
+--wrong-border: #ef4444;
+--wrong-text: #b91c1c;
+--hint-bg: #fef3c7;
+--hint-border: #f59e0b;
+}
+body {
+background: var(--bg);
+color: var(--text);
+margin: 0;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.quiz-header { text-align: center; padding: 28px 16px 12px; }
+.quiz-header .icon { font-size: 40px; }
+.quiz-header h1 { color: var(--primary); margin: 6px 0 4px; font-size: 1.6rem; }
+.quiz-header p { color: #475569; margin: 0; font-size: 0.95rem; }
+.quiz-wrap { max-width: 540px; margin: 0 auto; padding: 0 16px 24px; width: 100%; box-sizing: border-box; }
+.quiz-container {
+background: var(--card-bg);
+border-radius: 20px;
+box-shadow: 0 8px 24px rgba(0,0,0,.08);
+padding: 20px;
+}
+.screen { display: none; }
+.screen.active { display: block; }
+.tag {
+display: inline-block;
+background: #ccfbf1;
+color: #0f766e;
+border: 1px solid #99f6e4;
+border-radius: 999px;
+padding: 3px 12px;
+font-size: 0.8rem;
+font-weight: 600;
+}
+.progress-stats { display: flex; justify-content: space-between; font-size: 0.85rem; color: #475569; margin: 12px 0 6px; }
+.progress-bar-bg { height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+.progress-bar-fill { height: 100%; width: 0; background: var(--primary-light); transition: width .3s ease; border-radius: 10px; }
+.question-text { color: var(--primary); font-weight: 700; font-size: 1.1rem; line-height: 1.45; margin: 18px 0 14px; }
+.opts { display: flex; flex-direction: column; gap: 10px; }
+.opt {
+width: 100%;
+display: block;
+text-align: left;
+white-space: normal;
+overflow-wrap: break-word;
+height: auto;
+min-height: 44px;
+border: 2px solid var(--border);
+border-radius: 12px;
+padding: 12px 14px;
+background: #fff;
+color: var(--text);
+font: inherit;
+font-size: 0.95rem;
+line-height: 1.4;
+cursor: pointer;
+transition: border-color .2s, background .2s;
+box-sizing: border-box;
+}
+.opt:hover:not(:disabled) { border-color: var(--primary-light); }
+.opt:focus-visible { outline: 3px solid var(--primary-light); outline-offset: 2px; }
+.opt:disabled { cursor: default; }
+.opt.correct { background: var(--correct-bg); border-color: var(--correct-border); color: var(--correct-text); font-weight: 600; }
+.opt.wrong { background: var(--wrong-bg); border-color: var(--wrong-border); color: var(--wrong-text); font-weight: 600; }
+.quiz-footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.hint-btn {
+background: var(--hint-bg);
+border: 1px solid var(--hint-border);
+color: #78350f;
+border-radius: 10px;
+padding: 8px 14px;
+font: inherit;
+font-size: 0.9rem;
+cursor: pointer;
+}
+.hint-btn:focus-visible { outline: 3px solid var(--hint-border); outline-offset: 2px; }
+.hint-box {
+display: none;
+background: var(--hint-bg);
+border-left: 4px solid var(--hint-border);
+border-radius: 10px;
+padding: 10px 12px;
+margin-top: 12px;
+font-size: 0.9rem;
+color: #78350f;
+}
+.hint-box.show { display: block; }
+.feedback { display: none; margin-top: 14px; padding: 12px; border-radius: 12px; font-size: 0.92rem; line-height: 1.45; }
+.feedback.show { display: block; }
+.feedback.ok { background: var(--correct-bg); color: var(--correct-text); border: 1px solid var(--correct-border); }
+.feedback.no { background: var(--wrong-bg); color: var(--wrong-text); border: 1px solid var(--wrong-border); }
+.action-btn {
+background: var(--primary);
+color: #fff;
+border: none;
+border-radius: 12px;
+padding: 11px 18px;
+font: inherit;
+font-weight: 600;
+cursor: pointer;
+transition: background .2s;
+}
+.action-btn:hover { background: var(--primary-light); }
+.action-btn:focus-visible { outline: 3px solid var(--primary-light); outline-offset: 2px; }
+.action-btn.secondary { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+.action-btn.secondary:hover { background: #ccfbf1; }
+.score-hero { text-align: center; padding: 10px 0 18px; }
+.score-circle {
+width: 150px; height: 150px; border-radius: 50%;
+border: 8px solid var(--primary-light);
+display: flex; flex-direction: column; align-items: center; justify-content: center;
+margin: 0 auto 14px;
+}
+.score-circle .num { font-size: 2.2rem; font-weight: 800; color: var(--primary); }
+.score-circle .sub { font-size: 0.85rem; color: #475569; }
+.score-hero .msg { font-size: 1rem; color: var(--text); line-height: 1.5; max-width: 420px; margin: 0 auto; }
+.mod-bar { margin: 12px 0; }
+.mod-bar .row { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 4px; }
+.mod-bar .track { height: 10px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+.mod-bar .fill { height: 100%; background: var(--primary-light); border-radius: 10px; transition: width .4s ease; }
+.mod-bar.worst .fill { background: var(--wrong-border); }
+.mod-bar.worst .row span:first-child { color: var(--wrong-text); font-weight: 700; }
+.review-card { border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+.review-card .meta { font-size: 0.8rem; color: #475569; margin-bottom: 6px; }
+.review-card .q { font-weight: 600; color: var(--primary); margin-bottom: 8px; line-height: 1.4; }
+.review-card .line { font-size: 0.9rem; margin: 4px 0; }
+.review-card .line.mine { color: var(--wrong-text); }
+.review-card .line.right { color: var(--correct-text); }
+.review-card .expl { font-size: 0.88rem; color: #334155; margin-top: 8px; background: #f8fafc; border-radius: 10px; padding: 8px 10px; line-height: 1.45; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+.empty { text-align: center; color: #475569; padding: 20px 0; }
+.quiz-footer-note { text-align: center; font-size: 0.8rem; color: #64748b; padding: 18px 16px; margin-top: auto; }
+</style>
+</head>
+<body>
+<header class="quiz-header">
+<div class="icon" aria-hidden="true">📖</div>
+<h1>Desafio de Português</h1>
+<p>6º Ano — Sistema Anglo (Módulos 40, 41, 43, 44 e 46)</p>
+</header>
+
+<main class="quiz-wrap">
+<div class="quiz-container">
+
+<section id="quiz-screen" class="screen active" aria-live="polite">
+<span class="tag" id="module-tag">Módulo 40</span>
+<div class="progress-stats">
+<span id="progress-text">Questão 1 de 32</span>
+<span id="score-text">Acertos: 0</span>
+</div>
+<div class="progress-bar-bg" role="progressbar" aria-label="Progresso do quiz">
+<div class="progress-bar-fill" id="progress-fill"></div>
+</div>
+<div class="question-text" id="question-text"></div>
+<div class="opts" id="options-container"></div>
+<div class="hint-box" id="hint-box"></div>
+<div class="feedback" id="feedback"></div>
+<div class="quiz-footer">
+<button type="button" class="hint-btn" id="hint-toggle-btn" aria-label="Mostrar dica">💡 Preciso de uma dica</button>
+<button type="button" class="action-btn" id="next-btn" style="display:none;">Próxima</button>
+</div>
+</section>
+
+<section id="results-screen" class="screen">
+<div class="score-hero">
+<div class="score-circle">
+<span class="num" id="final-score">0</span>
+<span class="sub" id="final-total">de 32</span>
+</div>
+<p class="msg" id="result-msg"></p>
+</div>
+<h2 style="font-size:1rem;color:var(--primary);margin:8px 0 2px;">Desempenho por módulo</h2>
+<p style="font-size:0.85rem;color:#475569;margin:0 0 6px;">Barras mostram o percentual de acertos em cada módulo. A barra vermelha destaca o pior desempenho.</p>
+<div id="mod-summary"></div>
+<div class="btn-row">
+<button type="button" class="action-btn" id="btn-review">Revisar respostas</button>
+<button type="button" class="action-btn secondary" id="btn-review-errors">Revisar só os erros</button>
+<button type="button" class="action-btn secondary" id="btn-restart">Refazer quiz</button>
+</div>
+</section>
+
+<section id="review-screen" class="screen">
+<h2 style="font-size:1.1rem;color:var(--primary);margin:0 0 4px;">Revisão das questões</h2>
+<p style="font-size:0.85rem;color:#475569;margin:0 0 12px;">Compare sua resposta com a resposta certa e leia a explicação de cada questão.</p>
+<div id="review-list"></div>
+<div class="btn-row">
+<button type="button" class="action-btn secondary" id="btn-back-result">Voltar ao resultado</button>
+<button type="button" class="action-btn" id="btn-restart-2">Refazer quiz</button>
+</div>
+</section>
+
+</div>
+</main>
+
+<footer class="quiz-footer-note">Desafio de Português • 6º Ano • Sistema Anglo</footer>
+
+<script>
+const QUESTIONS = [
+{module:"Módulo 40",part:1,question:"Na peça teatral, as rubricas aparecem entre parênteses e em letras diferentes. Qual é a função delas?",options:["a) Servem para o ator decorar as falas","b) Orientar a encenação; não são ditas pelos atores","c) Contar a história em lugar do narrador","d) Indicar o nome dos personagens no programa da peça"],correct:1,hint:"Pense em quem lê a rubrica: o ator ou o público? Ela é falada em voz alta no palco?",explanation:"As rubricas dão instruções de cena (movimento, luz, entrada de personagem) e não são ditas pelos atores. A alternativa a) confunde rubrica com fala; a c) confunde com narração — na peça não há narrador."},
+{module:"Módulo 40",part:1,question:"Como são demarcadas concretamente as mudanças de atos no palco durante um espetáculo teatral?",options:["a) Pela entrada e saída de cada personagem","b) Pela leitura do título do ato por um narrador","c) Pelo fechamento e abrimento da cortina ou pelo apagamento das luzes","d) Pela mudança do figurino dos atores"],correct:2,hint:"Atos são as grandes divisões da peça. Cenas é que são marcadas pela entrada e saída de personagens.",explanation:"Os atos são as grandes divisões, marcadas pela cortina ou pelo apagamento das luzes. A alternativa a) descreve as cenas, não os atos."},
+{module:"Módulo 40",part:1,question:"Qual é o argumento da mãe contra a venda do cavalinho em O Cavalinho Azul?",options:["a) O cavalo vale muito dinheiro na feira","b) O cavalinho dá alegria ao menino","c) O cavalo pode ser vendido por mais caro depois","d) O cavalo é novo e ainda pode trabalhar muito"],correct:1,hint:"A mãe olha para o sentimento do filho, não para o valor do animal.",explanation:"A mãe valoriza o afeto, não o dinheiro. A alternativa a) é o pensamento do pai (realista); a c) não aparece na peça."},
+{module:"Módulo 40",part:1,question:"Qual rubrica mostra um elemento FANTÁSTICO da peça?",options:["a) 'Pela esquerda entram o pai e a mãe carregando a casa.'","b) 'Vicente abraça o cavalinho.'","c) 'O pai sai para a feira.'","d) 'A mãe olha para o menino.'"],correct:0,hint:"Fantástico é o que não seria possível na vida real. Quem consegue carregar uma casa?",explanation:"Carregar a casa é impossível na vida real — falta verossimilhança, marca do fantástico. As outras são ações verossímeis, portanto realistas."},
+{module:"Módulo 40",part:1,question:"Assinale o trecho que é NARRAÇÃO:",options:["a) 'O pai ficou muito zangado e partiu para a feira, onde vendeu o cavalo.'","b) 'Um cavalo magro, de crinas embaraçadas.'","c) 'O palco, iluminado, mostrava o interior da casa.'","d) 'Uma campina verde, com um rio grande e branco.'"],correct:0,hint:"Narração mostra ações que acontecem no tempo. Descrição mostra como algo é.",explanation:"Há acontecimentos e ações que evoluem no tempo (ficou zangado, partiu, vendeu) — isso é narração. A letra b) é descrição do cavalo; a c) descreve o cenário; a d) descreve a paisagem."},
+{module:"Módulo 40",part:2,question:"Leia o trecho: 'No texto narrativo, existe a mediação de um narrador que descreve as cenas com palavras, e nós leitores criamos imagens mentais. Já o texto teatral não tem narrador: é um roteiro escrito para servir de base à encenação.' Com base no trecho, qual afirmação está correta?",options:["a) No teatro, o narrador conta a história em voz alta para a plateia","b) No texto teatral, a história é construída por falas e rubricas, sem narrador","c) O texto narrativo não permite que o leitor crie imagens mentais","d) O texto teatral precisa de narrador para ser encenado"],correct:1,hint:"O trecho diz claramente que o teatro não tem narrador. O que ocupa esse lugar?",explanation:"Sem narrador, a história se constrói pelas falas e rubricas. A alternativa a) contradiz o texto; a c) inverte o que o trecho diz sobre o leitor."},
+{module:"Módulo 40",part:2,question:"Leia o trecho: 'No Auto da Compadecida, o Palhaço fala e, ao mesmo tempo, orienta a encenação. Essa é a exceção: a rubrica aparece no texto escrito e pode ser dita em cena.' Esse trecho mostra que:",options:["a) Todas as rubricas são sempre faladas pelos atores","b) Nenhuma rubrica pode ser falada em cena","c) Existe uma exceção em que a rubrica também funciona como fala","d) O Auto da Compadecida não tem rubricas"],correct:2,hint:"O próprio trecho usa a palavra 'exceção'. O que isso significa em relação à regra geral?",explanation:"A regra geral é que rubrica não é falada, mas o Auto da Compadecida é a exceção. A alternativa a) generaliza o que é exceção; a b) nega a exceção que o texto apresenta."},
+
+{module:"Módulo 41",part:1,question:"Timbre é:",options:["a) A velocidade com que falamos","b) A característica sonora que distingue cada voz","c) O silêncio entre as falas","d) A altura aguda ou grave do som"],correct:1,hint:"Timbre é o que faz você reconhecer a voz de alguém sem ver a pessoa.",explanation:"Timbre é a 'cor' da voz, o que faz você reconhecer alguém só de ouvir. A letra a) define a velocidade, que faz parte da entonação; a d) define o tom, não o timbre."},
+{module:"Módulo 41",part:1,question:"'Por que você não vende a vaquinha?' — o pai responde: 'A vaquinha dá leite'. Essa pergunta é:",options:["a) Pergunta retórica, porque já tem resposta","b) Pergunta que pede informação, porque quem pergunta quer saber a resposta","c) Pergunta sem interrogação","d) Pergunta retórica, porque não espera resposta"],correct:1,hint:"Se existe uma resposta depois, a pergunta estava pedindo informação. Pergunta retórica não espera resposta.",explanation:"Como o pai responde, a pergunta pedia informação (PI). A pergunta retórica é aquela em que quem pergunta já sabe a resposta e a usa como afirmação."},
+{module:"Módulo 41",part:1,question:"'Onde é que existe esta campina, menino? Tudo está seco...' — o pai não quer saber o lugar, ele afirma que esse lugar não existe. Essa pergunta é:",options:["a) Pergunta que pede informação","b) Pergunta retórica, que equivale a uma afirmação enfática","c) Pergunta indireta","d) Pergunta sem sentido"],correct:1,hint:"Quem pergunta já sabe a resposta e usa a pergunta para afirmar algo. Como se chama isso?",explanation:"A pergunta retórica 'faz de conta': equivale à afirmação enfática 'essa campina não existe'. A letra a) transforma a frase em PI, que é justamente o erro mais comum."},
+{module:"Módulo 41",part:1,question:"Complete: '________ você ficou em casa ontem?' — 'Fiquei ________ estava chovendo.'",options:["a) Por que / porque","b) Porque / por que","c) Porquê / porquê","d) Por quê / por que"],correct:0,hint:"A primeira é pergunta direta. A segunda é resposta. Cada uma tem sua forma.",explanation:"A primeira é pergunta direta (por que, separado); a segunda é resposta/explicação (porque, junto). A letra b) inverte as regras; a c) usa o substantivo, que exige artigo."},
+{module:"Módulo 41",part:1,question:"Em qual frase usamos 'por quê' corretamente?",options:["a) 'Não sei por quê ele saiu.'","b) 'Você chorou, por quê?'","c) 'O por quê da história é bonito.'","d) 'Por quê você não veio?'"],correct:1,hint:"'Por quê' acentuado aparece só no fim da pergunta, antes da pontuação.",explanation:"'Por quê' acentuado aparece só no fim da pergunta, antes da pontuação. Na letra a) seria 'por que' (pergunta indireta); na c) seria 'o porquê' (substantivo, junto); na d) seria 'por que' (início de pergunta)."},
+{module:"Módulo 41",part:1,question:"A palavra 'Mulher', em 'Mulher, temos que vender o pangaré', é um exemplo de:",options:["a) Locução adjetiva","b) Vocativo, que chama o interlocutor","c) Adjetivo","d) Substantivo abstrato"],correct:1,hint:"A palavra está chamando alguém diretamente. Como se chama essa função?",explanation:"Vocativo é a palavra usada para chamar o interlocutor. Aqui, 'Mulher' chama a esposa e marca informalidade, típica da linguagem popular rural."},
+{module:"Módulo 41",part:2,question:"Leia o trecho: 'Na leitura expressiva do texto dramático, os atores trabalham recursos da voz: o timbre é a assinatura sonora da voz, o conjunto de características únicas que nos permite reconhecer quem está falando sem ver a pessoa. A entonação é a variação de velocidade, volume forte ou fraco, e tom agudo ou grave, que dá emoção às falas.' De acordo com o trecho, qual é a diferença entre timbre e entonação?",options:["a) Timbre é a variação de volume; entonação é a voz única de cada pessoa","b) Timbre identifica a pessoa; entonação varia velocidade, volume e tom para dar emoção","c) Timbre e entonação são a mesma coisa","d) Timbre é o silêncio entre as falas; entonação é a velocidade"],correct:1,hint:"O trecho diz que o timbre permite reconhecer quem fala. A entonação mexe em velocidade, volume e tom.",explanation:"O timbre é a assinatura sonora que identifica a pessoa; a entonação varia velocidade, volume e tom para dar emoção. A alternativa a) inverte os dois conceitos."},
+{module:"Módulo 41",part:2,question:"Leia o trecho: 'A expressão informal 'Vou levar ele' deve ser reescrita na norma-padrão formal como 'Vou levá-lo'.' O que esse trecho mostra sobre a língua?",options:["a) Que a fala informal é sempre errada e deve ser evitada","b) Que existem diferentes registros, e a norma-padrão é usada em situações formais","c) Que 'Vou levar ele' é a forma correta em qualquer situação","d) Que a língua portuguesa não tem regras"],correct:1,hint:"O trecho fala em 'norma-padrão formal'. Isso indica que existe também outra forma, informal.",explanation:"A língua varia conforme a situação: na fala informal usa-se 'Vou levar ele', na norma-padrão formal usa-se 'Vou levá-lo'. A alternativa a) é radical demais: a fala informal não é errada, apenas é outro registro."},
+
+{module:"Módulo 43",part:1,question:"A entrevista no formato 'pingue-pongue' corresponde a qual discurso?",options:["a) Discurso indireto","b) Discurso direto","c) Discurso misto, sem transcrição","d) Discurso narrativo em 3ª pessoa"],correct:1,hint:"No pingue-pongue as falas aparecem exatamente como foram ditas, com P: e R:.",explanation:"No pingue-pongue o diálogo aparece transcrito integralmente, exatamente como foi dito — isso é discurso direto. O indireto é um relato em 3ª pessoa, sem o formato de perguntas e respostas."},
+{module:"Módulo 43",part:1,question:"O que é dislexia, segundo a entrevista com Marina?",options:["a) Distúrbio de leitura e escrita","b) Medo de falar em público","c) Dificuldade de calcular rapidamente","d) Doença que afeta a visão"],correct:0,hint:"Marina trocava 41 por 14. Isso tem relação com leitura e escrita.",explanation:"A dislexia afeta a leitura e a escrita (Marina trocava 41 por 14). A letra c) confunde com discalculia; a b) é gagueira/vergonha, que não tem relação com o texto."},
+{module:"Módulo 43",part:1,question:"Na entrevista, a expressão 'dois lados' se refere a:",options:["a) Dois países onde Marina morou","b) Pais que monitoram e filhos que cumprem as regras","c) Dois livros preferidos da autora","d) Dois tipos de celular"],correct:1,hint:"A expressão aparece quando Marina fala sobre o uso de celulares pelas crianças.",explanation:"A imagem dos 'dois lados' descreve a relação familiar de acompanhamento e cumprimento de regras. As outras leituras não têm apoio no texto."},
+{module:"Módulo 43",part:1,question:"No sentido GERAL, entrevista é:",options:["a) Sempre um diálogo com jornalista","b) Uma reunião entre duas ou mais pessoas, em local combinado, para tratar de um assunto","c) Um texto só de perguntas","d) Um relato escrito em 3ª pessoa"],correct:1,hint:"Pense na entrevista dos pais com a professora. Não tem jornalista, mas é entrevista.",explanation:"O sentido geral é mais amplo que o jornalístico (ex.: entrevista de pais com a professora). A letra a) vale só para o sentido jornalístico; a c) reduz a entrevista a um formato."},
+{module:"Módulo 43",part:2,question:"Leia o trecho: 'A palavra gourmet é de origem francesa e indica pratos ou refeições requintadas. Marina brinca que a sopa da escola não era gourmet, pois era simples e só de macarrão, mas na sua memória afetiva era a melhor do mundo.' Por que a sopa, sendo simples, era 'a melhor do mundo'?",options:["a) Porque tinha ingredientes gourmet importados","b) Por causa da memória afetiva ligada a ela","c) Porque Marina não gostava de sopa gourmet","d) Porque a escola usava receitas francesas"],correct:1,hint:"O trecho diz que a sopa era simples, mas era a melhor pela memória afetiva. O valor vem da lembrança.",explanation:"Gourmet é culinária requintada, mas o valor da sopa vinha da memória afetiva — da lembrança boa. A letra a) é o oposto: a sopa era simples."},
+{module:"Módulo 43",part:2,question:"Leia o trecho: 'O olho é um pequeno trecho entre aspas que resume uma informação importante ou uma declaração marcante da entrevista. Serve para atrair o leitor antes mesmo de ele começar a ler.' De acordo com o trecho, o 'olho' de uma entrevista serve para:",options:["a) Substituir a entrevista inteira","b) Resumir uma fala marcante e atrair o leitor","c) Indicar o nome do entrevistador","d) Marcar o fim da entrevista"],correct:1,hint:"O trecho diz que ele resume uma informação importante e atrai o leitor.",explanation:"O olho é um destaque entre aspas que resume uma fala marcante para atrair o leitor. Ele não substitui a entrevista nem marca o fim dela."},
+
+{module:"Módulo 44",part:1,question:"'Parecia a última sopa da vida.' Essa frase é:",options:["a) Período simples, com 1 oração","b) Período composto, com 2 orações","c) Frase sem oração, pois não tem verbo","d) Período composto, com 3 orações"],correct:0,hint:"Conte os verbos. Cada verbo forma uma oração.",explanation:"Há apenas 1 verbo (parecia), logo 1 oração — período simples. A letra b) esquece que só há um verbo; a c) está errada porque 'parecia' é verbo, portanto há oração."},
+{module:"Módulo 44",part:1,question:"Em 'Muitos adultos dizem não, mas é um sim disfarçado, pois na primeira birra cedem', há:",options:["a) 2 orações","b) 3 orações","c) 1 oração","d) 4 orações"],correct:1,hint:"Conte os verbos: dizem, é, cedem. Cada um forma uma oração.",explanation:"Três verbos: dizem, é (subentendido: 'é um sim'), cedem — logo 3 orações, ligadas por vírgula, 'mas' e 'pois'. Contar os verbos é o método infalível."},
+{module:"Módulo 44",part:1,question:"O travessão duplo serve para:",options:["a) Terminar o enunciado com força","b) Isolar uma frase intercalada no meio do enunciado, acrescentando explicação ou comentário","c) Marcar o começo das falas de personagens","d) Separar os itens de uma lista"],correct:1,hint:"O travessão duplo abre e fecha. O que fica no meio dele?",explanation:"O travessão duplo abre e fecha um comentário no meio da frase. A letra c) descreve o travessão de diálogo, outro uso; a a) é função de outro sinal."},
+{module:"Módulo 44",part:1,question:"O prefixo IM- aparece antes de:",options:["a) Qualquer palavra","b) Palavras que começam com P e B","c) Palavras que começam com vogal","d) Palavras que começam com L e R"],correct:1,hint:"Pense em imperfeito e imbebível. Que letras iniciam as palavras de origem?",explanation:"IM- só entra antes de P e B (imperfeito, imbebível). Antes de vogais e outras consoantes é IN- (inútil); antes de L e R é I- (ilegal, irreal)."},
+{module:"Módulo 44",part:1,question:"Assinale os antônimos grafados CORRETAMENTE:",options:["a) Inperfeito e inbebível","b) Imperfeito e imbebível","c) Imperfeito e irbebível","d) Imbebível e inperfeito"],correct:1,hint:"Perfeito começa com P, bebível começa com B. Qual prefixo vai antes de P e B?",explanation:"Como 'perfeito' e 'bebível' começam com P e B, o prefixo correto é IM-. A letra a) usa IN- antes de P e B (erro clássico); a c) inventa o prefixo 'ir-'."},
+{module:"Módulo 44",part:2,question:"Leia o trecho: 'Oração é o enunciado construído ao redor de um verbo ou locução verbal. Sem verbo não existe oração! O período simples é formado por apenas uma oração. O período composto é formado por duas ou mais orações.' De acordo com o trecho, qual é o método mais seguro para saber quantas orações tem um período?",options:["a) Contar as palavras da frase","b) Contar os verbos da frase","c) Contar as vírgulas da frase","d) Contar as letras maiúsculas"],correct:1,hint:"O trecho diz que a oração se organiza ao redor de um verbo. Então, o que contar?",explanation:"Se cada oração se organiza em torno de um verbo, contar os verbos é o método mais seguro. Vírgulas e palavras não indicam orações."},
+{module:"Módulo 44",part:2,question:"Leia o trecho: 'O travessão duplo isola uma frase intercalada no meio do período, adicionando uma explicação ou comentário acessório. Quando a intercalação está no fim do enunciado, o ponto-final substitui o segundo travessão. Cuidado: com os parênteses, os DOIS se mantêm mesmo no fim do enunciado.' Qual é a diferença entre travessão e parênteses no fim do enunciado?",options:["a) Com travessão, os dois se mantêm; com parênteses, o segundo desaparece","b) Com travessão, o segundo é substituído pelo ponto-final; com parênteses, os dois se mantêm","c) Não há diferença entre os dois sinais","d) Os dois sinais nunca aparecem no fim de uma frase"],correct:1,hint:"O trecho diz que o ponto-final substitui o segundo travessão, mas com parênteses os dois se mantêm.",explanation:"Com travessão, o ponto-final substitui o segundo travessão; com parênteses, os dois se mantêm. A alternativa a) inverte exatamente a regra."},
+
+{module:"Módulo 46",part:1,question:"Qual é a diferença entre propaganda e publicidade?",options:["a) Não há diferença nenhuma","b) Propaganda divulga ideias e causas; publicidade divulga produtos, com fim comercial","c) Publicidade divulga causas; propaganda vende produtos","d) Propaganda é usada no rádio e publicidade em jornais"],correct:1,hint:"Pense na campanha da dengue e no anúncio de um tênis. Qual é causa e qual é produto?",explanation:"Propaganda busca adesão a ideias (dengue, vacinação); publicidade tem fim lucrativo (carro, tênis). A letra c) inverte os conceitos — confira sempre quem é o público e o objetivo."},
+{module:"Módulo 46",part:1,question:"O símbolo do mosquito riscado na campanha da dengue imita:",options:["a) Placas de advertência amarelas","b) Placas de trânsito de regulamentação/proibição","c) Placas de indicação de destinos","d) Símbolos de marcas esportivas"],correct:1,hint:"O mosquito está dentro de um círculo vermelho com barra diagonal. Que placa usa esse formato?",explanation:"O círculo vermelho com barra diagonal é o código visual de proibição que todos reconhecem. Advertência é o quadrado apoiado no vértice, fundo amarelo; indicação informa destinos."},
+{module:"Módulo 46",part:1,question:"Segundo o Artigo 37 do CBAP, é proibido:",options:["a) Fazer anúncio em revista","b) Dirigir apelo imperativo de consumo diretamente à criança","c) Usar o imperativo em slogans","d) Mostrar imagens da natureza em campanhas"],correct:1,hint:"A norma protege a criança do apelo direto de consumo. Qual alternativa fala disso?",explanation:"A norma protege a criança do apelo direto de consumo. Anunciar em revista é permitido; o imperativo no slogan ('reserve', 'olhe') é recurso linguístico legítimo, não é proibição do Artigo 37."},
+{module:"Módulo 46",part:2,question:"Leia o trecho: 'A campanha do Greenpeace altera o ditado popular 'O que os olhos não veem, o coração não sente' para 'O que os olhos não veem, a natureza sente', mostrando a foto de um macaco cobrindo os olhos do filhote.' O que essa alteração do ditado revela sobre a linguagem da propaganda?",options:["a) Que a propaganda copia ditados sem mudar nada","b) Que a propaganda transforma frases conhecidas para criar novo sentido e impacto","c) Que a propaganda não usa linguagem verbal","d) Que o ditado original já falava de natureza"],correct:1,hint:"O ditado foi modificado de propósito. Por que um publicitário mudaria uma frase que todos conhecem?",explanation:"A propaganda se apropria de uma frase conhecida e a modifica para criar novo sentido e impacto. A letra a) é o oposto do que o trecho mostra; a c) ignora que o ditado é linguagem verbal."},
+{module:"Módulo 46",part:2,question:"Leia o trecho: 'Existem três tipos de sinais verticais, e a padronização deles forma um código visual que garante a eficácia da comunicação: regulamentação (círculo, fundo branco, orla vermelha), advertência (quadrado apoiado no vértice, fundo amarelo) e indicação (verde ou azul).' Em um post da prefeitura que proíbe estacionar, predominam a cor vermelha e o círculo porque:",options:["a) Vermelho é uma cor bonita para redes sociais","b) Esses elementos são o código visual de proibição das placas de regulamentação","c) O vermelho indica informação de destinos","d) O círculo é o formato das placas de advertência"],correct:1,hint:"O trecho diz que regulamentação usa círculo com orla vermelha. E advertência usa qual formato?",explanation:"A padronização (círculo, fundo branco, orla e tarja vermelhas) garante que o receptor entenda a proibição rapidamente. Vermelho não indica destino — isso é placa de indicação, verde ou azul. Advertência é quadrado, não círculo."}
+];
+
+const STORE_KEY = "portugues-quiz-progress";
+const MODULES = ["Módulo 40","Módulo 41","Módulo 43","Módulo 44","Módulo 46","Interpretação"];
+
+let state = { index: 0, answers: [], score: 0, answered: false, mode: "full", order: [] };
+let progress = null;
+
+function bootQuiz(attempt) {
+attempt = attempt || 0;
+try {
+if (!Array.isArray(QUESTIONS) || QUESTIONS.length === 0) throw new Error("sem questões");
+progress = window.skipStore(STORE_KEY, { lastScore: null, lastTotal: 0 });
+startFullQuiz();
+bindEvents();
+} catch (e) {
+if (attempt < 3) setTimeout(function(){ bootQuiz(attempt + 1); }, 120);
+else document.getElementById("question-text").textContent = "Não foi possível carregar o quiz. Recarregue a página.";
+}
+}
+
+function showScreen(id) {
+["quiz-screen","results-screen","review-screen"].forEach(function(s){
+document.getElementById(s).classList.toggle("active", s === id);
+});
+}
+
+function startFullQuiz() {
+state.mode = "full";
+state.order = QUESTIONS.map(function(_, i){ return i; });
+resetRun();
+showScreen("quiz-screen");
+loadQuestion();
+}
+
+function startReviewErrors() {
+const errs = getErrors();
+if (errs.length === 0) { window.skipUI.toast("Você não tem erros para revisar!", { type: "success" }); return; }
+state.mode = "errors";
+state.order = errs;
+resetRun();
+showScreen("quiz-screen");
+loadQuestion();
+}
+
+function resetRun() {
+state.index = 0;
+state.answers = [];
+state.score = 0;
+state.answered = false;
+}
+
+function restartQuiz() {
+startFullQuiz();
+window.skipUI.toast("Quiz reiniciado. Boa sorte!");
+}
+
+function currentQuestion() {
+return QUESTIONS[state.order[state.index]];
+}
+
+function loadQuestion() {
+const q = currentQuestion();
+state.answered = false;
+document.getElementById("module-tag").textContent = q.module + (q.part === 2 ? " • Interpretação" : " • Conteúdo");
+document.getElementById("progress-text").textContent = "Questão " + (state.index + 1) + " de " + state.order.length;
+document.getElementById("question-text").textContent = q.question;
+const pct = (state.index / state.order.length) * 100;
+document.getElementById("progress-fill").style.width = pct + "%";
+const hb = document.getElementById("hint-box");
+hb.textContent = "💡 Dica: " + q.hint;
+hb.classList.remove("show");
+document.getElementById("hint-toggle-btn").textContent = "💡 Preciso de uma dica";
+const fb = document.getElementById("feedback");
+fb.className = "feedback";
+fb.textContent = "";
+document.getElementById("next-btn").style.display = "none";
+document.getElementById("next-btn").textContent = state.index === state.order.length - 1 ? "Ver resultado" : "Próxima";
+renderOptions(q);
+updateScore();
+}
+
+function renderOptions(q) {
+const box = document.getElementById("options-container");
+box.innerHTML = "";
+q.options.forEach(function(text, i){
+const b = document.createElement("button");
+b.type = "button";
+b.className = "opt";
+b.textContent = text;
+b.setAttribute("data-idx", i);
+b.addEventListener("click", function(){ selectOption(i); });
+box.appendChild(b);
+});
+}
+
+function updateScore() {
+document.getElementById("score-text").textContent = "Acertos: " + state.score;
+}
+
+function toggleHint() {
+var box = document.getElementById("hint-box");
+var btn = document.getElementById("hint-toggle-btn");
+if (!box || !btn) return;
+var aberto = box.classList.toggle("show");
+btn.textContent = aberto ? "🙈 Ocultar dica" : "💡 Preciso de uma dica";
+}
+
+function selectOption(i) {
+if (state.answered) return;
+state.answered = true;
+const q = currentQuestion();
+const ok = i === q.correct;
+const opts = document.querySelectorAll("#options-container .opt");
+opts.forEach(function(o){ o.disabled = true; });
+opts[i].classList.add(ok ? "correct" : "wrong");
+if (!ok) opts[q.correct].classList.add("correct");
+if (ok) state.score++;
+state.answers[state.order[state.index]] = i;
+updateScore();
+const fb = document.getElementById("feedback");
+fb.className = "feedback show " + (ok ? "ok" : "no");
+fb.textContent = (ok ? "✓ Muito bem! " : "✗ Não foi dessa vez. ") + q.explanation;
+document.getElementById("next-btn").style.display = "inline-block";
+}
+
+function handleNextAction() {
+if (!state.answered) return;
+if (state.index < state.order.length - 1) {
+state.index++;
+loadQuestion();
+} else {
+showResults();
+}
+}
+
+function getErrors() {
+const errs = [];
+QUESTIONS.forEach(function(q, i){
+if (state.answers[i] !== undefined && state.answers[i] !== q.correct) errs.push(i);
+if (state.answers[i] === undefined) errs.push(i);
+});
+return errs;
+}
+
+function modStats() {
+const stats = {};
+MODULES.forEach(function(m){ stats[m] = { total: 0, ok: 0 }; });
+QUESTIONS.forEach(function(q, i){
+const key = q.part === 2 ? "Interpretação" : q.module;
+stats[key].total++;
+if (state.answers[i] === q.correct) stats[key].ok++;
+});
+return stats;
+}
+
+function showResults() {
+const total = QUESTIONS.length;
+const score = QUESTIONS.reduce(function(acc, q, i){ return acc + (state.answers[i] === q.correct ? 1 : 0); }, 0);
+const pct = Math.round((score / total) * 100);
+document.getElementById("progress-fill").style.width = "100%";
+document.getElementById("final-score").textContent = score;
+document.getElementById("final-total").textContent = "de " + total;
+let msg;
+if (pct >= 85) msg = "Sensacional! Você demonstrou domínio total sobre a matéria de Português do 6º Ano!";
+else if (pct >= 65) msg = "Muito bom! Você está super preparado para mandar muito bem na prova!";
+else if (pct >= 45) msg = "Bom esforço! Vale revisar os módulos em que errou e tentar novamente.";
+else msg = "Não desanime! Revise o material com carinho e faça o quiz de novo.";
+document.getElementById("result-msg").textContent = msg;
+progress.set({ lastScore: score, lastTotal: total });
+
+const stats = modStats();
+let worst = null, worstPct = 101;
+MODULES.forEach(function(m){
+const s = stats[m];
+const p = s.total ? (s.ok / s.total) * 100 : 0;
+if (p < worstPct) { worstPct = p; worst = m; }
+});
+const box = document.getElementById("mod-summary");
+box.innerHTML = "";
+MODULES.forEach(function(m){
+const s = stats[m];
+const p = s.total ? Math.round((s.ok / s.total) * 100) : 0;
+const wrap = document.createElement("div");
+wrap.className = "mod-bar" + (m === worst ? " worst" : "");
+wrap.innerHTML = '<div class="row"><span>' + m + '</span><span>' + s.ok + '/' + s.total + ' (' + p + '%)</span></div>' +
+'<div class="track"><div class="fill" style="width:' + p + '%"></div></div>';
+box.appendChild(wrap);
+});
+showScreen("results-screen");
+}
+
+function showReview() {
+const list = document.getElementById("review-list");
+list.innerHTML = "";
+QUESTIONS.forEach(function(q, i){
+const mine = state.answers[i];
+const ok = mine === q.correct;
+const card = document.createElement("div");
+card.className = "review-card";
+const mineTxt = mine === undefined ? "Não respondida" : q.options[mine];
+card.innerHTML =
+'<div class="meta">' + q.module + (q.part === 2 ? ' • Interpretação' : ' • Conteúdo') + ' • Questão ' + (i + 1) + ' ' + (ok ? '✓' : '✗') + '</div>' +
+'<div class="q"></div>' +
+'<div class="line mine"><strong>Sua resposta:</strong> ' + escapeHtml(mineTxt) + '</div>' +
+'<div class="line right"><strong>Resposta certa:</strong> ' + escapeHtml(q.options[q.correct]) + '</div>' +
+'<div class="expl"></div>';
+card.querySelector(".q").textContent = q.question;
+card.querySelector(".expl").textContent = q.explanation;
+list.appendChild(card);
+});
+showScreen("review-screen");
+}
+
+function backToResult() {
+showScreen("results-screen");
+}
+
+function escapeHtml(s) {
+return String(s).replace(/[&<>"']/g, function(c){
+return { "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c];
+});
+}
+
+function bindEvents() {
+document.getElementById("hint-toggle-btn").addEventListener("click", toggleHint);
+document.getElementById("next-btn").addEventListener("click", handleNextAction);
+document.getElementById("btn-review").addEventListener("click", showReview);
+document.getElementById("btn-review-errors").addEventListener("click", function(){
+const errs = getErrors();
+if (errs.length === 0) { window.skipUI.toast("Você não tem erros para revisar!", { type: "success" }); return; }
+startReviewErrors();
+});
+document.getElementById("btn-restart").addEventListener("click", restartQuiz);
+document.getElementById("btn-restart-2").addEventListener("click", restartQuiz);
+document.getElementById("btn-back-result").addEventListener("click", backToResult);
+}
+
+document.addEventListener("DOMContentLoaded", function(){ bootQuiz(0); });
+</script>
+</body>
+</html>
