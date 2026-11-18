@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desafio de Português — 6º ano</title>
+<title>Desafio de Português — 6º Ano · Prof.ª Ju</title>
 <style>
 /* Skip artifact shell — fixed styles served beside every artifact.
    Tokens, utilities and components (basecoat 1.0 markup, no CDN); artifacts
@@ -25,14 +25,6 @@
   --danger: #c0262d;
   --warning: #8a5300;
 }
-/* Theme resolution. Without data-theme the viewer's system preference decides,
-   as it always did. With it, the artifact's own choice wins in BOTH directions:
-   a page that hardcodes one palette must not be handed the opposite set of
-   tokens by the machine it happens to be opened on. The dark values appear
-   twice because a media query cannot be folded into a selector list.
-   The attribute sits inside :where() so these blocks keep the specificity of a
-   bare :root — the page's own <style> is linked after this file and must go on
-   overriding any token it wants, exactly as it could before. */
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme="light"])) {
     --accent-text: color-mix(in srgb, var(--accent) 78%, #fff);
@@ -61,12 +53,6 @@
   --warning: #fbbf24;
 }
 :root:where([data-theme="light"]) { color-scheme: light; }
-/* Pages generated before the shell had its own components still link the
-   basecoat CDN, which reads its own tokens and switches theme only on a
-   .dark class. Bridged to the shell's, whatever of it those pages use takes
-   the page's accent and follows the declared theme. Its --accent token is a
-   hover tint, renamed in its theme as --color-accent; the shell's --accent is
-   the brand colour, so the tint is derived from it here. */
 :root {
   --background: var(--bg);
   --foreground: var(--text);
@@ -86,12 +72,7 @@
   --input: var(--border);
   --ring: var(--accent);
 }
-* { box-sizing: border-box; }
-/* The reset the pages were written against: they all linked basecoat, which
-   ships Tailwind's. Its components now live here, so the reset does too. */
-*, ::before, ::after, ::backdrop { margin: 0; padding: 0; border: 0 solid; }
-/* Preflight's rule too: without it a component class that sets display
-   (.alert, .card, .btn…) beats the hidden attribute and shows the element. */
+*, ::before, ::after, ::backdrop { box-sizing: border-box; margin: 0; padding: 0; border: 0 solid; }
 [hidden]:where(:not([hidden="until-found"])) { display: none !important; }
 .hidden { display: none !important; }
 h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
@@ -160,8 +141,6 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
   font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
   background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent-text);
 }
-/* A pill keeps its content width inside flex and grid columns, which would
-   otherwise stretch it across the card; a centred parent still centres it. */
 .shell-badge, .eyebrow, .badge { width: fit-content; max-width: 100%; }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -169,8 +148,6 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
   @keyframes shell-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 }
 
-/* Layout and type utilities: what the pages kept spelling in style="".
-   Spacing and type sizes follow Tailwind's scale; there is no Tailwind. */
 .row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .stack { display: flex; flex-direction: column; gap: var(--space); }
 .between { justify-content: space-between; }
@@ -199,10 +176,6 @@ table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 
 .w-full { width: 100%; }
 .text-success { color: var(--success); } .text-danger { color: var(--danger); } .text-warning { color: var(--warning); }
 
-/* Components, with basecoat 1.0 markup (variants and sizes are data
-   attributes) and the shell tokens, so a page needs neither component CSS
-   nor a CSS framework. An older page that also links basecoat gets these
-   rules after it, over the same properties. */
 button, input, select, textarea { font: inherit; }
 input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -314,7 +287,6 @@ dialog.dialog footer { display: flex; flex-wrap: wrap; justify-content: flex-end
 .toaster .toast-content h2 { margin: 0 0 2px; font-size: 14px; font-weight: 600; }
 .toaster .toast-content p { margin: 0; color: var(--text-muted); }
 
-/* skipUI building blocks. */
 .skip-table-search { max-width: 320px; margin-bottom: 12px; }
 .skip-table-wrap { overflow-x: auto; }
 table.shell-table th[data-sort] { cursor: pointer; user-select: none; }
@@ -324,7 +296,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
 .skip-pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; font-size: 13px; color: var(--text-muted); }
 .toaster .toast[data-type="success"] .toast-content { border-left: 3px solid var(--success); }
 .toaster .toast[data-type="error"] .toast-content { border-left: 3px solid var(--danger); }
-
 </style>
 <script>
 /* Skip artifact shell — fixed helpers served beside every artifact. */
@@ -339,9 +310,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     brlCompact: function (v) { return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", notation: "compact", maximumFractionDigits: 1 }).format(v); }
   };
 
-  // axisLabels formats the five y-axis ticks in the unit the chart declared
-  // (percent, BRL or plain numbers), compact so long values never clip, with
-  // the fewest decimals that still print every tick exactly (1,5 mi, not 2 mi).
   function axisLabels(format, ticks) {
     function at(digits) {
       var opts = { notation: "compact", maximumFractionDigits: digits };
@@ -356,8 +324,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     return at(2);
   }
 
-  // yAxisPad formats the ticks and measures the left padding they need from
-  // the longest one; drawYAxis then draws the grid and the labels.
   function yAxisPad(format, max) {
     var labels = axisLabels(format, [0, max / 4, max / 2, (max * 3) / 4, max]);
     var longest = labels.reduce(function (m, l) { return Math.max(m, l.length); }, 0);
@@ -373,8 +339,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     }
   }
 
-  // xLabelStep: show every k-th category label so labels never overlap, and
-  // always the last one (counted back from the end).
   function xLabelStep(labels, step) {
     var longest = labels.reduce(function (m, l) { return Math.max(m, String(l).length); }, 0);
     return Math.max(1, Math.ceil((longest * 6.4 + 8) / Math.max(step, 1)));
@@ -388,9 +352,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     tx.textContent = text;
     svg.appendChild(tx);
   }
-  // categoryLines fits a bar's category name in its slot: one line, two lines
-  // split at a space, or cut with "…". A bar without its name can't be read, so
-  // categories are never skipped; null when the slot is too narrow for that.
   function categoryLines(text, slot) {
     var fit = Math.floor((slot - 6) / 6.4);
     var s = String(text);
@@ -424,9 +385,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
   }
   var seriesPalette = ["#1baf7a", "#eda100", "#e34948", "#4a3aa7", "#e87ba4", "#0ea5b7"];
 
-  // format accepts a function OR one of the fmt names ("num" | "brl" | "pct").
-  // A page's function may return nothing or throw: the chart prints its
-  // number instead of taking the rest of the page script down with it.
   function coerceFormat(spec) {
     if (typeof spec === "function") {
       return function (v) {
@@ -461,10 +419,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     return svg;
   }
 
-  // maxOf guards the axis scale: empty values would give -Infinity (truthy,
-  // so "|| 1" can't catch it) and a non-positive max would flip the chart.
-  // finite reads a chart value as a number, 0 when it is not one (NaN,
-  // Infinity, a stray string), so one bad value cannot blank the axis.
   function finite(v) {
     var n = +v;
     return isFinite(n) ? n : 0;
@@ -475,17 +429,12 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     return m > 0 ? m : 1;
   }
 
-  // labelsFor pads or trims the category names to the n points drawn: pages
-  // pass labels and values of different lengths, and one throw here loses
-  // every section the page renders after the chart.
   function labelsFor(cfg, n) {
     var out = [];
     for (var i = 0; i < n; i++) out.push(cfg.labels && cfg.labels[i] != null ? String(cfg.labels[i]) : "");
     return out;
   }
 
-  // niceMax rounds the scale up so the four grid steps land on round values
-  // (1, 1.5, 2, 2.5, 3, 4, 5, 6 or 8 × 10^k) and the tick labels read exactly.
   function niceMax(max) {
     var raw = max / 4;
     var mag = Math.pow(10, Math.floor(Math.log10(raw)));
@@ -495,7 +444,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     return nice * mag * 4;
   }
 
-  // bar(el, {labels:[], values:[], color?, format?}) — vertical bar chart.
   function bar(el, cfg) {
     var W = 640, H = 280, padB = 30, padT = 12, padR = 12;
     var max = niceMax(maxOf(cfg.values));
@@ -532,8 +480,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     });
   }
 
-  // line(el, {labels:[], values:[] | series:[{label, values, color?}], color?, format?})
-  // — one line, or several series on one scale with a legend under the chart.
   function line(el, cfg) {
     var W = 640, H = 280, padB = 30, padT = 12, padR = 16;
     var series = cfg.series && cfg.series.length
@@ -575,14 +521,9 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     }
   }
 
-  // donut(el, {labels:[], values:[], colors?, format?, center?, centerLabel?, legend?})
-  // — donut with a short total in the centre (compact, in the declared unit)
-  // and, with legend: true, the labels and shares listed under it.
   function donut(el, cfg) {
     var W = 320, H = 280, cx = W / 2, cy = H / 2, R = 92, r = 58;
     var svg = frame(el, W, H);
-    // At 100% of a wide container the donut outgrows the height pages give
-    // the box and spills over the next section: keep it at its own size.
     svg.style.maxWidth = W + "px";
     svg.style.margin = "0 auto";
     var values = cfg.values.map(finite);
@@ -590,7 +531,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     var sum = values.reduce(function (a, b) { return a + b; }, 0);
     var total = sum || 1;
     var palette = cfg.colors || [accent()].concat(seriesPalette);
-    // The hover keeps the full value; the centre has room for a short one.
     var full = coerceFormat(cfg.format);
     var short = typeof cfg.format === "function" ? full : cfg.format === "brl" ? fmt.brlCompact : fmt.compact;
     var a0 = -Math.PI / 2;
@@ -608,8 +548,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
       svg.appendChild(path);
       a0 = a1;
     });
-    // A share chart has no total worth printing: without its own centre text
-    // the caption alone takes the middle.
     var text = cfg.center != null ? String(cfg.center) : (cfg.format === "pct" ? "" : short(sum));
     if (text) {
       var size = text.length > 9 ? 14 : text.length > 7 ? 17 : 20;
@@ -628,11 +566,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
       }));
     }
   }
-
-  // ---- Page building blocks: what dashboards and small systems kept
-  // re-implementing — a searchable sortable table, a KPI row, tabs, toasts,
-  // dialogs, saved state and mock data. Every call is opt-in, so a page that
-  // brings its own versions keeps them.
 
   function resolve(target) {
     return typeof target === "string" ? document.querySelector(target) : target;
@@ -660,12 +593,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     return String(a == null ? "" : a).localeCompare(String(b == null ? "" : b), "pt-BR", { numeric: true });
   }
 
-  // table(el, {columns, rows, search?, pageSize?, empty?, onRowClick?}) — a
-  // table.shell-table with sortable headers, an optional search box and
-  // pager. A column is {key, label, format?, align?, sortable? (true),
-  // render?(value, row) returning a Node or an HTML string — the page writes
-  // its cell templates as markup}. Plain values are always set as text.
-  // Returns {setRows, rows}.
   function table(target, cfg) {
     var root = resolve(target);
     var cols = cfg.columns || [];
@@ -743,8 +670,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
         }
         tr.appendChild(td);
       });
-      // The row stays a row (no role) and takes focus, so a keyboard reaches
-      // the same action; keys pressed on a control inside a cell are its own.
       if (cfg.onRowClick) {
         tr.style.cursor = "pointer";
         tr.tabIndex = 0;
@@ -801,8 +726,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     };
   }
 
-  // kpis(el, [{label, value, format?, delta?, hint?}]) — KPI cards in a
-  // responsive grid; delta is a fraction (0.12 renders as ▲ 12%).
   function kpis(target, items) {
     var root = resolve(target);
     root.innerHTML = "";
@@ -810,8 +733,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     items.forEach(function (item) {
       var card = node("div", "panel kpi");
       card.appendChild(node("span", "kpi-label", item.label));
-      // Large money values go compact ("R$ 27,5 mi"): the full amount does
-      // not fit a KPI card at four per row.
       var kpiFormat = item.format === "brl" && Math.abs(item.value) >= 1e6 ? fmt.brlCompact : (item.format ? coerceFormat(item.format) : null);
       card.appendChild(node("span", "kpi-value", kpiFormat ? kpiFormat(item.value) : String(item.value)));
       if (typeof item.delta === "number") {
@@ -823,16 +744,12 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     });
   }
 
-  // badge(text, variant?) — a .badge node for table cells and lists;
-  // variant is "secondary" | "outline" | "destructive" (default: primary).
   function badge(text, variant) {
     var el = node("span", "badge", text);
     if (variant) el.setAttribute("data-variant", variant);
     return el;
   }
 
-  // tabs(el) — wires one .tabs block: [role=tab] buttons inside
-  // [role=tablist], each with aria-controls naming its [role=tabpanel].
   function tabs(target) {
     var root = resolve(target);
     var buttons = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
@@ -858,8 +775,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     select(buttons.filter(function (b) { return b.getAttribute("aria-selected") === "true"; })[0] || buttons[0]);
   }
 
-  // toast(message, {type?: "success" | "error", title?, duration?}) — a
-  // .toast in a shared .toaster at the bottom of the page.
   function toast(message, opts) {
     opts = opts || {};
     var toaster = document.querySelector(".toaster") || document.body.appendChild(node("div", "toaster"));
@@ -881,9 +796,6 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     }, opts.duration || 3000);
   }
 
-  // Dialogs are native <dialog class="dialog">: a [data-dialog-open="id"]
-  // anywhere opens one, a [data-dialog-close] inside closes it, and a click on
-  // its backdrop closes it too. Plain dialog.showModal()/close() still work.
   document.addEventListener("click", function (e) {
     var target = e.target;
     if (!(target instanceof Element)) return;
@@ -901,12 +813,8 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     if (target.tagName === "DIALOG" && target.classList.contains("dialog") && target.open) target.close();
   });
 
-  // store(key, fallback) — JSON state in localStorage that never throws (a
-  // private window or a full quota falls back to memory): {get, set, update}.
   function store(key, fallback) {
     var memory;
-    // Set while the last write did not reach localStorage: what is stored
-    // there is older than memory until a write goes through again.
     var unsaved = false;
     var initial = function () { return fallback === undefined ? undefined : JSON.parse(JSON.stringify(fallback)); };
     function get() {
@@ -914,7 +822,7 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
         try {
           var raw = localStorage.getItem(key);
           if (raw != null) return JSON.parse(raw);
-        } catch (e) { /* storage unavailable: memory below */ }
+        } catch (e) {}
       }
       return memory !== undefined ? memory : initial();
     }
@@ -931,595 +839,1252 @@ table.shell-table td.skip-table-empty { color: var(--text-muted); text-align: ce
     return { get: get, set: set, update: function (fn) { return set(fn(get())); } };
   }
 
-  // mock — seeded random data, so a page asks for 90 days of numbers in one
-  // line instead of writing them out; the same seed gives the same data.
-  var FIRST = ["Ana", "Bruno", "Carla", "Diego", "Eduarda", "Felipe", "Gabriela", "Henrique", "Isabela", "João",
-    "Larissa", "Marcos", "Natália", "Otávio", "Paula", "Rafael", "Sofia", "Thiago", "Vanessa", "Lucas"];
-  var LAST = ["Silva", "Santos", "Oliveira", "Souza", "Pereira", "Costa", "Rodrigues", "Almeida", "Nascimento", "Lima",
-    "Araújo", "Fernandes", "Carvalho", "Gomes", "Martins", "Rocha", "Ribeiro", "Barbosa"];
-  var INITIALS = "ABCDEFGHIJLMNOPRSTV".split("");
-  var CITIES = ["São Paulo, SP", "Rio de Janeiro, RJ", "Belo Horizonte, MG", "Curitiba, PR", "Porto Alegre, RS",
-    "Salvador, BA", "Recife, PE", "Fortaleza, CE", "Brasília, DF", "Goiânia, GO", "Campinas, SP", "Florianópolis, SC",
-    "Manaus, AM", "Belém, PA", "Vitória, ES", "Natal, RN"];
-
-  function createMock(seed) {
-    var state = seed >>> 0;
-    var names = 0;
-    function random() {
-      state = (state + 0x6d2b79f5) >>> 0;
-      var t = state;
-      t = Math.imul(t ^ (t >>> 15), t | 1);
-      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    }
-    function int(min, max) { return min + Math.floor(random() * (max - min + 1)); }
-    function pick(list) { return list[Math.floor(random() * list.length)]; }
-    var mock = {
-      seed: function (value) { state = value >>> 0; names = 0; return mock; },
-      random: random,
-      int: int,
-      float: function (min, max, decimals) {
-        var factor = Math.pow(10, decimals == null ? 2 : decimals);
-        return Math.round((min + random() * (max - min)) * factor) / factor;
-      },
-      pick: pick,
-      chance: function (p) { return random() < p; },
-      // There are 360 first/last pairs. A page that draws until the name is
-      // new (do { … } while (used.has(name))) froze the tab past them, so
-      // later draws widen the space: a second surname after 200 (6,480), a
-      // middle initial after 4,000.
-      name: function () {
-        names++;
-        var middle = names > 4000 ? pick(INITIALS) + ". " : "";
-        return pick(FIRST) + " " + middle + (names > 200 ? pick(LAST) + " " : "") + pick(LAST);
-      },
-      city: function () { return pick(CITIES); },
-      // series(n, {start, trend, noise, min, decimals}) — a walk: each value
-      // moves by trend (fraction per step) plus up to ±noise of itself.
-      series: function (n, opts) {
-        opts = opts || {};
-        var value = opts.start == null ? 100 : opts.start;
-        var factor = Math.pow(10, opts.decimals || 0);
-        var out = [];
-        for (var i = 0; i < n; i++) {
-          out.push(Math.max(opts.min == null ? 0 : opts.min, Math.round(value * factor) / factor));
-          value = value * (1 + (opts.trend || 0)) * (1 + (random() * 2 - 1) * (opts.noise == null ? 0.08 : opts.noise));
-        }
-        return out;
-      },
-      // dates(n, {end?, step?: "day" | "week" | "month"}) — ISO dates
-      // (YYYY-MM-DD), oldest first, ending at end (default: today).
-      dates: function (n, opts) {
-        opts = opts || {};
-        var end = opts.end ? new Date(opts.end) : new Date();
-        var out = [];
-        for (var i = n - 1; i >= 0; i--) {
-          var d = new Date(end.getTime());
-          if (opts.step === "month") d.setMonth(d.getMonth() - i);
-          else d.setDate(d.getDate() - i * (opts.step === "week" ? 7 : 1));
-          out.push(d.toISOString().slice(0, 10));
-        }
-        return out;
-      },
-      // rows(n, spec) — n objects; each spec value is a function(i), a list
-      // to pick from, or a constant.
-      rows: function (n, spec) {
-        var out = [];
-        for (var i = 0; i < n; i++) {
-          var row = {};
-          for (var key in spec) {
-            var value = spec[key];
-            row[key] = typeof value === "function" ? value(i) : Array.isArray(value) ? pick(value) : value;
-          }
-          out.push(row);
-        }
-        return out;
-      }
-    };
-    return mock;
-  }
-
   window.skipShell = { fmt: fmt };
   window.skipChart = { bar: bar, line: line, donut: donut };
   window.skipUI = { table: table, kpis: kpis, badge: badge, tabs: tabs, toast: toast };
   window.skipStore = store;
-  window.skipMock = createMock(20261022);
 })();
-
 </script>
 <style>
 :root {
---accent: #0f766e;
---primary: #0f766e;
---primary-light: #0d9488;
---bg: #f0fdf4;
---card-bg: #ffffff;
---text: #1e293b;
---border: #cbd5e1;
---correct-bg: #dcfce7;
---correct-border: #22c55e;
---correct-text: #15803d;
---wrong-bg: #fee2e2;
---wrong-border: #ef4444;
---wrong-text: #b91c1c;
---hint-bg: #fef3c7;
---hint-border: #f59e0b;
+--accent: #2b7bb9;
+--accent-text: #1f5f91;
+--accent-contrast: #ffffff;
 }
 body {
-background: var(--bg);
-color: var(--text);
-margin: 0;
-min-height: 100vh;
-display: flex;
-flex-direction: column;
 font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+background: linear-gradient(160deg, #eef6fb 0%, #f5fbf7 100%);
+color: #13344d;
+min-height: 100vh;
+margin: 0;
 }
-.quiz-header { display: flex; align-items: center; flex-wrap: nowrap; gap: 12px; padding: 28px 16px 12px; max-width: 540px; margin: 0 auto; width: 100%; box-sizing: border-box; }
-.quiz-header .icon { display: flex; align-items: center; justify-content: center; font-size: 2.2rem; line-height: 1; flex-shrink: 0; }
-.quiz-header .titles { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-width: 0; }
-.quiz-header h1 { font-size: 1.35rem; font-weight: 700; color: var(--primary); margin: 0; line-height: 1.2; }
-.quiz-header p { font-size: .85rem; color: #64748b; margin: 0; line-height: 1.3; }
-.quiz-wrap { max-width: 540px; margin: 0 auto; padding: 0 16px 24px; width: 100%; box-sizing: border-box; }
-.quiz-container {
-background: var(--card-bg);
-border-radius: 20px;
-box-shadow: 0 8px 24px rgba(0,0,0,.08);
+.quiz-wrap { max-width: 540px; margin: 0 auto; padding: 16px 12px 24px; }
+.quiz-card {
+background: #fff;
+border-radius: 18px;
+box-shadow: 0 10px 30px rgba(19, 52, 77, 0.10);
 padding: 20px;
+margin-top: 14px;
 }
-.screen { display: none; }
-.screen.active { display: block; }
-.tag {
+.quiz-title { font-size: 2rem; font-weight: 700; color: #13344d; margin: 6px 0 4px; letter-spacing: -0.02em; }
+.quiz-sub { color: #3d5a6e; font-size: 0.9rem; margin: 0; }
+.counters { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.pill {
 display: inline-block;
-background: #ccfbf1;
-color: #0f766e;
-border: 1px solid #99f6e4;
+padding: 4px 12px;
 border-radius: 999px;
-padding: 3px 12px;
+background: #e4f0f9;
+color: #1f5f91;
 font-size: 0.8rem;
 font-weight: 600;
 }
-.progress-stats { display: flex; justify-content: space-between; font-size: 0.85rem; color: #475569; margin: 12px 0 6px; }
-.progress-bar-bg { height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
-.progress-bar-fill { height: 100%; width: 0; background: var(--primary-light); transition: width .3s ease; border-radius: 10px; }
-.question-text { color: var(--primary); font-weight: 700; font-size: 1.1rem; line-height: 1.45; margin: 18px 0 14px; }
-.opts { display: flex; flex-direction: column; gap: 10px; }
-.opt {
+.pill-ok { background: #d7f3e3; color: #1d6b46; }
+.pill-soft { background: #fff7e0; color: #7a5a00; }
+.progress-track {
 width: 100%;
-display: block;
+height: 10px;
+border-radius: 999px;
+background: #e3edf4;
+overflow: hidden;
+margin: 10px 0 4px;
+}
+.progress-fill {
+height: 100%;
+width: 0%;
+border-radius: 999px;
+background: linear-gradient(90deg, #2b7bb9, #3aa675);
+transition: width 0.35s ease;
+}
+.q-meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.q-count { font-size: 0.85rem; color: #3d5a6e; font-weight: 600; }
+.q-text { font-size: 1.08rem; font-weight: 600; line-height: 1.48; margin: 12px 0 14px; color: #13344d; }
+.fig-box {
+background: #fff;
+border: 1px solid #d9e6ef;
+border-radius: 12px;
+padding: 10px;
+text-align: center;
+margin-bottom: 14px;
+}
+.fig-box svg { max-height: 185px; width: 100%; height: auto; }
+.options { display: flex; flex-direction: column; gap: 10px; }
+.opt-btn {
+width: 100%;
+display: flex;
+align-items: flex-start;
+gap: 10px;
 text-align: left;
-white-space: normal;
-overflow-wrap: break-word;
-height: auto;
-min-height: 44px;
-border: 2px solid var(--border);
+background: #fff;
+border: 2px solid #cfe0ec;
+border-radius: 14px;
+padding: 13px 15px;
+font-size: 0.96rem;
+line-height: 1.4;
+color: #13344d;
+cursor: pointer;
+transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+font-family: inherit;
+}
+.opt-letter {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+width: 26px;
+height: 26px;
+border-radius: 50%;
+background: #e4f0f9;
+color: #1f5f91;
+font-weight: 700;
+font-size: 0.85rem;
+margin-top: -1px;
+}
+.opt-btn.correct .opt-letter {
+background: #2e9a64;
+color: #ffffff;
+}
+.opt-btn.wrong .opt-letter {
+background: #c94a4a;
+color: #ffffff;
+}
+.opt-btn:hover:not(:disabled) {
+border-color: #2b7bb9;
+box-shadow: 0 4px 12px rgba(43, 123, 185, 0.18);
+transform: translateY(-1px);
+}
+.opt-btn:focus-visible { outline: 3px solid #2b7bb9; outline-offset: 2px; }
+.opt-btn:disabled { cursor: default; }
+.opt-btn.correct { background: #d7f3e3; border-color: #2e9a64; color: #14402b; font-weight: 600; }
+.opt-btn.wrong { background: #fde2e2; border-color: #c94a4a; color: #5c1d1d; font-weight: 600; }
+.hint-box {
+background: #fff7e0;
+border: 1px solid #f0d98a;
 border-radius: 12px;
 padding: 12px 14px;
-background: #fff;
-color: var(--text);
-font: inherit;
-font-size: 0.95rem;
-line-height: 1.4;
-cursor: pointer;
-transition: border-color .2s, background .2s;
-box-sizing: border-box;
+margin-top: 14px;
+font-size: 0.93rem;
+line-height: 1.48;
+color: #5a4300;
 }
-.opt:hover:not(:disabled) { border-color: var(--primary-light); }
-.opt:focus-visible { outline: 3px solid var(--primary-light); outline-offset: 2px; }
-.opt:disabled { cursor: default; }
-.opt.correct { background: var(--correct-bg); border-color: var(--correct-border); color: var(--correct-text); font-weight: 600; }
-.opt.wrong { background: var(--wrong-bg); border-color: var(--wrong-border); color: var(--wrong-text); font-weight: 600; }
-.quiz-footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
-.hint-btn {
-background: var(--hint-bg);
-border: 1px solid var(--hint-border);
-color: #78350f;
-border-radius: 10px;
-padding: 8px 14px;
-font: inherit;
-font-size: 0.9rem;
-cursor: pointer;
+.feedback {
+border-radius: 12px;
+padding: 12px 14px;
+margin-top: 14px;
+font-size: 0.93rem;
+line-height: 1.5;
 }
-.hint-btn:focus-visible { outline: 3px solid var(--hint-border); outline-offset: 2px; }
-.hint-box {
-display: none;
-background: var(--hint-bg);
-border-left: 4px solid var(--hint-border);
-border-radius: 10px;
-padding: 10px 12px;
-margin-top: 12px;
-font-size: 0.9rem;
-color: #78350f;
-}
-.hint-box.show { display: block; }
-.feedback { display: none; margin-top: 14px; padding: 12px; border-radius: 12px; font-size: 0.92rem; line-height: 1.45; }
-.feedback.show { display: block; }
-.feedback.ok { background: var(--correct-bg); color: var(--correct-text); border: 1px solid var(--correct-border); }
-.feedback.no { background: var(--wrong-bg); color: var(--wrong-text); border: 1px solid var(--wrong-border); }
-.action-btn {
-background: var(--primary);
+.feedback.ok { background: #d7f3e3; border: 1px solid #2e9a64; color: #14402b; }
+.feedback.err { background: #fde2e2; border: 1px solid #c94a4a; color: #5c1d1d; }
+.actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.btn-main {
+background: #2b7bb9;
 color: #fff;
 border: none;
 border-radius: 12px;
-padding: 11px 18px;
-font: inherit;
+padding: 12px 22px;
+font-size: 0.98rem;
 font-weight: 600;
 cursor: pointer;
-transition: background .2s;
+font-family: inherit;
+transition: background 0.18s, transform 0.18s;
 }
-.action-btn:hover { background: var(--primary-light); }
-.action-btn:focus-visible { outline: 3px solid var(--primary-light); outline-offset: 2px; }
-.action-btn.secondary { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
-.action-btn.secondary:hover { background: #ccfbf1; }
-.score-hero { text-align: center; padding: 10px 0 18px; }
-.score-circle {
-width: 150px; height: 150px; border-radius: 50%;
-border: 8px solid var(--primary-light);
-display: flex; flex-direction: column; align-items: center; justify-content: center;
-margin: 0 auto 14px;
+.btn-main:hover:not(:disabled) { background: #236aa0; transform: translateY(-1px); }
+.btn-main:disabled { background: #a9c7dd; cursor: not-allowed; }
+.btn-main:focus-visible { outline: 3px solid #13344d; outline-offset: 2px; }
+.btn-ghost {
+background: #fff;
+color: #1f5f91;
+border: 2px solid #cfe0ec;
+border-radius: 12px;
+padding: 10px 16px;
+font-size: 0.92rem;
+font-weight: 600;
+cursor: pointer;
+font-family: inherit;
+transition: border-color 0.18s, box-shadow 0.18s;
 }
-.score-circle .num { font-size: 2.2rem; font-weight: 800; color: var(--primary); }
-.score-circle .sub { font-size: 0.85rem; color: #475569; }
-.score-hero .msg { font-size: 1rem; color: var(--text); line-height: 1.5; max-width: 420px; margin: 0 auto; }
-.mod-bar { margin: 12px 0; }
-.mod-bar .row { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 4px; }
-.mod-bar .track { height: 10px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
-.mod-bar .fill { height: 100%; background: var(--primary-light); border-radius: 10px; transition: width .4s ease; }
-.mod-bar.worst .fill { background: var(--wrong-border); }
-.mod-bar.worst .row span:first-child { color: var(--wrong-text); font-weight: 700; }
-.review-card { border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; }
-.review-card .meta { font-size: 0.8rem; color: #475569; margin-bottom: 6px; }
-.review-card .q { font-weight: 600; color: var(--primary); margin-bottom: 8px; line-height: 1.4; }
-.review-card .line { font-size: 0.9rem; margin: 4px 0; }
-.review-card .line.mine { color: var(--wrong-text); }
-.review-card .line.right { color: var(--correct-text); }
-.review-card .expl { font-size: 0.88rem; color: #334155; margin-top: 8px; background: #f8fafc; border-radius: 10px; padding: 8px 10px; line-height: 1.45; }
-.btn-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
-.empty { text-align: center; color: #475569; padding: 20px 0; }
-.quiz-footer-note { text-align: center; font-size: 0.75rem; color: #94a3b8; padding: 8px 16px; margin-top: auto; }
+.btn-ghost:hover:not(:disabled) { border-color: #2b7bb9; box-shadow: 0 3px 10px rgba(43,123,185,0.15); }
+.btn-ghost:disabled { color: #8aa3b5; cursor: not-allowed; }
+.btn-ghost:focus-visible { outline: 3px solid #2b7bb9; outline-offset: 2px; }
+.hero-result { text-align: center; padding: 8px 0 4px; }
+.hero-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: #3d5a6e; font-weight: 700; }
+.hero-value { font-size: 3.4rem; font-weight: 800; color: #2b7bb9; line-height: 1.1; margin: 4px 0; }
+.hero-caption { color: #3d5a6e; font-size: 0.95rem; }
+.motivation { margin: 12px 0 0; font-size: 1rem; font-weight: 600; color: #13344d; text-align: center; }
+.mod-row { margin-top: 12px; }
+.mod-head { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 4px; color: #13344d; }
+.mod-bar { height: 8px; background: #e3edf4; border-radius: 999px; overflow: hidden; }
+.mod-bar > span { display: block; height: 100%; background: linear-gradient(90deg, #2b7bb9, #3aa675); border-radius: 999px; }
+.attention {
+background: #fff7e0;
+border: 1px solid #f0d98a;
+border-radius: 12px;
+padding: 12px 14px;
+margin-top: 16px;
+font-size: 0.93rem;
+color: #5a4300;
+}
+.result-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+.review-item { border: 1px solid #d9e6ef; border-radius: 14px; padding: 14px; margin-top: 12px; }
+.review-item h3 { font-size: 0.98rem; margin: 0 0 8px; color: #13344d; }
+.review-item p { margin: 4px 0; font-size: 0.9rem; line-height: 1.45; }
+.review-item .mine { color: #8a2a2a; }
+.review-item .right { color: #14603d; }
+.review-item.is-ok { border-color: #b7e4cc; background: #fafdfb; }
+.review-item.is-err { border-color: #f3c6c6; background: #fffafa; }
+.filter-row { display: flex; gap: 8px; margin-top: 12px; }
+.filter-chip {
+flex: 1;
+border: 2px solid #2b7bb9;
+background: #fff;
+color: #1f5f91;
+border-radius: 999px;
+min-height: 38px;
+padding: 6px 12px;
+font-weight: 600;
+font-family: inherit;
+cursor: pointer;
+font-size: 0.86rem;
+transition: background 0.15s, color 0.15s;
+}
+.filter-chip.on {
+background: #2b7bb9;
+color: #fff;
+}
+.filter-chip:focus-visible { outline: 3px solid #2b7bb9; outline-offset: 2px; }
+.footer-note { text-align: center; font-size: 0.8rem; color: #5b7587; margin-top: 18px; }
+.app-title-wrap { text-align: left; }
+.hidden { display: none !important; }
+@media (min-width: 600px) {
+.quiz-card { padding: 28px; }
+.quiz-title { font-size: 1.35rem; }
+}
+@media (max-width: 600px) {
+.quiz-wrap { padding-left: 8px; padding-right: 8px; }
+.quiz-title { font-size: 1.7rem; }
+.quiz-sub { font-size: 0.82rem; }
+}
 </style>
 </head>
 <body>
-<header class="quiz-header">
-<div class="icon" aria-hidden="true">📖</div>
-<div class="titles">
-<h1>Desafio de Português</h1>
-<p>6º ano — Módulos 40, 41, 43, 44 e 46</p>
+<div class="quiz-wrap">
+<div class="app-title-wrap">
+<span class="pill">Preparação · 3º Trimestre · Anglo</span>
+<h1 class="quiz-title">Desafio de Português</h1>
+<p class="quiz-sub">6º Ano — Módulos 40, 41, 43, 44 e 46 · Prof.ª Ju</p>
+<div class="counters">
+<span class="pill" id="cntAnswered">0 respondidas</span>
+<span class="pill pill-ok" id="cntCorrect">0 acertos</span>
 </div>
-</header>
+</div>
 
-<main class="quiz-wrap">
-<div class="quiz-container">
+<div id="quizView" class="quiz-card">
+<div class="q-meta">
+<span class="pill" id="qModule">Módulo 40 · Texto Teatral</span>
+<span class="q-count" id="qCount">Questão 1 de 30</span>
+</div>
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+<div class="q-text" id="qText"></div>
+<div class="fig-box hidden" id="figBox"></div>
+<div class="options" id="options"></div>
+<div id="hintArea"></div>
+<div id="feedbackArea"></div>
+<div class="actions">
+<button type="button" class="btn-ghost" id="btnHint">💡 Precisa de uma dica?</button>
+<button type="button" class="btn-main" id="btnNext" disabled>Próxima</button>
+</div>
+</div>
 
-<section id="quiz-screen" class="screen active" aria-live="polite">
-<span class="tag" id="module-tag">Módulo 40</span>
-<div class="progress-stats">
-<span id="progress-text">Questão 1 de 32</span>
-<span id="score-text">Acertos: 0</span>
+<div id="resultView" class="quiz-card hidden">
+<div class="hero-result">
+<div class="hero-label">Seu resultado</div>
+<div class="hero-value" id="resPct">0%</div>
+<div class="hero-caption" id="resCount">0 de 30 acertos</div>
 </div>
-<div class="progress-bar-bg" role="progressbar" aria-label="Progresso do quiz">
-<div class="progress-bar-fill" id="progress-fill"></div>
+<p class="motivation" id="resMsg"></p>
+<div id="modBars"></div>
+<div class="attention hidden" id="attention"></div>
+<div class="result-actions">
+<button type="button" class="btn-ghost" id="btnReview">Revisar respostas</button>
+<button type="button" class="btn-ghost" id="btnRetryWrong">Refazer só os erros (0)</button>
+<button type="button" class="btn-main" id="btnRetryAll">Refazer o quiz completo</button>
+<button type="button" class="btn-ghost" id="btnCopy">Copiar resultado</button>
 </div>
-<div class="question-text" id="question-text"></div>
-<div class="opts" id="options-container"></div>
-<div class="hint-box" id="hint-box"></div>
-<div class="feedback" id="feedback"></div>
-<div class="quiz-footer">
-<button type="button" class="hint-btn" id="hint-toggle-btn" aria-label="Mostrar dica">💡 Preciso de uma dica</button>
-<button type="button" class="action-btn" id="next-btn" style="display:none;">Próxima</button>
 </div>
-</section>
 
-<section id="results-screen" class="screen">
-<div class="score-hero">
-<div class="score-circle">
-<span class="num" id="final-score">0</span>
-<span class="sub" id="final-total">de 32</span>
+<div id="reviewView" class="quiz-card hidden">
+<div class="q-meta">
+<span class="pill">Revisão das respostas</span>
+<span class="q-count" id="reviewCount"></span>
 </div>
-<p class="msg" id="result-msg"></p>
+<p class="quiz-sub" style="margin-top:8px;" id="reviewSub">Veja o gabarito e a explicação de cada questão.</p>
+<div class="filter-row" role="group" aria-label="Filtrar revisão">
+<button type="button" class="filter-chip on" id="btnFilterAll">Todas</button>
+<button type="button" class="filter-chip" id="btnFilterWrong">Só os erros</button>
 </div>
-<h2 style="font-size:1rem;color:var(--primary);margin:8px 0 2px;">Desempenho por módulo</h2>
-<p style="font-size:0.85rem;color:#475569;margin:0 0 6px;">Barras mostram o percentual de acertos em cada módulo. A barra vermelha destaca o pior desempenho.</p>
-<div id="mod-summary"></div>
-<div class="btn-row">
-<button type="button" class="action-btn" id="btn-review">Revisar respostas</button>
-<button type="button" class="action-btn secondary" id="btn-review-errors">Revisar só os erros</button>
-<button type="button" class="action-btn secondary" id="btn-restart">Refazer quiz</button>
+<div id="reviewList"></div>
+<div class="actions">
+<button type="button" class="btn-main" id="btnBackResult">Voltar ao resultado</button>
 </div>
-</section>
+</div>
 
-<section id="review-screen" class="screen">
-<h2 style="font-size:1.1rem;color:var(--primary);margin:0 0 4px;">Revisão das questões</h2>
-<p style="font-size:0.85rem;color:#475569;margin:0 0 12px;">Compare sua resposta com a resposta certa e leia a explicação de cada questão.</p>
-<div id="review-list"></div>
-<div class="btn-row">
-<button type="button" class="action-btn secondary" id="btn-back-result">Voltar ao resultado</button>
-<button type="button" class="action-btn" id="btn-restart-2">Refazer quiz</button>
+<p class="footer-note">Desafio de Português · 6º Ano · Sistema Anglo · Prof.ª Ju</p>
 </div>
-</section>
-
-</div>
-</main>
-
-<footer class="quiz-footer-note">Desafio de Português</footer>
 
 <script>
-const QUESTIONS = [
-{module:"Módulo 40",part:1,question:"Na peça teatral, as rubricas aparecem entre parênteses e em letras diferentes. Qual é a função delas?",options:["c) Contar a história em lugar do narrador","d) Indicar o nome dos personagens no programa da peça","b) Orientar a encenação; não são ditas pelos atores","a) Servem para o ator decorar as falas"],correct:2,hint:"Pense em quem lê a rubrica: o ator ou o público? Ela é falada em voz alta no palco?",explanation:"As rubricas dão instruções de cena (movimento, luz, entrada de personagem) e não são ditas pelos atores. A alternativa a) confunde rubrica com fala; a c) confunde com narração — na peça não há narrador."},
-{module:"Módulo 40",part:1,question:"Como são demarcadas concretamente as mudanças de atos no palco durante um espetáculo teatral?",options:["d) Pela mudança do figurino dos atores","b) Pela leitura do título do ato por um narrador","a) Pela entrada e saída de cada personagem","c) Pelo fechamento e abrimento da cortina ou pelo apagamento das luzes"],correct:3,hint:"Atos são as grandes divisões da peça. Cenas é que são marcadas pela entrada e saída de personagens.",explanation:"Os atos são as grandes divisões, marcadas pela cortina ou pelo apagamento das luzes. A alternativa a) descreve as cenas, não os atos."},
-{module:"Módulo 40",part:1,question:"Qual é o argumento da mãe contra a venda do cavalinho em O Cavalinho Azul?",options:["c) O cavalo pode ser vendido por mais caro depois","a) O cavalo vale muito dinheiro na feira","d) O cavalo é novo e ainda pode trabalhar muito","b) O cavalinho dá alegria ao menino"],correct:3,hint:"A mãe olha para o sentimento do filho, não para o valor do animal.",explanation:"A mãe valoriza o afeto, não o dinheiro. A alternativa a) é o pensamento do pai (realista); a c) não aparece na peça."},
-{module:"Módulo 40",part:1,question:"Qual rubrica mostra um elemento FANTÁSTICO da peça?",options:["b) 'Vicente abraça o cavalinho.'","c) 'O pai sai para a feira.'","d) 'A mãe olha para o menino.'","a) 'Pela esquerda entram o pai e a mãe carregando a casa.'"],correct:3,hint:"Fantástico é o que não seria possível na vida real. Quem consegue carregar uma casa?",explanation:"Carregar a casa é impossível na vida real — falta verossimilhança, marca do fantástico. As outras são ações verossímeis, portanto realistas."},
-{module:"Módulo 40",part:1,question:"Assinale o trecho que é NARRAÇÃO:",options:["b) 'Um cavalo magro, de crinas embaraçadas.'","c) 'O palco, iluminado, mostrava o interior da casa.'","d) 'Uma campina verde, com um rio grande e branco.'","a) 'O pai ficou muito zangado e partiu para a feira, onde vendeu o cavalo.'"],correct:3,hint:"Narração mostra ações que acontecem no tempo. Descrição mostra como algo é.",explanation:"Há acontecimentos e ações que evoluem no tempo (ficou zangado, partiu, vendeu) — isso é narração. A letra b) é descrição do cavalo; a c) descreve o cenário; a d) descreve a paisagem."},
-{module:"Módulo 40",part:2,question:"Leia o trecho: 'No texto narrativo, existe a mediação de um narrador que descreve as cenas com palavras, e nós leitores criamos imagens mentais. Já o texto teatral não tem narrador: é um roteiro escrito para servir de base à encenação.' Com base no trecho, qual afirmação está correta?",options:["a) No teatro, o narrador conta a história em voz alta para a plateia","b) No texto teatral, a história é construída por falas e rubricas, sem narrador","c) O texto narrativo não permite que o leitor crie imagens mentais","d) O texto teatral precisa de narrador para ser encenado"],correct:1,hint:"O trecho diz claramente que o teatro não tem narrador. O que ocupa esse lugar?",explanation:"Sem narrador, a história se constrói pelas falas e rubricas. A alternativa a) contradiz o texto; a c) inverte o que o trecho diz sobre o leitor."},
-{module:"Módulo 40",part:2,question:"Leia o trecho: 'No Auto da Compadecida, o Palhaço fala e, ao mesmo tempo, orienta a encenação. Essa é a exceção: a rubrica aparece no texto escrito e pode ser dita em cena.' Esse trecho mostra que:",options:["d) O Auto da Compadecida não tem rubricas","a) Todas as rubricas são sempre faladas pelos atores","b) Nenhuma rubrica pode ser falada em cena","c) Existe uma exceção em que a rubrica também funciona como fala"],correct:3,hint:"O próprio trecho usa a palavra 'exceção'. O que isso significa em relação à regra geral?",explanation:"A regra geral é que rubrica não é falada, mas o Auto da Compadecida é a exceção. A alternativa a) generaliza o que é exceção; a b) nega a exceção que o texto apresenta."},
+const LETTERS = ["A", "B", "C", "D"];
 
-{module:"Módulo 41",part:1,question:"Timbre é:",options:["a) A velocidade com que falamos","b) A característica sonora que distingue cada voz","c) O silêncio entre as falas","d) A altura aguda ou grave do som"],correct:1,hint:"Timbre é o que faz você reconhecer a voz de alguém sem ver a pessoa.",explanation:"Timbre é a 'cor' da voz, o que faz você reconhecer alguém só de ouvir. A letra a) define a velocidade, que faz parte da entonação; a d) define o tom, não o timbre."},
-{module:"Módulo 41",part:1,question:"'Por que você não vende a vaquinha?' — o pai responde: 'A vaquinha dá leite'. Essa pergunta é:",options:["a) Pergunta retórica, porque já tem resposta","b) Pergunta que pede informação, porque quem pergunta quer saber a resposta","c) Pergunta sem interrogação","d) Pergunta retórica, porque não espera resposta"],correct:1,hint:"Se existe uma resposta depois, a pergunta estava pedindo informação. Pergunta retórica não espera resposta.",explanation:"Como o pai responde, a pergunta pedia informação (PI). A pergunta retórica é aquela em que quem pergunta já sabe a resposta e a usa como afirmação."},
-{module:"Módulo 41",part:1,question:"'Onde é que existe esta campina, menino? Tudo está seco...' — o pai não quer saber o lugar, ele afirma que esse lugar não existe. Essa pergunta é:",options:["a) Pergunta que pede informação","b) Pergunta retórica, que equivale a uma afirmação enfática","c) Pergunta indireta","d) Pergunta sem sentido"],correct:1,hint:"Quem pergunta já sabe a resposta e usa a pergunta para afirmar algo. Como se chama isso?",explanation:"A pergunta retórica 'faz de conta': equivale à afirmação enfática 'essa campina não existe'. A letra a) transforma a frase em PI, que é justamente o erro mais comum."},
-{module:"Módulo 41",part:1,question:"Complete: '________ você ficou em casa ontem?' — 'Fiquei ________ estava chovendo.'",options:["a) Por que / porque","b) Porque / por que","c) Porquê / porquê","d) Por quê / por que"],correct:0,hint:"A primeira é pergunta direta. A segunda é resposta. Cada uma tem sua forma.",explanation:"A primeira é pergunta direta (por que, separado); a segunda é resposta/explicação (porque, junto). A letra b) inverte as regras; a c) usa o substantivo, que exige artigo."},
-{module:"Módulo 41",part:1,question:"Em qual frase usamos 'por quê' corretamente?",options:["a) 'Não sei por quê ele saiu.'","b) 'Você chorou, por quê?'","c) 'O por quê da história é bonito.'","d) 'Por quê você não veio?'"],correct:1,hint:"'Por quê' acentuado aparece só no fim da pergunta, antes da pontuação.",explanation:"'Por quê' acentuado aparece só no fim da pergunta, antes da pontuação. Na letra a) seria 'por que' (pergunta indireta); na c) seria 'o porquê' (substantivo, junto); na d) seria 'por que' (início de pergunta)."},
-{module:"Módulo 41",part:1,question:"A palavra 'Mulher', em 'Mulher, temos que vender o pangaré', é um exemplo de:",options:["a) Locução adjetiva","b) Vocativo, que chama o interlocutor","c) Adjetivo","d) Substantivo abstrato"],correct:1,hint:"A palavra está chamando alguém diretamente. Como se chama essa função?",explanation:"Vocativo é a palavra usada para chamar o interlocutor. Aqui, 'Mulher' chama a esposa e marca informalidade, típica da linguagem popular rural."},
-{module:"Módulo 41",part:2,question:"Leia o trecho: 'Na leitura expressiva do texto dramático, os atores trabalham recursos da voz: o timbre é a assinatura sonora da voz, o conjunto de características únicas que nos permite reconhecer quem está falando sem ver a pessoa. A entonação é a variação de velocidade, volume forte ou fraco, e tom agudo ou grave, que dá emoção às falas.' De acordo com o trecho, qual é a diferença entre timbre e entonação?",options:["a) Timbre é a variação de volume; entonação é a voz única de cada pessoa","c) Timbre e entonação são a mesma coisa","d) Timbre é o silêncio entre as falas; entonação é a velocidade","b) Timbre identifica a pessoa; entonação varia velocidade, volume e tom para dar emoção"],correct:3,hint:"O trecho diz que o timbre permite reconhecer quem fala. A entonação mexe em velocidade, volume e tom.",explanation:"O timbre é a assinatura sonora que identifica a pessoa; a entonação varia velocidade, volume e tom para dar emoção. A alternativa a) inverte os dois conceitos."},
-{module:"Módulo 41",part:2,question:"Leia o trecho: 'A expressão informal 'Vou levar ele' deve ser reescrita na norma-padrão formal como 'Vou levá-lo'.' O que esse trecho mostra sobre a língua?",options:["c) Que 'Vou levar ele' é a forma correta em qualquer situação","a) Que a fala informal é sempre errada e deve ser evitada","d) Que a língua portuguesa não tem regras","b) Que existem diferentes registros, e a norma-padrão é usada em situações formais"],correct:0,hint:"O trecho fala em 'norma-padrão formal'. Isso indica que existe também outra forma, informal.",explanation:"A língua varia conforme a situação: na fala informal usa-se 'Vou levar ele', na norma-padrão formal usa-se 'Vou levá-lo'. A alternativa a) é radical demais: a fala informal não é errada, apenas é outro registro."},
-
-{module:"Módulo 43",part:1,question:"A entrevista no formato 'pingue-pongue' corresponde a qual discurso?",options:["c) Discurso misto, sem transcrição","a) Discurso indireto","d) Discurso narrativo em 3ª pessoa","b) Discurso direto"],correct:3,hint:"No pingue-pongue as falas aparecem exatamente como foram ditas, com P: e R:.",explanation:"No pingue-pongue o diálogo aparece transcrito integralmente, exatamente como foi dito — isso é discurso direto. O indireto é um relato em 3ª pessoa, sem o formato de perguntas e respostas."},
-{module:"Módulo 43",part:1,question:"O que é dislexia, segundo a entrevista com Marina?",options:["b) Medo de falar em público","c) Dificuldade de calcular rapidamente","d) Doença que afeta a visão","a) Distúrbio de leitura e escrita"],correct:3,hint:"Marina trocava 41 por 14. Isso tem relação com leitura e escrita.",explanation:"A dislexia afeta a leitura e a escrita (Marina trocava 41 por 14). A letra c) confunde com discalculia; a b) é gagueira/vergonha, que não tem relação com o texto."},
-{module:"Módulo 43",part:1,question:"Na entrevista, a expressão 'dois lados' se refere a:",options:["c) Dois livros preferidos da autora","a) Dois países onde Marina morou","d) Dois tipos de celular","b) Pais que monitoram e filhos que cumprem as regras"],correct:3,hint:"A expressão aparece quando Marina fala sobre o uso de celulares pelas crianças.",explanation:"A imagem dos 'dois lados' descreve a relação familiar de acompanhamento e cumprimento de regras. As outras leituras não têm apoio no texto."},
-{module:"Módulo 43",part:1,question:"No sentido GERAL, entrevista é:",options:["c) Um texto só de perguntas","a) Sempre um diálogo com jornalista","d) Um relato escrito em 3ª pessoa","b) Uma reunião entre duas ou mais pessoas, em local combinado, para tratar de um assunto"],correct:3,hint:"Pense na entrevista dos pais com a professora. Não tem jornalista, mas é entrevista.",explanation:"O sentido geral é mais amplo que o jornalístico (ex.: entrevista de pais com a professora). A letra a) vale só para o sentido jornalístico; a c) reduz a entrevista a um formato."},
-{module:"Módulo 43",part:2,question:"Leia o trecho: 'A palavra gourmet é de origem francesa e indica pratos ou refeições requintadas. Marina brinca que a sopa da escola não era gourmet, pois era simples e só de macarrão, mas na sua memória afetiva era a melhor do mundo.' Por que a sopa, sendo simples, era 'a melhor do mundo'?",options:["b) Por causa da memória afetiva ligada a ela","c) Porque Marina não gostava de sopa gourmet","d) Porque a escola usava receitas francesas","a) Porque tinha ingredientes gourmet importados"],correct:0,hint:"O trecho diz que a sopa era simples, mas era a melhor pela memória afetiva. O valor vem da lembrança.",explanation:"Gourmet é culinária requintada, mas o valor da sopa vinha da memória afetiva — da lembrança boa. A letra a) é o oposto: a sopa era simples."},
-{module:"Módulo 43",part:2,question:"Leia o trecho: 'O olho é um pequeno trecho entre aspas que resume uma informação importante ou uma declaração marcante da entrevista. Serve para atrair o leitor antes mesmo de ele começar a ler.' De acordo com o trecho, o 'olho' de uma entrevista serve para:",options:["c) Indicar o nome do entrevistador","a) Substituir a entrevista inteira","d) Marcar o fim da entrevista","b) Resumir uma fala marcante e atrair o leitor"],correct:3,hint:"O trecho diz que ele resume uma informação importante e atrai o leitor.",explanation:"O olho é um destaque entre aspas que resume uma fala marcante para atrair o leitor. Ele não substitui a entrevista nem marca o fim dela."},
-
-{module:"Módulo 44",part:1,question:"'Parecia a última sopa da vida.' Essa frase é:",options:["b) Período composto, com 2 orações","c) Frase sem oração, pois não tem verbo","d) Período composto, com 3 orações","a) Período simples, com 1 oração"],correct:3,hint:"Conte os verbos. Cada verbo forma uma oração.",explanation:"Há apenas 1 verbo (parecia), logo 1 oração — período simples. A letra b) esquece que só há um verbo; a c) está errada porque 'parecia' é verbo, portanto há oração."},
-{module:"Módulo 44",part:1,question:"Em 'Muitos adultos dizem não, mas é um sim disfarçado, pois na primeira birra cedem', há:",options:["a) 2 orações","c) 1 oração","d) 4 orações","b) 3 orações"],correct:3,hint:"Conte os verbos: dizem, é, cedem. Cada um forma uma oração.",explanation:"Três verbos: dizem, é (subentendido: 'é um sim'), cedem — logo 3 orações, ligadas por vírgula, 'mas' e 'pois'. Contar os verbos é o método infalível."},
-{module:"Módulo 44",part:1,question:"O travessão duplo serve para:",options:["c) Marcar o começo das falas de personagens","a) Terminar o enunciado com força","d) Separar os itens de uma lista","b) Isolar uma frase intercalada no meio do enunciado, acrescentando explicação ou comentário"],correct:0,hint:"O travessão duplo abre e fecha. O que fica no meio dele?",explanation:"O travessão duplo abre e fecha um comentário no meio da frase. A letra c) descreve o travessão de diálogo, outro uso; a a) é função de outro sinal."},
-{module:"Módulo 44",part:1,question:"O prefixo IM- aparece antes de:",options:["c) Palavras que começam com vogal","d) Palavras que começam com L e R","a) Qualquer palavra","b) Palavras que começam com P e B"],correct:2,hint:"Pense em imperfeito e imbebível. Que letras iniciam as palavras de origem?",explanation:"IM- só entra antes de P e B (imperfeito, imbebível). Antes de vogais e outras consoantes é IN- (inútil); antes de L e R é I- (ilegal, irreal)."},
-{module:"Módulo 44",part:1,question:"Assinale os antônimos grafados CORRETAMENTE:",options:["d) Imbebível e inperfeito","c) Imperfeito e irbebível","a) Inperfeito e inbebível","b) Imperfeito e imbebível"],correct:1,hint:"Perfeito começa com P, bebível começa com B. Qual prefixo vai antes de P e B?",explanation:"Como 'perfeito' e 'bebível' começam com P e B, o prefixo correto é IM-. A letra a) usa IN- antes de P e B (erro clássico); a c) inventa o prefixo 'ir-'."},
-{module:"Módulo 44",part:2,question:"Leia o trecho: 'Oração é o enunciado construído ao redor de um verbo ou locução verbal. Sem verbo não existe oração! O período simples é formado por apenas uma oração. O período composto é formado por duas ou mais orações.' De acordo com o trecho, qual é o método mais seguro para saber quantas orações tem um período?",options:["c) Contar as vírgulas da frase","a) Contar as palavras da frase","d) Contar as letras maiúsculas","b) Contar os verbos da frase"],correct:3,hint:"O trecho diz que a oração se organiza ao redor de um verbo. Então, o que contar?",explanation:"Se cada oração se organiza em torno de um verbo, contar os verbos é o método mais seguro. Vírgulas e palavras não indicam orações."},
-{module:"Módulo 44",part:2,question:"Leia o trecho: 'O travessão duplo isola uma frase intercalada no meio do período, adicionando uma explicação ou comentário acessório. Quando a intercalação está no fim do enunciado, o ponto-final substitui o segundo travessão. Cuidado: com os parênteses, os DOIS se mantêm mesmo no fim do enunciado.' Qual é a diferença entre travessão e parênteses no fim do enunciado?",options:["c) Não há diferença entre os dois sinais","a) Com travessão, os dois se mantêm; com parênteses, o segundo desaparece","d) Os dois sinais nunca aparecem no fim de uma frase","b) Com travessão, o segundo é substituído pelo ponto-final; com parênteses, os dois se mantêm"],correct:3,hint:"O trecho diz que o ponto-final substitui o segundo travessão, mas com parênteses os dois se mantêm.",explanation:"Com travessão, o ponto-final substitui o segundo travessão; com parênteses, os dois se mantêm. A alternativa a) inverte exatamente a regra."},
-
-{module:"Módulo 46",part:1,question:"Qual é a diferença entre propaganda e publicidade?",options:["a) Não há diferença nenhuma","d) Propaganda é usada no rádio e publicidade em jornais","c) Publicidade divulga causas; propaganda vende produtos","b) Propaganda divulga ideias e causas; publicidade divulga produtos, com fim comercial"],correct:3,hint:"Pense na campanha da dengue e no anúncio de um tênis. Qual é causa e qual é produto?",explanation:"Propaganda busca adesão a ideias (dengue, vacinação); publicidade tem fim lucrativo (carro, tênis). A letra c) inverte os conceitos — confira sempre quem é o público e o objetivo."},
-{module:"Módulo 46",part:1,question:"O símbolo do mosquito riscado na campanha da dengue imita:",options:["b) Placas de trânsito de regulamentação/proibição","c) Placas de indicação de destinos","d) Símbolos de marcas esportivas","a) Placas de advertência amarelas"],correct:0,hint:"O mosquito está dentro de um círculo vermelho com barra diagonal. Que placa usa esse formato?",explanation:"O círculo vermelho com barra diagonal é o código visual de proibição que todos reconhecem. Advertência é o quadrado apoiado no vértice, fundo amarelo; indicação informa destinos."},
-{module:"Módulo 46",part:1,question:"Segundo o Artigo 37 do CBAP, é proibido:",options:["c) Usar o imperativo em slogans","a) Fazer anúncio em revista","d) Mostrar imagens da natureza em campanhas","b) Dirigir apelo imperativo de consumo diretamente à criança"],correct:3,hint:"A norma protege a criança do apelo direto de consumo. Qual alternativa fala disso?",explanation:"A norma protege a criança do apelo direto de consumo. Anunciar em revista é permitido; o imperativo no slogan ('reserve', 'olhe') é recurso linguístico legítimo, não é proibição do Artigo 37."},
-{module:"Módulo 46",part:2,question:"Leia o trecho: 'A campanha do Greenpeace altera o ditado popular 'O que os olhos não veem, o coração não sente' para 'O que os olhos não veem, a natureza sente', mostrando a foto de um macaco cobrindo os olhos do filhote.' O que essa alteração do ditado revela sobre a linguagem da propaganda?",options:["d) Que o ditado original já falava de natureza","a) Que a propaganda copia ditados sem mudar nada","c) Que a propaganda não usa linguagem verbal","b) Que a propaganda transforma frases conhecidas para criar novo sentido e impacto"],correct:0,hint:"O ditado foi modificado de propósito. Por que um publicitário mudaria uma frase que todos conhecem?",explanation:"A propaganda se apropria de uma frase conhecida e a modifica para criar novo sentido e impacto. A letra a) é o oposto do que o trecho mostra; a c) ignora que o ditado é linguagem verbal."},
-{module:"Módulo 46",part:2,question:"Leia o trecho: 'Existem três tipos de sinais verticais, e a padronização deles forma um código visual que garante a eficácia da comunicação: regulamentação (círculo, fundo branco, orla vermelha), advertência (quadrado apoiado no vértice, fundo amarelo) e indicação (verde ou azul).' Em um post da prefeitura que proíbe estacionar, predominam a cor vermelha e o círculo porque:",options:["c) O vermelho indica informação de destinos","a) Vermelho é uma cor bonita para redes sociais","d) O círculo é o formato das placas de advertência","b) Esses elementos são o código visual de proibição das placas de regulamentação"],correct:2,hint:"O trecho diz que regulamentação usa círculo com orla vermelha. E advertência usa qual formato?",explanation:"A padronização (círculo, fundo branco, orla e tarja vermelhas) garante que o receptor entenda a proibição rapidamente. Vermelho não indica destino — isso é placa de indicação, verde ou azul. Advertência é quadrado, não círculo."}
+const MODULES = [
+  { idx: 1, num: 40, nome: "O Texto Teatral" },
+  { idx: 2, num: 41, nome: "Ler o Texto Teatral e Porquês" },
+  { idx: 3, num: 43, nome: "A Entrevista" },
+  { idx: 4, num: 44, nome: "Orações, Travessão e Prefixos" },
+  { idx: 5, num: 46, nome: "Propaganda, Publicidade e CONAR" }
 ];
 
-const STORE_KEY = "portugues-quiz-progress";
-const MODULES = ["Módulo 40","Módulo 41","Módulo 43","Módulo 44","Módulo 46","Interpretação"];
-
-let state = { index: 0, answers: [], score: 0, answered: false, mode: "full", order: [] };
-let progress = null;
-
-function bootQuiz(attempt) {
-attempt = attempt || 0;
-try {
-if (!Array.isArray(QUESTIONS) || QUESTIONS.length === 0) throw new Error("sem questões");
-progress = window.skipStore(STORE_KEY, { lastScore: null, lastTotal: 0 });
-startFullQuiz();
-bindEvents();
-} catch (e) {
-if (attempt < 3) setTimeout(function(){ bootQuiz(attempt + 1); }, 120);
-else document.getElementById("question-text").textContent = "Não foi possível carregar o quiz. Recarregue a página.";
-}
-}
-
-function showScreen(id) {
-["quiz-screen","results-screen","review-screen"].forEach(function(s){
-document.getElementById(s).classList.toggle("active", s === id);
-});
-}
-
-function startFullQuiz() {
-state.mode = "full";
-state.order = QUESTIONS.map(function(_, i){ return i; });
-resetRun();
-showScreen("quiz-screen");
-loadQuestion();
-}
-
-function startReviewErrors() {
-const errs = getErrors();
-if (errs.length === 0) { window.skipUI.toast("Você não tem erros para revisar!", { type: "success" }); return; }
-state.mode = "errors";
-state.order = errs;
-resetRun();
-showScreen("quiz-screen");
-loadQuestion();
-}
-
-function resetRun() {
-state.index = 0;
-state.answers = [];
-state.score = 0;
-state.answered = false;
-}
-
-function restartQuiz() {
-startFullQuiz();
-window.skipUI.toast("Quiz reiniciado. Boa sorte!");
-}
-
-function currentQuestion() {
-return QUESTIONS[state.order[state.index]];
-}
-
-function loadQuestion() {
-const q = currentQuestion();
-state.answered = false;
-document.getElementById("module-tag").textContent = q.module + (q.part === 2 ? " • Interpretação" : " • Conteúdo");
-document.getElementById("progress-text").textContent = "Questão " + (state.index + 1) + " de " + state.order.length;
-document.getElementById("question-text").textContent = q.question;
-const pct = (state.index / state.order.length) * 100;
-document.getElementById("progress-fill").style.width = pct + "%";
-const hb = document.getElementById("hint-box");
-hb.textContent = "💡 Dica: " + q.hint;
-hb.classList.remove("show");
-document.getElementById("hint-toggle-btn").textContent = "💡 Preciso de uma dica";
-const fb = document.getElementById("feedback");
-fb.className = "feedback";
-fb.textContent = "";
-document.getElementById("next-btn").style.display = "none";
-document.getElementById("next-btn").textContent = state.index === state.order.length - 1 ? "Ver resultado" : "Próxima";
-renderOptions(q);
-updateScore();
-}
-
-function renderOptions(q) {
-const box = document.getElementById("options-container");
-box.innerHTML = "";
-q.options.forEach(function(text, i){
-const b = document.createElement("button");
-b.type = "button";
-b.className = "opt";
-b.textContent = text;
-b.setAttribute("data-idx", i);
-b.addEventListener("click", function(){ selectOption(i); });
-box.appendChild(b);
-});
-}
-
-function updateScore() {
-document.getElementById("score-text").textContent = "Acertos: " + state.score;
-}
-
-function toggleHint() {
-var box = document.getElementById("hint-box");
-var btn = document.getElementById("hint-toggle-btn");
-if (!box || !btn) return;
-var aberto = box.classList.toggle("show");
-btn.textContent = aberto ? "🙈 Ocultar dica" : "💡 Preciso de uma dica";
-}
-
-function selectOption(i) {
-if (state.answered) return;
-state.answered = true;
-const q = currentQuestion();
-const ok = i === q.correct;
-const opts = document.querySelectorAll("#options-container .opt");
-opts.forEach(function(o){ o.disabled = true; });
-opts[i].classList.add(ok ? "correct" : "wrong");
-if (!ok) opts[q.correct].classList.add("correct");
-if (ok) state.score++;
-state.answers[state.order[state.index]] = i;
-updateScore();
-const fb = document.getElementById("feedback");
-fb.className = "feedback show " + (ok ? "ok" : "no");
-fb.textContent = (ok ? "✓ Muito bem! " : "✗ Não foi dessa vez. ") + q.explanation;
-document.getElementById("next-btn").style.display = "inline-block";
-}
-
-function handleNextAction() {
-if (!state.answered) return;
-if (state.index < state.order.length - 1) {
-state.index++;
-loadQuestion();
-} else {
-showResults();
-}
-}
-
-function getErrors() {
-const errs = [];
-QUESTIONS.forEach(function(q, i){
-if (state.answers[i] !== undefined && state.answers[i] !== q.correct) errs.push(i);
-if (state.answers[i] === undefined) errs.push(i);
-});
-return errs;
-}
-
-function modStats() {
-const stats = {};
-MODULES.forEach(function(m){ stats[m] = { total: 0, ok: 0 }; });
-QUESTIONS.forEach(function(q, i){
-const key = q.part === 2 ? "Interpretação" : q.module;
-stats[key].total++;
-if (state.answers[i] === q.correct) stats[key].ok++;
-});
-return stats;
-}
-
-function showResults() {
-const total = QUESTIONS.length;
-const score = QUESTIONS.reduce(function(acc, q, i){ return acc + (state.answers[i] === q.correct ? 1 : 0); }, 0);
-const pct = Math.round((score / total) * 100);
-document.getElementById("progress-fill").style.width = "100%";
-document.getElementById("final-score").textContent = score;
-document.getElementById("final-total").textContent = "de " + total;
-let msg;
-if (pct >= 85) msg = "Sensacional! Você demonstrou domínio total sobre a matéria de Português do 6º ano!";
-else if (pct >= 65) msg = "Muito bom! Você está super preparado para mandar muito bem na prova!";
-else if (pct >= 45) msg = "Bom esforço! Vale revisar os módulos em que errou e tentar novamente.";
-else msg = "Não desanime! Revise o material com carinho e faça o quiz de novo.";
-document.getElementById("result-msg").textContent = msg;
-progress.set({ lastScore: score, lastTotal: total });
-
-const stats = modStats();
-let worst = null, worstPct = 101;
-MODULES.forEach(function(m){
-const s = stats[m];
-const p = s.total ? (s.ok / s.total) * 100 : 0;
-if (p < worstPct) { worstPct = p; worst = m; }
-});
-const box = document.getElementById("mod-summary");
-box.innerHTML = "";
-MODULES.forEach(function(m){
-const s = stats[m];
-const p = s.total ? Math.round((s.ok / s.total) * 100) : 0;
-const wrap = document.createElement("div");
-wrap.className = "mod-bar" + (m === worst ? " worst" : "");
-wrap.innerHTML = '<div class="row"><span>' + m + '</span><span>' + s.ok + '/' + s.total + ' (' + p + '%)</span></div>' +
-'<div class="track"><div class="fill" style="width:' + p + '%"></div></div>';
-box.appendChild(wrap);
-});
-showScreen("results-screen");
-}
-
-function showReview() {
-const list = document.getElementById("review-list");
-list.innerHTML = "";
-QUESTIONS.forEach(function(q, i){
-const mine = state.answers[i];
-const ok = mine === q.correct;
-const card = document.createElement("div");
-card.className = "review-card";
-const mineTxt = mine === undefined ? "Não respondida" : q.options[mine];
-card.innerHTML =
-'<div class="meta">' + q.module + (q.part === 2 ? ' • Interpretação' : ' • Conteúdo') + ' • Questão ' + (i + 1) + ' ' + (ok ? '✓' : '✗') + '</div>' +
-'<div class="q"></div>' +
-'<div class="line mine"><strong>Sua resposta:</strong> ' + escapeHtml(mineTxt) + '</div>' +
-'<div class="line right"><strong>Resposta certa:</strong> ' + escapeHtml(q.options[q.correct]) + '</div>' +
-'<div class="expl"></div>';
-card.querySelector(".q").textContent = q.question;
-card.querySelector(".expl").textContent = q.explanation;
-list.appendChild(card);
-});
-showScreen("review-screen");
-}
-
-function backToResult() {
-showScreen("results-screen");
-}
-
 function escapeHtml(s) {
-return String(s).replace(/[&<>"']/g, function(c){
-return { "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c];
-});
+  return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
-function bindEvents() {
-document.getElementById("hint-toggle-btn").addEventListener("click", toggleHint);
-document.getElementById("next-btn").addEventListener("click", handleNextAction);
-document.getElementById("btn-review").addEventListener("click", showReview);
-document.getElementById("btn-review-errors").addEventListener("click", function(){
-const errs = getErrors();
-if (errs.length === 0) { window.skipUI.toast("Você não tem erros para revisar!", { type: "success" }); return; }
-startReviewErrors();
-});
-document.getElementById("btn-restart").addEventListener("click", restartQuiz);
-document.getElementById("btn-restart-2").addEventListener("click", restartQuiz);
-document.getElementById("btn-back-result").addEventListener("click", backToResult);
+const SVG_OPEN = '<svg viewBox="0 0 320 165" xmlns="http://www.w3.org/2000/svg" role="img" font-family="system-ui, sans-serif">';
+const SVG_CLOSE = '</svg>';
+const INK = '#13344d';
+const BLUE = '#2b7bb9';
+const GREEN = '#3aa675';
+const ORANGE = '#d9793b';
+const RED = '#c0262d';
+const MUTED = '#5b6472';
+
+const FIG = {
+  // M40 - Roteiro vs Palco
+  teatroPartes: (() => {
+    let s = SVG_OPEN;
+    s += `<rect x="14" y="16" width="136" height="132" rx="10" fill="#eef6fb" stroke="${BLUE}" stroke-width="1.5"/>`;
+    s += `<text x="82" y="36" text-anchor="middle" font-size="11" font-weight="700" fill="${BLUE}">TEXTO (ROTEIRO)</text>`;
+    s += `<rect x="24" y="46" width="116" height="24" rx="5" fill="#fff" stroke="${BLUE}" stroke-width="1"/>`;
+    s += `<text x="82" y="62" text-anchor="middle" font-size="10" fill="${INK}">Atos (cortina / luz)</text>`;
+    s += `<rect x="24" y="76" width="116" height="24" rx="5" fill="#fff" stroke="${BLUE}" stroke-width="1"/>`;
+    s += `<text x="82" y="92" text-anchor="middle" font-size="10" fill="${INK}">Cenas (entra / sai ator)</text>`;
+    s += `<rect x="24" y="106" width="116" height="32" rx="5" fill="#fff7e0" stroke="${ORANGE}" stroke-width="1"/>`;
+    s += `<text x="82" y="120" text-anchor="middle" font-size="9.5" font-weight="700" fill="${ORANGE}">(Rubrica em itálico)</text>`;
+    s += `<text x="82" y="132" text-anchor="middle" font-size="9" fill="${MUTED}">NÃO é falada em voz alta</text>`;
+
+    s += `<path d="M154 82 L170 82" stroke="${GREEN}" stroke-width="2.2"/>`;
+    s += `<polygon points="170,77 178,82 170,87" fill="${GREEN}"/>`;
+
+    s += `<rect x="182" y="16" width="124" height="132" rx="10" fill="#edf9f3" stroke="${GREEN}" stroke-width="1.5"/>`;
+    s += `<text x="244" y="36" text-anchor="middle" font-size="11" font-weight="700" fill="${GREEN}">PALCO (ENCENAÇÃO)</text>`;
+    s += `<text x="244" y="62" text-anchor="middle" font-size="10" fill="${INK}">Atores agindo ao vivo</text>`;
+    s += `<text x="244" y="82" text-anchor="middle" font-size="10" fill="${INK}">Cenário, luz e som</text>`;
+    s += `<text x="244" y="104" text-anchor="middle" font-size="9.5" fill="${MUTED}">Regra: sem narrador</text>`;
+    s += `<text x="244" y="122" text-anchor="middle" font-size="9.5" font-weight="600" fill="${INK}">Exceção: João de Deus</text>`;
+    s += `<text x="244" y="134" text-anchor="middle" font-size="9.5" font-weight="600" fill="${INK}">e o Palhaço</text>`;
+    s += SVG_CLOSE;
+    return s;
+  })(),
+
+  // M40 - Dois olhares (Cavalinho Azul)
+  doisOlhares: (() => {
+    let s = SVG_OPEN;
+    s += `<rect x="12" y="18" width="140" height="130" rx="10" fill="#f5f7fa" stroke="${MUTED}" stroke-width="1.5"/>`;
+    s += `<text x="82" y="38" text-anchor="middle" font-size="11" font-weight="700" fill="${INK}">VISÃO REALISTA (PAIS)</text>`;
+    s += `<text x="82" y="62" text-anchor="middle" font-size="10" fill="${MUTED}">• Pangaré velho e sujo</text>`;
+    s += `<text x="82" y="82" text-anchor="middle" font-size="10" fill="${MUTED}">• Terra seca, sem água</text>`;
+    s += `<text x="82" y="102" text-anchor="middle" font-size="10" fill="${MUTED}">• Precisa vender p/ comer</text>`;
+    s += `<rect x="24" y="114" width="116" height="24" rx="6" fill="#fde2e2"/>`;
+    s += `<text x="82" y="130" text-anchor="middle" font-size="9.5" font-weight="700" fill="${RED}">Carregar casa = Fantástico</text>`;
+
+    s += `<rect x="168" y="18" width="140" height="130" rx="10" fill="#eef6fb" stroke="${BLUE}" stroke-width="1.5"/>`;
+    s += `<text x="238" y="38" text-anchor="middle" font-size="11" font-weight="700" fill="${BLUE}">VISÃO POÉTICA (VICENTE)</text>`;
+    s += `<text x="238" y="62" text-anchor="middle" font-size="10" fill="${INK}">• Cavalinho azul lindo</text>`;
+    s += `<text x="238" y="82" text-anchor="middle" font-size="10" fill="${INK}">• Campina verde e rio limpo</text>`;
+    s += `<text x="238" y="102" text-anchor="middle" font-size="10" fill="${INK}">• Alegria, sonho e amizade</text>`;
+    s += `<rect x="180" y="114" width="116" height="24" rx="6" fill="#d7f3e3"/>`;
+    s += `<text x="238" y="130" text-anchor="middle" font-size="9.5" font-weight="700" fill="${GREEN}">Narração=Filme | Foto=Descr.</text>`;
+    s += SVG_CLOSE;
+    return s;
+  })(),
+
+  // M41 - PI vs PR
+  perguntasPIPR: (() => {
+    let s = SVG_OPEN;
+    s += `<rect x="14" y="18" width="138" height="130" rx="10" fill="#edf9f3" stroke="${GREEN}" stroke-width="1.5"/>`;
+    s += `<text x="83" y="38" text-anchor="middle" font-size="11" font-weight="700" fill="${GREEN}">PERGUNTA DE INFORMAÇÃO</text>`;
+    s += `<text x="83" y="62" text-anchor="middle" font-size="10" fill="${INK}">Quem pergunta QUER</text>`;
+    s += `<text x="83" y="76" text-anchor="middle" font-size="10" fill="${INK}">saber a resposta.</text>`;
+    s += `<rect x="24" y="92" width="118" height="44" rx="6" fill="#fff"/>`;
+    s += `<text x="83" y="110" text-anchor="middle" font-size="9.5" font-style="italic" fill="${INK}">"Por que não vende</text>`;
+    s += `<text x="83" y="124" text-anchor="middle" font-size="9.5" font-style="italic" fill="${INK}">a vaquinha?"</text>`;
+
+    s += `<rect x="168" y="18" width="138" height="130" rx="10" fill="#fff7e0" stroke="${ORANGE}" stroke-width="1.5"/>`;
+    s += `<text x="237" y="38" text-anchor="middle" font-size="11" font-weight="700" fill="${ORANGE}">PERGUNTA RETÓRICA</text>`;
+    s += `<text x="237" y="62" text-anchor="middle" font-size="10" fill="${INK}">Já sabe a resposta!</text>`;
+    s += `<text x="237" y="76" text-anchor="middle" font-size="10" font-weight="600" fill="${ORANGE}">Geralmente NEGA o que diz.</text>`;
+    s += `<rect x="178" y="92" width="118" height="44" rx="6" fill="#fff"/>`;
+    s += `<text x="237" y="110" text-anchor="middle" font-size="9.5" font-style="italic" fill="${INK}">"Onde existe campina?"</text>`;
+    s += `<text x="237" y="124" text-anchor="middle" font-size="9.5" font-weight="700" fill="${RED}">(= Não existe!)</text>`;
+    s += SVG_CLOSE;
+    return s;
+  })(),
+
+  // M41 - Os 4 porquês
+  quatroPorques: (() => {
+    let s = SVG_OPEN;
+    const boxes = [
+      { x: 14, y: 14, title: "por que", sub: "Pergunta OU frase afirmativa", ex: "(= por qual motivo)", bg: "#eef6fb", bd: BLUE },
+      { x: 166, y: 14, title: "por quê", sub: "No FIM da frase", ex: "Antes de ponto (. ? !)", bg: "#fff7e0", bd: ORANGE },
+      { x: 14, y: 88, title: "porque", sub: "Resposta / Explicação", ex: "(= pois)", bg: "#edf9f3", bd: GREEN },
+      { x: 166, y: 88, title: "porquê", sub: "Substantivo (= o motivo)", ex: "Vem com artigo (o, um)", bg: "#fde2e2", bd: RED }
+    ];
+    boxes.forEach(b => {
+      s += `<rect x="${b.x}" y="${b.y}" width="140" height="64" rx="9" fill="${b.bg}" stroke="${b.bd}" stroke-width="1.5"/>`;
+      s += `<text x="${b.x + 70}" y="${b.y + 21}" text-anchor="middle" font-size="13" font-weight="800" fill="${b.bd}">${b.title}</text>`;
+      s += `<text x="${b.x + 70}" y="${b.y + 38}" text-anchor="middle" font-size="9.5" font-weight="600" fill="${INK}">${b.sub}</text>`;
+      s += `<text x="${b.x + 70}" y="${b.y + 52}" text-anchor="middle" font-size="9" fill="${MUTED}">${b.ex}</text>`;
+    });
+    s += SVG_CLOSE;
+    return s;
+  })(),
+
+  // M43 - Entrevista: Direto vs Indireto / Técnica vs Gênero
+  entrevistaEsquema: (() => {
+    let s = SVG_OPEN;
+    s += `<rect x="14" y="16" width="138" height="62" rx="8" fill="#eef6fb" stroke="${BLUE}" stroke-width="1.5"/>`;
+    s += `<text x="83" y="34" text-anchor="middle" font-size="10.5" font-weight="700" fill="${BLUE}">DISCURSO DIRETO</text>`;
+    s += `<text x="83" y="50" text-anchor="middle" font-size="9.5" fill="${INK}">Pingue-pongue (P: / R:)</text>`;
+    s += `<text x="83" y="64" text-anchor="middle" font-size="9" fill="${MUTED}">Fala exata + "Olho" (aspas)</text>`;
+
+    s += `<rect x="168" y="16" width="138" height="62" rx="8" fill="#edf9f3" stroke="${GREEN}" stroke-width="1.5"/>`;
+    s += `<text x="237" y="34" text-anchor="middle" font-size="10.5" font-weight="700" fill="${GREEN}">DISCURSO INDIRETO</text>`;
+    s += `<text x="237" y="50" text-anchor="middle" font-size="9.5" fill="${INK}">Relato em 3ª pessoa</text>`;
+    s += `<text x="237" y="64" text-anchor="middle" font-size="9" fill="${MUTED}">Somem as aspas da fala</text>`;
+
+    s += `<rect x="14" y="88" width="292" height="62" rx="8" fill="#fff7e0" stroke="${ORANGE}" stroke-width="1.5"/>`;
+    s += `<text x="160" y="106" text-anchor="middle" font-size="10.5" font-weight="700" fill="${ORANGE}">TÉCNICA vs. GÊNERO TEXTUAL</text>`;
+    s += `<text x="160" y="123" text-anchor="middle" font-size="9.5" fill="${INK}">• Trecho citado dentro de reportagem = TÉCNICA</text>`;
+    s += `<text x="160" y="138" text-anchor="middle" font-size="9.5" fill="${INK}">• Publicada inteira como texto próprio = GÊNERO</text>`;
+    s += SVG_CLOSE;
+    return s;
+  })(),
+
+  // M44 - Contar Verbos e Prefixos
+  oracoesPrefixos: (() => {
+    let s = SVG_OPEN;
+    s += `<rect x="14" y="14" width="292" height="64" rx="9" fill="#fde2e2" stroke="${RED}" stroke-width="1.5"/>`;
+    s += `<text x="160" y="33" text-anchor="middle" font-size="11" font-weight="800" fill="${RED}">REGRA DE OURO: CONTE VERBOS (NUNCA VÍRGULAS!)</text>`;
+    s += `<text x="160" y="50" text-anchor="middle" font-size="9.5" fill="${INK}">• Locução verbal ("vão insistir") = vale 1 verbo só</text>`;
+    s += `<text x="160" y="65" text-anchor="middle" font-size="9.5" fill="${INK}">• Palavra de realce ("gostava mesmo era da sopa") = não é verbo</text>`;
+
+    s += `<rect x="14" y="88" width="92" height="62" rx="8" fill="#eef6fb" stroke="${BLUE}" stroke-width="1.5"/>`;
+    s += `<text x="60" y="108" text-anchor="middle" font-size="12" font-weight="800" fill="${BLUE}">IM-</text>`;
+    s += `<text x="60" y="124" text-anchor="middle" font-size="9.5" fill="${INK}">Antes de P e B</text>`;
+    s += `<text x="60" y="138" text-anchor="middle" font-size="8.5" fill="${MUTED}">imperfeito</text>`;
+
+    s += `<rect x="114" y="88" width="92" height="62" rx="8" fill="#edf9f3" stroke="${GREEN}" stroke-width="1.5"/>`;
+    s += `<text x="160" y="108" text-anchor="middle" font-size="12" font-weight="800" fill="${GREEN}">I-</text>`;
+    s += `<text x="160" y="124" text-anchor="middle" font-size="9.5" fill="${INK}">Antes de L e R</text>`;
+    s += `<text x="160" y="138" text-anchor="middle" font-size="8.5" fill="${MUTED}">ilegal / irreal</text>`;
+
+    s += `<rect x="214" y="88" width="92" height="62" rx="8" fill="#fff7e0" stroke="${ORANGE}" stroke-width="1.5"/>`;
+    s += `<text x="260" y="108" text-anchor="middle" font-size="12" font-weight="800" fill="${ORANGE}">IN-</text>`;
+    s += `<text x="260" y="124" text-anchor="middle" font-size="9.5" fill="${INK}">Vogais e outras</text>`;
+    s += `<text x="260" y="138" text-anchor="middle" font-size="8.5" fill="${MUTED}">ininteligível</text>`;
+    s += SVG_CLOSE;
+    return s;
+  })(),
+
+  // M46 - Placas de Trânsito
+  placasTransito: (() => {
+    let s = SVG_OPEN;
+    // Regulamentação
+    s += `<circle cx="58" cy="58" r="34" fill="#fff" stroke="${RED}" stroke-width="6"/>`;
+    s += `<line x1="35" y1="35" x2="81" y2="81" stroke="${RED}" stroke-width="5"/>`;
+    s += `<text x="58" y="110" text-anchor="middle" font-size="10" font-weight="700" fill="${RED}">REGULAMENTAÇÃO</text>`;
+    s += `<text x="58" y="124" text-anchor="middle" font-size="9" fill="${INK}">Proíbe ou obriga</text>`;
+    s += `<text x="58" y="137" text-anchor="middle" font-size="8.5" fill="${MUTED}">Círculo + borda vermelha</text>`;
+
+    // Advertência
+    s += `<polygon points="160,20 198,58 160,96 122,58" fill="#ffd54f" stroke="${INK}" stroke-width="2.5"/>`;
+    s += `<text x="160" y="63" text-anchor="middle" font-size="18" font-weight="800" fill="${INK}">!</text>`;
+    s += `<text x="160" y="110" text-anchor="middle" font-size="10" font-weight="700" fill="${ORANGE}">ADVERTÊNCIA</text>`;
+    s += `<text x="160" y="124" text-anchor="middle" font-size="9" fill="${INK}">Avisa sobre perigo</text>`;
+    s += `<text x="160" y="137" text-anchor="middle" font-size="8.5" fill="${MUTED}">Losango amarelo</text>`;
+
+    // Indicação
+    s += `<rect x="224" y="30" width="76" height="54" rx="6" fill="${GREEN}" stroke="${INK}" stroke-width="1.5"/>`;
+    s += `<text x="262" y="61" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">SAÍDA →</text>`;
+    s += `<text x="262" y="110" text-anchor="middle" font-size="10" font-weight="700" fill="${GREEN}">INDICAÇÃO</text>`;
+    s += `<text x="262" y="124" text-anchor="middle" font-size="9" fill="${INK}">Informa locais</text>`;
+    s += `<text x="262" y="137" text-anchor="middle" font-size="8.5" fill="${MUTED}">Retângulo verde/azul</text>`;
+    s += SVG_CLOSE;
+    return s;
+  })(),
+
+  // M46 - Propaganda vs Publicidade e CONAR
+  propagandaConar: (() => {
+    let s = SVG_OPEN;
+    s += `<rect x="14" y="16" width="138" height="66" rx="9" fill="#edf9f3" stroke="${GREEN}" stroke-width="1.5"/>`;
+    s += `<text x="83" y="35" text-anchor="middle" font-size="11" font-weight="700" fill="${GREEN}">PROPAGANDA</text>`;
+    s += `<text x="83" y="52" text-anchor="middle" font-size="9.5" fill="${INK}">Divulga IDEIAS / CAUSAS</text>`;
+    s += `<text x="83" y="67" text-anchor="middle" font-size="9" fill="${MUTED}">Ex.: Dengue, Greenpeace</text>`;
+
+    s += `<rect x="168" y="16" width="138" height="66" rx="9" fill="#eef6fb" stroke="${BLUE}" stroke-width="1.5"/>`;
+    s += `<text x="237" y="35" text-anchor="middle" font-size="11" font-weight="700" fill="${BLUE}">PUBLICIDADE</text>`;
+    s += `<text x="237" y="52" text-anchor="middle" font-size="9.5" fill="${INK}">VENDE produtos / marcas</text>`;
+    s += `<text x="237" y="67" text-anchor="middle" font-size="9" fill="${MUTED}">Ex.: Repelente, tênis</text>`;
+
+    s += `<rect x="14" y="92" width="292" height="58" rx="9" fill="#fff7e0" stroke="${ORANGE}" stroke-width="1.5"/>`;
+    s += `<text x="160" y="110" text-anchor="middle" font-size="10.5" font-weight="700" fill="${ORANGE}">CONAR · ARTIGO 37 (PROTEÇÃO À CRIANÇA)</text>`;
+    s += `<text x="160" y="126" text-anchor="middle" font-size="9.5" fill="${INK}">Não multa! Analisa denúncias e manda corrigir/tirar anúncio.</text>`;
+    s += `<text x="160" y="140" text-anchor="middle" font-size="9" fill="${MUTED}">Proíbe mandar criança comprar ("compre!") ou constranger pais.</text>`;
+    s += SVG_CLOSE;
+    return s;
+  })()
+};
+
+const QUESTIONS = [
+  // MÓDULO 40 (mod: 1)
+  {
+    mod: 1,
+    t: "No texto teatral, o que são as rubricas e como o ator deve lidar com elas?",
+    a: [
+      "São os títulos de cada ato que aparecem escritos no fundo do cenário.",
+      "São as falas principais do personagem principal e devem ser gritadas no palco.",
+      "São instruções entre parênteses e itálico sobre cenário, gestos e luz; o ator NUNCA as lê em voz alta.",
+      "São os resumos que o narrador lê para o público antes de abrir a cortina."
+    ],
+    c: 2,
+    dica: "Lembre-se do visual do roteiro: trechos entre parênteses e com letra inclinada.",
+    exp: "Rubricas são indicações cênicas do autor (gestos, emoções, luz, som). Elas orientam a encenação, mas o ator nunca as pronuncia em cena.",
+    fig: FIG.teatroPartes
+  },
+  {
+    mod: 1,
+    t: "Sobre a presença de narrador no teatro, qual afirmação está CORRETA?",
+    a: [
+      "Toda peça de teatro tem exatamente o mesmo narrador observador de um romance.",
+      "Em regra, o teatro não tem narrador, mas existem exceções, como João de Deus ('O cavalinho azul') e o Palhaço ('Auto da Compadecida').",
+      "O narrador no teatro é sempre a pessoa que fica escondida lendo as rubricas.",
+      "No teatro NUNCA pode existir narrador em hipótese alguma."
+    ],
+    c: 1,
+    dica: "Cuidado com palavras absolutas como 'NUNCA'! Pense nos dois personagens da apostila que falam direto com a plateia.",
+    exp: "A regra geral do texto dramático é não ter narrador (a história acontece ao vivo), mas alguns autores criam personagens-narradores, como o velho João de Deus e o Palhaço.",
+    fig: FIG.teatroPartes
+  },
+  {
+    mod: 1,
+    t: "Em 'O cavalinho azul', os pais entram em cena CARREGANDO A CASA nas costas. Na análise teatral, esse recurso é um elemento:",
+    a: [
+      "Fantástico (sem verossimilhança externa), pois é impossível na vida real.",
+      "Gramatical, usado apenas para substituir a troca de cenas.",
+      "Puramente descritivo, já que ninguém se movimenta no palco.",
+      "Realista (com verossimilhança externa), mostrando como os trabalhadores do campo são fortes."
+    ],
+    c: 0,
+    dica: "Pergunte a si mesma: na vida real, um casal consegue carregar uma casa inteira nas costas?",
+    exp: "Carregar a casa nas costas quebra as leis da realidade — portanto, é um elemento fantástico (sem verossimilhança externa), usado poeticamente para mostrar o peso da vida.",
+    fig: FIG.doisOlhares
+  },
+  {
+    mod: 1,
+    t: "No final de 'O cavalinho azul', Vicente dorme exausto e surge uma 'luz azulada e estranha' com o cavalo transfigurado. Como a apostila interpreta essa cena?",
+    a: [
+      "Exclusivamente como um pesadelo sem nenhum significado poético.",
+      "Apenas como um defeito na iluminação do teatro durante o ensaio.",
+      "Aceita duas leituras juntas: simbólica (vitória do sonho e da imaginação) e racional (um sonho de Vicente, cansado e com fome).",
+      "Apenas como prova de que o pai comprou tinta azul para pintar o pangaré."
+    ],
+    c: 2,
+    dica: "A peça mistura poesia com realidade: as duas explicações se completam!",
+    exp: "Na 8ª cena, as duas leituras convivem: simbolicamente representa o triunfo da imaginação infantil, e racionalmente explica-se como um sonho do menino faminto e exausto.",
+    fig: null
+  },
+  {
+    mod: 1,
+    t: "Qual alternativa apresenta uma DESCRIÇÃO (como uma 'foto') e não uma narração (como um 'filme')?",
+    a: [
+      "'Os pais fecharam a porta e saíram carregando a casa.'",
+      "'Um feio pangaré, sujo, magro, com cara infeliz.'",
+      "'Vicente correu pela campina e abraçou o cavalinho.'",
+      "'O pai ficou muito zangado e partiu para a feira, onde vendeu o cavalo.'"
+    ],
+    c: 1,
+    dica: "Narração mostra ações acontecendo no tempo; descrição retrata características de algo ou alguém.",
+    exp: "'Um feio pangaré, sujo, magro, com cara infeliz' retrata o estado e as características do animal (descrição). As demais frases mostram sequência de ações (narração).",
+    fig: FIG.doisOlhares
+  },
+  {
+    mod: 1,
+    t: "Em 'Auto da Compadecida', qual é a diferença entre 'desconfiado' (João Grilo) e 'sem confiança' (Chicó)?",
+    a: [
+      "Desconfiado refere-se apenas ao patrão, e sem confiança refere-se ao público.",
+      "Desconfiado é quem nunca fala a verdade; sem confiança é quem é muito tímido.",
+      "As duas expressões significam exatamente a mesma coisa.",
+      "Desconfiado é quem suspeita ou tem dúvida; sem confiança é quem não merece confiança por ser mentiroso/trapaceiro."
+    ],
+    c: 3,
+    dica: "João Grilo desconfia se o patrão vai mesmo aparecer; já em Chicó ninguém pode confiar...",
+    exp: "João Grilo está desconfiado (tem dúvida/suspeita), enquanto Chicó é uma pessoa sem confiança (não é confiável).",
+    fig: null
+  },
+
+  // MÓDULO 41 (mod: 2)
+  {
+    mod: 2,
+    t: "Na leitura expressiva de um texto teatral, o que é o TIMBRE de voz?",
+    a: [
+      "É o silêncio proposital feito entre uma frase e outra.",
+      "É apenas falar bem alto ou bem baixo durante a peça.",
+      "É o resumo da peça escrito no programa do espetáculo.",
+      "É a 'cor' ou marca única da voz de cada pessoa, que permite reconhecê-la mesmo sem vê-la."
+    ],
+    c: 3,
+    dica: "É o que faz você reconhecer a voz da sua mãe ao telefone antes mesmo de ela dizer 'oi'.",
+    exp: "Timbre é a qualidade sonora individual de cada voz. Já o volume é alto/baixo, o tom é agudo/grave, e os silêncios são as pausas.",
+    fig: null
+  },
+  {
+    mod: 2,
+    t: "Compare: (I) 'Por que você não vende a vaquinha?' e (II) 'Onde é que existe esta campina, menino?'. Como se classificam essas perguntas?",
+    a: [
+      "Ambas são Perguntas de Informação, pois terminam com ponto de interrogação.",
+      "(I) é Pergunta de Informação (pede resposta real); (II) é Pergunta Retórica (já afirma que a campina não existe).",
+      "Ambas são rubricas que o ator não deve pronunciar.",
+      "(I) é Pergunta Retórica e (II) é Pergunta de Informação."
+    ],
+    c: 1,
+    dica: "Na segunda pergunta, o pai de Vicente já sabe a resposta e quer negar o que o menino diz.",
+    exp: "Na frase I, o interlocutor realmente quer saber o motivo (PI). Na frase II, o pai usa uma pergunta retórica (PR) para negar com ênfase ('essa campina não existe!').",
+    fig: FIG.perguntasPIPR
+  },
+  {
+    mod: 2,
+    t: "Complete corretamente: 'Quero saber ______ os titulares não jogaram ontem.'",
+    a: [
+      "por quê",
+      "porque",
+      "por que",
+      "porquê"
+    ],
+    c: 2,
+    dica: "A frase é afirmativa, mas você consegue trocar a lacuna por 'por qual motivo'?",
+    exp: "Usa-se 'por que' (separado e sem acento) não só em perguntas diretas, mas também em frases afirmativas quando equivale a 'por qual motivo/razão'.",
+    fig: FIG.quatroPorques
+  },
+  {
+    mod: 2,
+    t: "Assinale a alternativa em que o uso do 'porquê / por quê / porque / por que' está INCORRETO:",
+    a: [
+      "Não vendi a vaquinha porque ela dá leite para o menino.",
+      "Vender o pangaré? Por quê?",
+      "Ninguém explicou o porquê da venda do cavalo.",
+      "Você não chegou a tempo para o ensaio porque?"
+    ],
+    c: 3,
+    dica: "Olhe para o final da frase antes do ponto de interrogação!",
+    exp: "No final da frase, antes de pontuação (. ? !), o 'por quê' é separado e recebe acento circunflexo ('...para o ensaio por quê?').",
+    fig: FIG.quatroPorques
+  },
+  {
+    mod: 2,
+    t: "Na fala de Vicente ('Não liga não, cavalinho'), a dupla negação 'não ... não' tem qual efeito?",
+    a: [
+      "É um erro grave que impede o público de entender o que Vicente quer dizer.",
+      "Dá ênfase e carinho ao consolar o cavalo, sendo típica do registro informal/coloquial.",
+      "Transforma a frase em uma afirmação formal de norma-padrão.",
+      "Indica que Vicente está falando com muita raiva do animal."
+    ],
+    c: 1,
+    dica: "No dia a dia, quando dizemos 'não faz isso não', estamos sendo formais ou expressando afeto/ênfase?",
+    exp: "Na língua falada informal, a dupla negação ('não liga não') reforça a ideia e transmite afeto e proximidade.",
+    fig: null
+  },
+  {
+    mod: 2,
+    t: "Em 'Mulher, temos que vender o pangaré', a palavra destacada 'Mulher' funciona como:",
+    a: [
+      "Vocativo informal/rude usado para chamar a esposa.",
+      "Rubrica indicando quem deve entrar no palco.",
+      "Pergunta retórica feita à plateia.",
+      "Locução adjetiva que caracteriza o cavalo."
+    ],
+    c: 0,
+    dica: "É o termo usado para chamar ou interpelar a pessoa com quem se fala.",
+    exp: "Vocativo é o termo que serve para chamar o interlocutor. Aqui, 'Mulher' marca o registro informal e um tom áspero do marido.",
+    fig: null
+  },
+
+  // MÓDULO 43 (mod: 3)
+  {
+    mod: 3,
+    t: "Quando a entrevista é considerada uma TÉCNICA e quando é um GÊNERO TEXTUAL?",
+    a: [
+      "É técnica na escola; é gênero textual apenas em hospitais.",
+      "É técnica quando feita por e-mail; é gênero textual apenas quando gravada em vídeo.",
+      "É técnica quando trechos são citados dentro de uma reportagem; é gênero textual quando publicada inteira como texto independente.",
+      "Nunca pode ser considerada gênero textual."
+    ],
+    c: 2,
+    dica: "Pense na diferença entre usar algumas falas para apoiar uma matéria e publicar o 'pingue-pongue' completo.",
+    exp: "Quando o repórter entrevista alguém para colher dados e cita trechos na reportagem, usa a entrevista como técnica. Publicada na íntegra, ela é um gênero textual.",
+    fig: FIG.entrevistaEsquema
+  },
+  {
+    mod: 3,
+    t: "Na entrevista com a escritora Marina Miyazaki Araujo, por que a sopa da escola parecia 'a melhor do mundo', mesmo tendo só macarrão?",
+    a: [
+      "Porque era uma sopa gourmet feita por chefs internacionais.",
+      "Porque a diretora obrigava todos a elogiarem a merenda.",
+      "Por causa da memória afetiva e da alegria do momento do recreio com os amigos.",
+      "Porque os alunos nunca tinham comido macarrão antes."
+    ],
+    c: 2,
+    dica: "Não era comida chique (gourmet) — o sabor vinha das lembranças boas da infância!",
+    exp: "A sopa simboliza a memória afetiva: a alegria do recreio e da convivência tornava uma sopa simples inesquecível.",
+    fig: null
+  },
+  {
+    mod: 3,
+    t: "Na mesma entrevista, Marina escreve entre parênteses: '(Vou pular esta... Não publiquei vários livros, só dois)'. Qual é a função desse trecho?",
+    a: [
+      "Mostrar que a autora não sabe contar quantos livros escreveu.",
+      "Substituir o título da entrevista.",
+      "Interromper o fluxo da entrevista para corrigir com humor uma informação errada do entrevistador.",
+      "Criar um discurso indireto em terceira pessoa."
+    ],
+    c: 2,
+    dica: "O entrevistador disse que ela tinha publicado 'vários livros', mas ela só tinha dois publicados!",
+    exp: "Os parênteses marcam uma observação direta da entrevistada corrigindo a premissa equivocada da pergunta.",
+    fig: null
+  },
+  {
+    mod: 3,
+    t: "O que significa a palavra 'entrevista' na frase: 'A cena entrevista pela fresta da janela era assustadora'?",
+    a: [
+      "É uma reunião marcada entre pais e professores.",
+      "É uma conversa formal entre um jornalista e uma testemunha.",
+      "É o 'olho' jornalístico destacado entre aspas.",
+      "É o particípio do verbo 'entrever' (vista rapidamente, de relance, por uma abertura)."
+    ],
+    c: 3,
+    dica: "Cuidado com a pegadinha de vocabulário! Olhe para 'pela fresta da janela'.",
+    exp: "Aqui 'entrevista' não é o substantivo (diálogo), mas o particípio do verbo entrever (enxergar parcialmente ou de relance).",
+    fig: FIG.entrevistaEsquema
+  },
+  {
+    mod: 3,
+    t: "Sobre o uso do celular pelos filhos, o que Marina Miyazaki Araujo afirma na Pergunta 8?",
+    a: [
+      "Há regras e os 'dois lados' devem cumprir: pais (educando e monitorando) e filhos (obedecendo), sem o 'sim disfarçado'.",
+      "Os pais devem sempre dizer 'não' e depois ceder na primeira birra para evitar brigas.",
+      "Apenas as crianças devem decidir sozinhas quantas horas ficam no celular.",
+      "Não deve existir nenhuma regra sobre tecnologia dentro de casa."
+    ],
+    c: 0,
+    dica: "Ela critica os pais que dizem 'não', mas cedem logo depois ('sim disfarçado').",
+    exp: "Marina destaca a responsabilidade dos dois lados (pais e filhos) e critica a falta de firmeza quando o 'não' vira um 'sim disfarçado'.",
+    fig: null
+  },
+  {
+    mod: 3,
+    t: "No jornalismo, o que é o 'OLHO' de uma entrevista publicada?",
+    a: [
+      "A foto do olho do entrevistado colocada no fim da folha.",
+      "Uma frase marcante da entrevista destacada entre aspas na página para resumir uma ideia forte e atrair o leitor.",
+      "A lista de perguntas que o repórter esqueceu de fazer.",
+      "A assinatura do jornalista no final do texto."
+    ],
+    c: 1,
+    dica: "É um jargão jornalístico: um trecho em destaque visual que chama o olhar do leitor.",
+    exp: "O 'olho' é um recurso gráfico e editorial que destaca uma fala importante do entrevistado entre aspas para despertar o interesse pela leitura.",
+    fig: FIG.entrevistaEsquema
+  },
+
+  // MÓDULO 44 (mod: 4)
+  {
+    mod: 4,
+    t: "Quantas orações existem no período: 'As crianças vão insistir, tentar, teimar'?",
+    a: [
+      "4 orações, porque há quatro palavras verbais na frase.",
+      "3 orações (pois 'vão insistir' é uma locução verbal que vale como 1 verbo, mais 'tentar' e 'teimar').",
+      "1 oração, pois é um período simples.",
+      "2 orações, porque existem duas vírgulas na frase."
+    ],
+    c: 1,
+    dica: "Conte os VERBOS (e não as vírgulas!), lembrando que locução verbal conta como 1 verbo só.",
+    exp: "'Vão insistir' forma uma locução verbal (1 ação = 1 oração); 'tentar' = 2ª oração; 'teimar' = 3ª oração. Total: 3 orações.",
+    fig: FIG.oracoesPrefixos
+  },
+  {
+    mod: 4,
+    t: "No período 'Eu gostava mesmo era da sopa, lembro da panela', quantas orações há?",
+    a: [
+      "1 oração, pois 'era' anula os outros verbos.",
+      "3 orações, contando 'gostava', 'era' e 'lembro'.",
+      "4 orações, contando cada substantivo.",
+      "2 orações (verbos 'gostava' e 'lembro'), pois 'era' funciona apenas como palavra de realce."
+    ],
+    c: 3,
+    dica: "Tente retirar a palavra 'era': 'Eu gostava mesmo da sopa'. O sentido muda? Não! Então ela é só realce.",
+    exp: "A palavra 'era' aqui é expressão expletiva (de realce), não constitui oração própria. Os núcleos verbais são apenas 'gostava' e 'lembro' (2 orações).",
+    fig: FIG.oracoesPrefixos
+  },
+  {
+    mod: 4,
+    t: "Sobre o uso do travessão no FIM da frase para intercalar um comentário, o que acontece?",
+    a: [
+      "O travessão nunca pode ser usado no final de uma frase.",
+      "Usa-se apenas um travessão abrindo o comentário, pois o ponto final toma o lugar do segundo travessão.",
+      "É obrigatório colocar dois travessões juntos antes do ponto final.",
+      "Deve-se trocar o travessão por um ponto de interrogação."
+    ],
+    c: 1,
+    dica: "Compare: no meio da frase são dois travessões (— ... —); no fim da frase, o ponto final fecha!",
+    exp: "Quando a intercalação fica no fim do período, o ponto final absorve o segundo travessão (ex.: '...e não contra nós — aliás, ela não é bicho-papão.'). Já com parênteses, mantêm-se os dois.",
+    fig: null
+  },
+  {
+    mod: 4,
+    t: "Qual alternativa apresenta TODOS os antônimos grafados corretamente com prefixos de negação?",
+    a: [
+      "imperfeito, ilegal, irreal, ininteligível",
+      "imperfeito, ilégal, irreal, iinteligível",
+      "inperfeito, ilegal, irreal, ininteligível",
+      "inperfeito, inlegal, inreal, initeligível"
+    ],
+    c: 0,
+    dica: "Lembre-se: IM- antes de P e B; I- antes de L e R; IN- antes de vogal (in + inteligível = dois 'i'!).",
+    exp: "IM- antes de P ('imperfeito'); I- antes de L e R ('ilegal', 'irreal'); IN- antes de vogal mantendo o 'i' do radical ('ininteligível').",
+    fig: FIG.oracoesPrefixos
+  },
+  {
+    mod: 4,
+    t: "Qual alternativa traz um PERÍODO SIMPLES?",
+    a: [
+      "'Parecia a última sopa da vida.'",
+      "'Quando tocava o sino, saíamos correndo para o pátio.'",
+      "'Os pais dizem não, mas cedem na primeira birra.'",
+      "'Eu gostava da sopa e lembrava da panela.'"
+    ],
+    c: 0,
+    dica: "Período simples tem apenas 1 verbo (1 oração).",
+    exp: "'Parecia a última sopa da vida' possui apenas um verbo ('parecia'), sendo um período simples. Todas as outras frases têm dois verbos (período composto).",
+    fig: null
+  },
+
+  // MÓDULO 46 (mod: 5)
+  {
+    mod: 5,
+    t: "Qual é a diferença principal entre PROPAGANDA e PUBLICIDADE?",
+    a: [
+      "Propaganda divulga ideias ou causas para mudar atitudes; publicidade visa vender produtos, serviços ou marcas.",
+      "Não existe nenhuma diferença entre elas.",
+      "Propaganda só aparece na TV; publicidade só aparece em revistas impressas.",
+      "Propaganda vende produtos caros; publicidade vende produtos baratos."
+    ],
+    c: 0,
+    dica: "Campanha contra a dengue = ideia/causa. Anúncio de repelente = venda de produto.",
+    exp: "Propaganda promove ideias, valores ou causas sociais/de saúde sem fim comercial direto; publicidade (propaganda comercial) tem o objetivo de vender.",
+    fig: FIG.propagandaConar
+  },
+  {
+    mod: 5,
+    t: "No cartaz da OMS com um olho desenhado na palma da mão ('Olhe suas mãos / Pacientes cirúrgicos estão em suas mãos'), quem é o PÚBLICO-ALVO?",
+    a: [
+      "Os profissionais de saúde e equipes cirúrgicas.",
+      "Apenas crianças em idade escolar.",
+      "O público infantil que assiste a desenhos animados.",
+      "Apenas motoristas de ônibus e caminhões."
+    ],
+    c: 0,
+    dica: "Leia com atenção a frase do cartaz: 'Pacientes cirúrgicos estão em suas mãos'!",
+    exp: "Pegadinha clássica: o cartaz dirige-se especificamente aos profissionais de saúde e equipes cirúrgicas, alertando sobre a higienização das mãos antes de cirurgias.",
+    fig: null
+  },
+  {
+    mod: 5,
+    t: "Uma placa de trânsito circular, de fundo branco, borda vermelha e uma tarja vermelha inclinada cortando o desenho pertence a qual categoria?",
+    a: [
+      "Indicação (informa nomes de ruas e destinos).",
+      "Regulamentação (indica proibição, obrigação ou restrição).",
+      "Publicidade comercial.",
+      "Advertência (apenas avisa sobre um perigo na pista)."
+    ],
+    c: 1,
+    dica: "É o mesmo modelo visual do símbolo do mosquito da dengue riscado!",
+    exp: "Placas circulares com borda vermelha são de Regulamentação; quando têm a tarja diagonal vermelha, indicam proibição.",
+    fig: FIG.placasTransito
+  },
+  {
+    mod: 5,
+    t: "Qual é o formato e a cor das placas de ADVERTÊNCIA no trânsito?",
+    a: [
+      "Quadrado apoiado no vértice (losango), fundo amarelo e desenho preto.",
+      "Triângulo roxo com borda verde.",
+      "Retângulo azul ou verde com letras brancas.",
+      "Círculo branco com borda vermelha."
+    ],
+    c: 0,
+    dica: "Pense na placa de 'curva acentuada' ou 'lombada à frente'.",
+    exp: "Placas de advertência têm formato de quadrado inclinado (losango), fundo amarelo e símbolo preto para alertar sobre condições perigosas na via.",
+    fig: FIG.placasTransito
+  },
+  {
+    mod: 5,
+    t: "Sobre o CONAR e o Artigo 37 (publicidade voltada ao público infantil), qual afirmação está CORRETA?",
+    a: [
+      "O Artigo 37 incentiva que os anúncios digam que a criança será superior se comprar o brinquedo.",
+      "O Artigo 37 permite disfarçar anúncios comerciais como se fossem reportagens jornalísticas.",
+      "O CONAR é um órgão policial que prende quem faz propaganda na internet.",
+      "O CONAR não é polícia e não aplica multas; ele julga denúncias e manda corrigir ou retirar anúncios que pressionem crianças (como 'compre!')."
+    ],
+    c: 3,
+    dica: "O CONAR é uma entidade da sociedade civil — ele não multa, mas tira o anúncio abusivo do ar!",
+    exp: "O CONAR autorregulamenta a publicidade (não multa, mas suspende/altera campanhas). O Art. 37 proíbe imperativos de consumo ('compre!'), apelos de superioridade ou constrangimento aos pais.",
+    fig: FIG.propagandaConar
+  },
+  {
+    mod: 5,
+    t: "No anúncio do Greenpeace ('O que os olhos não veem, a natureza sente', com um macaco cobrindo os olhos do filhote), qual é a crítica feita?",
+    a: [
+      "Os macacos não gostam de tirar fotografias na floresta.",
+      "O ditado popular original ('o coração não sente') está sempre certo.",
+      "Fingir que não enxergamos o desmatamento não impede que a natureza sofra a destruição.",
+      "Se fecharmos os olhos, os problemas ambientais desaparecem sozinhos."
+    ],
+    c: 2,
+    dica: "O anúncio transforma o ditado 'O que os olhos não veem, o coração não sente'.",
+    exp: "Ao subverter o ditado popular, a propaganda mostra que a omissão humana ('não querer ver') não livra o meio ambiente das consequências do desmatamento.",
+    fig: null
+  },
+  {
+    mod: 5,
+    t: "No post '10 minutos contra dengue' (Santa Maria), o círculo vermelho no lugar do número '0' acumula vários significados, EXCETO:",
+    a: [
+      "Representar o algarismo zero do número 10.",
+      "Sugerir um alvo de mira sobre o mosquito e um relógio (tempo).",
+      "Lembrar um símbolo de verificação ('check') vermelho.",
+      "Indicar que o mosquito da dengue é um animal de estimação protegido por lei."
+    ],
+    c: 3,
+    dica: "Três alternativas trazem sentidos reais da imagem; apenas uma é absurda!",
+    exp: "O círculo acumula os sentidos de zero (do 10), alvo de mira, relógio (10 minutos) e 'check' de ação concluída — jamais proteção ao mosquito.",
+    fig: null
+  }
+];
+
+let state = {
+  idx: 0,
+  answers: {},
+  usedHint: {},
+  retryPool: null,
+  reviewFilter: "all"
+};
+
+function currentPool() {
+  return state.retryPool || QUESTIONS.map((_, i) => i);
 }
 
-document.addEventListener("DOMContentLoaded", function(){ bootQuiz(0); });
+function totalCount() { return currentPool().length; }
+
+function correctCount() {
+  let c = 0;
+  for (const i of Object.keys(state.answers)) {
+    if (state.answers[i].correct) c++;
+  }
+  return c;
+}
+
+function answeredCount() { return Object.keys(state.answers).length; }
+
+function updateCounters() {
+  document.getElementById("cntAnswered").textContent = answeredCount() + " respondidas";
+  document.getElementById("cntCorrect").textContent = correctCount() + " acertos";
+}
+
+function renderQuestion() {
+  const pool = currentPool();
+  const pos = state.idx;
+  const qIdx = pool[pos];
+  const q = QUESTIONS[qIdx];
+  const answered = state.answers[qIdx];
+  const modObj = MODULES[q.mod - 1];
+
+  document.getElementById("qModule").textContent = "Módulo " + modObj.num + " · " + modObj.nome;
+  document.getElementById("qCount").textContent = "Questão " + (pos + 1) + " de " + pool.length;
+  document.getElementById("progressFill").style.width = ((pos) / pool.length * 100) + "%";
+  document.getElementById("qText").textContent = q.t;
+
+  const figBox = document.getElementById("figBox");
+  if (q.fig) {
+    figBox.innerHTML = q.fig;
+    figBox.classList.remove("hidden");
+  } else {
+    figBox.innerHTML = "";
+    figBox.classList.add("hidden");
+  }
+
+  const optsEl = document.getElementById("options");
+  optsEl.innerHTML = "";
+  q.a.forEach((text, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "opt-btn";
+    const letter = LETTERS[i] || String.fromCharCode(65 + i);
+    b.innerHTML = '<span class="opt-letter">' + letter + '</span><span>' + escapeHtml(text) + '</span>';
+    b.dataset.i = i;
+    if (answered) {
+      b.disabled = true;
+      if (i === q.c) b.classList.add("correct");
+      if (i === answered.chosen && !answered.correct) b.classList.add("wrong");
+    } else {
+      b.addEventListener("click", () => answer(i));
+    }
+    optsEl.appendChild(b);
+  });
+
+  const hintArea = document.getElementById("hintArea");
+  hintArea.innerHTML = "";
+  const hintBtn = document.getElementById("btnHint");
+  if (answered) {
+    hintBtn.disabled = true;
+  } else if (state.usedHint[qIdx]) {
+    hintBtn.disabled = true;
+    hintArea.innerHTML = '<div class="hint-box">💡 ' + escapeHtml(q.dica) + '</div>';
+  } else {
+    hintBtn.disabled = false;
+  }
+
+  const fb = document.getElementById("feedbackArea");
+  fb.innerHTML = "";
+  if (answered) {
+    const ok = answered.correct;
+    fb.innerHTML = '<div class="feedback ' + (ok ? "ok" : "err") + '">' +
+      (ok ? "✅ <strong>Acertou!</strong> " : "❌ <strong>Não foi dessa vez.</strong> ") +
+      escapeHtml(q.exp) + '</div>';
+  }
+
+  const btnNext = document.getElementById("btnNext");
+  btnNext.disabled = !answered;
+  btnNext.textContent = (pos === pool.length - 1) ? "Ver resultado" : "Próxima";
+}
+
+function answer(i) {
+  const pool = currentPool();
+  const qIdx = pool[state.idx];
+  const q = QUESTIONS[qIdx];
+  state.answers[qIdx] = { chosen: i, correct: i === q.c, usedHint: !!state.usedHint[qIdx] };
+  updateCounters();
+  renderQuestion();
+}
+
+function nextQuestion() {
+  const pool = currentPool();
+  if (state.idx < pool.length - 1) {
+    state.idx++;
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    showResult();
+  }
+}
+
+function getMessage(pct) {
+  if (pct >= 85) return "Sensacional, Bia! Você dominou a matéria para a prova!";
+  if (pct >= 65) return "Muito bom, Bia! Você está bem preparada para amanhã.";
+  if (pct >= 45) return "Bom esforço! Revise os módulos em que errou.";
+  return "Não desanime! Leia o guia de revisão com calma e refaça o quiz.";
+}
+
+function moduleStats() {
+  const stats = MODULES.map(m => ({ idx: m.idx, num: m.num, nome: m.nome, total: 0, ok: 0 }));
+  const pool = currentPool();
+  pool.forEach(qIdx => {
+    const q = QUESTIONS[qIdx];
+    const st = stats[q.mod - 1];
+    st.total++;
+    if (state.answers[qIdx] && state.answers[qIdx].correct) st.ok++;
+  });
+  return stats;
+}
+
+function showResult() {
+  document.getElementById("quizView").classList.add("hidden");
+  document.getElementById("reviewView").classList.add("hidden");
+  document.getElementById("resultView").classList.remove("hidden");
+
+  const total = totalCount();
+  const ok = correctCount();
+  const pct = Math.round(ok / total * 100);
+  document.getElementById("resPct").textContent = pct + "%";
+  document.getElementById("resCount").textContent = ok + " de " + total + " acertos";
+  document.getElementById("resMsg").textContent = getMessage(pct);
+
+  const stats = moduleStats();
+  const barsEl = document.getElementById("modBars");
+  barsEl.innerHTML = "";
+  stats.forEach(s => {
+    if (s.total === 0) return;
+    const p = Math.round(s.ok / s.total * 100);
+    const row = document.createElement("div");
+    row.className = "mod-row";
+    row.innerHTML = '<div class="mod-head"><span>M' + s.num + ' · ' + escapeHtml(s.nome) + '</span><strong>' + s.ok + '/' + s.total + '</strong></div>' +
+      '<div class="mod-bar"><span style="width:' + p + '%"></span></div>';
+    barsEl.appendChild(row);
+  });
+
+  const attEl = document.getElementById("attention");
+  const withData = stats.filter(s => s.total > 0 && s.ok < s.total);
+  if (withData.length) {
+    const worst = withData.slice().sort((a, b) => (a.ok / a.total) - (b.ok / b.total))[0];
+    attEl.innerHTML = "📌 <strong>Ponto de atenção:</strong> o <strong>Módulo " + worst.num + " (" + escapeHtml(worst.nome) + ")</strong> teve o menor aproveitamento (" + worst.ok + " de " + worst.total + "). Dê uma olhada nele antes da prova.";
+    attEl.classList.remove("hidden");
+  } else {
+    attEl.classList.add("hidden");
+  }
+
+  const wrongCount = total - ok;
+  document.getElementById("btnRetryWrong").textContent = "Refazer só os erros (" + wrongCount + ")";
+  document.getElementById("btnRetryWrong").disabled = wrongCount === 0;
+}
+
+function showReview(filter) {
+  if (filter) state.reviewFilter = filter;
+  document.getElementById("resultView").classList.add("hidden");
+  document.getElementById("reviewView").classList.remove("hidden");
+
+  const isWrongOnly = state.reviewFilter === "wrong";
+  document.getElementById("btnFilterAll").classList.toggle("on", !isWrongOnly);
+  document.getElementById("btnFilterWrong").classList.toggle("on", isWrongOnly);
+
+  const pool = currentPool();
+  const answeredPool = pool.filter(i => state.answers[i]);
+  const wrong = answeredPool.filter(i => !state.answers[i].correct);
+  const shown = isWrongOnly ? wrong : answeredPool;
+
+  document.getElementById("reviewCount").textContent = isWrongOnly
+    ? wrong.length + (wrong.length === 1 ? " erro" : " erros")
+    : shown.length + (shown.length === 1 ? " questão" : " questões");
+  document.getElementById("reviewSub").textContent = isWrongOnly
+    ? "Exibindo somente as questões que você errou nesta rodada."
+    : "Exibindo todas as questões respondidas nesta rodada.";
+
+  const list = document.getElementById("reviewList");
+  if (isWrongOnly && !wrong.length) {
+    list.innerHTML = '<div class="feedback ok" style="margin-top:12px;">✅ Você não errou nenhuma questão nesta rodada!</div>';
+    return;
+  }
+  if (!shown.length) {
+    list.innerHTML = '<div class="feedback" style="margin-top:12px;">Nenhuma questão respondida ainda.</div>';
+    return;
+  }
+  list.innerHTML = shown.map((i, idxPos) => {
+    const q = QUESTIONS[i];
+    const ans = state.answers[i];
+    const mine = ans.chosen;
+    const isOk = ans.correct;
+    const mineLetter = LETTERS[mine] || String.fromCharCode(65 + mine);
+    const rightLetter = LETTERS[q.c] || String.fromCharCode(65 + q.c);
+    const modObj = MODULES[q.mod - 1];
+    return '<div class="review-item ' + (isOk ? 'is-ok' : 'is-err') + '">' +
+      '<div style="font-size:0.75rem;font-weight:700;color:#1f5f91;margin-bottom:4px;">M' + modObj.num + ' · Questão ' + (pool.indexOf(i) + 1) + '</div>' +
+      '<h3>' + escapeHtml(q.t) + '</h3>' +
+      (isOk
+        ? '<p class="right">✅ Sua resposta (correta): <strong>' + mineLetter + ')</strong> ' + escapeHtml(q.a[mine]) + '</p>'
+        : '<p class="mine">❌ Sua resposta: <strong>' + mineLetter + ')</strong> ' + escapeHtml(q.a[mine]) + '</p>' +
+          '<p class="right">✅ Resposta correta: <strong>' + rightLetter + ')</strong> ' + escapeHtml(q.a[q.c]) + '</p>') +
+      '<p style="margin-top:6px;color:#3d5a6e;">' + escapeHtml(q.exp) + '</p>' +
+      '</div>';
+  }).join("");
+}
+
+function resetAnswers(pool) {
+  state.answers = {};
+  state.usedHint = {};
+  state.idx = 0;
+  state.retryPool = pool;
+  updateCounters();
+}
+
+function retryAll() {
+  resetAnswers(null);
+  document.getElementById("resultView").classList.add("hidden");
+  document.getElementById("reviewView").classList.add("hidden");
+  document.getElementById("quizView").classList.remove("hidden");
+  renderQuestion();
+  skipUI.toast("Quiz reiniciado. Boa sorte, Bia!", { type: "success" });
+}
+
+function retryWrong() {
+  const pool = currentPool();
+  const wrongInPool = pool.filter(i => !state.answers[i] || !state.answers[i].correct);
+  if (!wrongInPool.length) {
+    skipUI.toast("Você não tem erros para refazer.", { type: "error" });
+    return;
+  }
+  resetAnswers(wrongInPool);
+  document.getElementById("resultView").classList.add("hidden");
+  document.getElementById("reviewView").classList.add("hidden");
+  document.getElementById("quizView").classList.remove("hidden");
+  renderQuestion();
+  skipUI.toast("Refazendo só as " + wrongInPool.length + " questões que você errou.", { type: "success" });
+}
+
+function copyResult() {
+  const total = totalCount();
+  const ok = correctCount();
+  const pct = Math.round(ok / total * 100);
+  const stats = moduleStats().filter(s => s.total > 0);
+  let txt = "Desafio de Português — 6º Ano (Anglo)\n";
+  txt += "Prof.ª Ju · Módulos 40, 41, 43, 44 e 46\n";
+  txt += "Resultado: " + ok + " de " + total + " acertos (" + pct + "%)\n";
+  txt += getMessage(pct) + "\n\n";
+  txt += "Desempenho por módulo:\n";
+  stats.forEach(s => {
+    txt += "• M" + s.num + " (" + s.nome + "): " + s.ok + "/" + s.total + "\n";
+  });
+  const copyFallback = () => {
+    const ta = document.createElement("textarea");
+    ta.value = txt;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+    skipUI.toast("Resultado copiado!", { type: "success" });
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(
+      () => skipUI.toast("Resultado copiado!", { type: "success" }),
+      copyFallback
+    );
+  } else {
+    copyFallback();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("btnHint").addEventListener("click", () => {
+    const pool = currentPool();
+    const qIdx = pool[state.idx];
+    if (state.answers[qIdx]) return;
+    state.usedHint[qIdx] = true;
+    renderQuestion();
+  });
+  document.getElementById("btnNext").addEventListener("click", nextQuestion);
+  document.getElementById("btnReview").addEventListener("click", () => showReview("all"));
+  document.getElementById("btnFilterAll").addEventListener("click", () => showReview("all"));
+  document.getElementById("btnFilterWrong").addEventListener("click", () => showReview("wrong"));
+  document.getElementById("btnBackResult").addEventListener("click", () => {
+    document.getElementById("reviewView").classList.add("hidden");
+    document.getElementById("resultView").classList.remove("hidden");
+  });
+  document.getElementById("btnRetryWrong").addEventListener("click", retryWrong);
+  document.getElementById("btnRetryAll").addEventListener("click", retryAll);
+  document.getElementById("btnCopy").addEventListener("click", copyResult);
+  updateCounters();
+  renderQuestion();
+});
 </script>
 </body>
 </html>
